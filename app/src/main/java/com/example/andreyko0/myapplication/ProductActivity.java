@@ -3,6 +3,7 @@ package com.example.andreyko0.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import com.example.application.R;
 
 public class ProductActivity extends AppCompatActivity {
 
