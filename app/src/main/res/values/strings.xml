@@ -3,6 +3,7 @@
     <string name="title_activity_scrolling">Recent Items</string>
     <string name="action_settings">Settings</string>
     <string name="add_product_setting">Add item</string>
+    <string name="scrolling_menu_reg">Sign in/up</string>
     <string name="title_activity_product">ProductActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="product_name_format">Product #%d</string>

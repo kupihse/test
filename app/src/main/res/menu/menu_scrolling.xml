@@ -11,5 +11,9 @@
         android:id="@+id/add_product_setting"
         android:title="@string/add_product_setting"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/scrolling_menu_reg"
+        android:title="@string/scrolling_menu_reg"
+        app:showAsAction="never"/>
 
 </menu>

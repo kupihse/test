@@ -2,9 +2,6 @@ package com.example.andreyko0.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,8 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.application.R;
-
-import org.w3c.dom.Text;
+import com.example.s1k0de.entry.EntryForm;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -52,6 +48,10 @@ public class ScrollingActivity extends AppCompatActivity {
                 String format = getString(R.string.product_name_format);
                 ll.addView(new Product(this, String.format(format, counter)));
                 counter++;
+                return true;
+            case R.id.scrolling_menu_reg:
+                startActivity(new Intent(this, EntryForm.class));
+//                item.setIntent(new Intent(this, EntryForm.class));
                 return true;
             default:
                 return true;

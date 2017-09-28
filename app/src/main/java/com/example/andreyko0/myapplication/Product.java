@@ -3,9 +3,8 @@ package com.example.andreyko0.myapplication;
 import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.application.R;
 
-import org.w3c.dom.Text;
+import com.example.application.R;
 
 /**
  * Created by Andreyko0 on 26/09/2017.
