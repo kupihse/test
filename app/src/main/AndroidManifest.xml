@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.andreyko0.myapplication.ProductActivity"/>
+        <activity android:name="com.example.s1k0de.entry.EntryFormActivity"/>
     </application>
 
 </manifest>

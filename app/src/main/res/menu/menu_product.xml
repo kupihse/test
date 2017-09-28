@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.andreyko0.myapplication.ProductActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/product_menu_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings" />
 </menu>

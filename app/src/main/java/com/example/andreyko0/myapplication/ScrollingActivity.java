@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.application.R;
-import com.example.s1k0de.entry.EntryForm;
+import com.example.s1k0de.entry.EntryFormActivity;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -35,6 +35,7 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+//        menu.findItem(R.id.scrolling_menu_reg)
         return true;
     }
 
@@ -42,19 +43,17 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.scrolling_menu_settings:
                 return true;
-            case R.id.add_product_setting:
+            case R.id.scrolling_menu_add_product:
                 String format = getString(R.string.product_name_format);
                 ll.addView(new Product(this, String.format(format, counter)));
                 counter++;
                 return true;
             case R.id.scrolling_menu_reg:
-                startActivity(new Intent(this, EntryForm.class));
-//                item.setIntent(new Intent(this, EntryForm.class));
-                return true;
-            default:
+                startActivity(new Intent(this, EntryFormActivity.class));
                 return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

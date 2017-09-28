@@ -20,7 +20,7 @@ package com.example.s1k0de.entry;
         import com.example.application.R;
 
 
-public class EntryForm extends AppCompatActivity {
+public class EntryFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +28,7 @@ public class EntryForm extends AppCompatActivity {
 
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_entryform);
+        String text =getIntent().getStringExtra("text");
+        setTitle(text);
     }
 }

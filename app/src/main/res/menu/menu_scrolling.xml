@@ -2,18 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.andreyko0.myapplication.ScrollingActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/add_product_setting"
+        android:id="@+id/scrolling_menu_add_product"
         android:title="@string/add_product_setting"
         app:showAsAction="never"/>
     <item
         android:id="@+id/scrolling_menu_reg"
         android:title="@string/scrolling_menu_reg"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/scrolling_menu_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
 </menu>
