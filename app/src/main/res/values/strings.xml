@@ -7,4 +7,9 @@
     <string name="title_activity_product">ProductActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="product_name_format">Product #%d</string>
+    <string name="password_entryform">Password</string>
+    <string name="login_entryform">login</string>
+    <string name="email_entryform">Email</string>
+    <string name="question_entryform">New to HSE OUTLET? Register now</string>
+    <string name="login">Login</string>
 </resources>

@@ -14,6 +14,7 @@ package com.example.s1k0de.entry;
  */
         import android.app.Activity;
         import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
         import android.view.Window;
         import android.view.WindowManager;
 
@@ -31,4 +32,5 @@ public class EntryFormActivity extends Activity {
         String text =getIntent().getStringExtra("text");
         setTitle(text);
     }
+
 }
