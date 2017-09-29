@@ -22,8 +22,8 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:src="@drawable/logicsuccess" />
+                android:layout_height="115dp"
+                android:src="@drawable/logicsucces" />
 
             <!-- Logo Ends -->
 
@@ -57,32 +57,36 @@
                     android:maxLines="1"
                     android:inputType="text"/>
                 <!-- Login button -->
-                <Button
-                    android:id="@+id/btnLogin"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <Button
+                        android:id="@+id/angry_btn"
 
-                    android:text="@string/login"
-                    android:layout_marginStart="45dp"
-                    android:textColor="#f3dcff"
-                    android:textSize="30sp"
-
-                    android:layout_width="213dp"
-                    android:layout_height="46dp"
-                    android:background="@layout/button_entryform"
-                    android:shadowColor="#e79fff"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    />
+                        android:text="@string/login_entryform"
+                        android:textColor="#60AB96"
+                        android:textSize="25sp"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="18dp"
+                        android:layout_width="fill_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_height="40dp"
+                        android:background="@layout/button_entryform"
+                        android:layout_alignParentTop="true" />
+                    </RelativeLayout>
+                <!-- Login button -->
                 <!-- Link to Registration Screen -->
-                <TextView android:id="@+id/link_to_register"
+                <!-- Link to Registration Screen -->
+                <TextView
+                    android:id="@+id/link_to_register"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dip"
                     android:layout_marginBottom="40dip"
-                    android:text="@string/question_entryform"
+                    android:layout_marginTop="40dip"
                     android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="#5b4373"/>
+                    android:text="@string/question_entryform"
+                    android:textColor="#5b4373"
+                    android:textSize="20sp" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -90,13 +94,12 @@
         <!-- Footer Start -->
         <LinearLayout android:id="@+id/footer"
             android:layout_width="fill_parent"
-            android:layout_height="100dip"
+            android:layout_height="180dp"
             android:background="@layout/footer_entryform"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
         </LinearLayout>
-
         <!-- Footer Ends -->
-
-
     </RelativeLayout>
 </ScrollView>
