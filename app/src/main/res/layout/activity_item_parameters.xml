@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.application.com.example.andreyko0.myapplication.item_parameters">
+
+
+    <RelativeLayout
+        android:layout_width="398dp"
+        android:layout_height="587dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <EditText
+            android:id="@+id/item_name"
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_description"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/item_description"
+            android:layout_marginTop="15dp"
+            android:hint="Product Name"
+            android:inputType="text"
+            android:maxLines="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="28dp" />
+
+        <EditText
+            android:id="@+id/item_description"
+            android:layout_width="395dp"
+            android:layout_height="150dp"
+
+            android:layout_marginTop="14dp"
+            android:layout_weight="0.47"
+            android:hint="Description "
+            android:inputType="text"
+            android:maxLines="6"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="28dp"
+            android:layout_below="@+id/item_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_description"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/item_description"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="92dp"
+            android:onClick="buttonOnClick"
+            android:text="ADD " />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -14,6 +14,8 @@ import com.example.s1k0de.entry.EntryFormActivity;
 
 public class ScrollingActivity extends AppCompatActivity {
 
+    protected String product_name, product_descripton;
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private LinearLayout ll;
     private int counter = 0;
     @Override
@@ -46,8 +48,8 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_settings:
                 return true;
             case R.id.scrolling_menu_add_product:
-                String format = getString(R.string.product_name_format);
-                ll.addView(new Product(this, String.format(format, counter)));
+                startActivityForResult(new Intent(this, item_parameters.class), 1);
+//                String format = getString(R.string.product_name_format);
                 counter++;
                 return true;
             case R.id.scrolling_menu_reg:
@@ -55,5 +57,17 @@ public class ScrollingActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==1){
+                product_name = item_parameters.name;
+                product_descripton =  item_parameters.description;
+                ll.addView(new Product(this, product_name));
+            }
+        }
     }
 }

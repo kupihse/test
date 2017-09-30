@@ -18,4 +18,10 @@
     <string name="backtoregistration">Уже есть аккаунт?</string>
     <string name="registration_again">Повторите пароль</string>
     <string name="registration_registrate">Регистрация</string>
+    <string name="title_activity_add_item_parameters">Parameters</string>
+
+    <!-- Strings related to adding item -->
+    <string name="prompt_name_product">Name</string>
+    <string name="prompt_description_product">Description</string>
+    <string name="action_admit_parameters">Add</string>
 </resources>
