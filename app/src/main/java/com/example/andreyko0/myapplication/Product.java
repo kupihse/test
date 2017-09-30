@@ -1,19 +1,44 @@
 package com.example.andreyko0.myapplication;
 
-import android.content.Context;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.example.application.R;
-
 /**
- * Created by Andreyko0 on 26/09/2017.
+ * Created by Andreyko0 on 30/09/2017.
  */
 
-public class Product extends LinearLayout {
-    public Product(Context ctx, String s) {
-        super(ctx);
-        TextView tv  =  inflate(getContext(), R.layout.single_product, this).findViewById(R.id.product_text);
-        tv.setText(s);
+public class Product {
+    private String name;
+    private String desctiption;
+    private String id;
+
+    public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(String name, String desctiption) {
+        this.name = name;
+        this.desctiption = desctiption;
+    }
+
+    public String getDesctiption() {
+        return desctiption;
+    }
+
+    public void setDesctiption(String desctiption) {
+        this.desctiption = desctiption;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }

@@ -25,6 +25,7 @@ public class AddProductActivity extends AppCompatActivity {
         name = edit_name.getText().toString();
         final EditText edit_desc =  (EditText) findViewById(R.id.item_description);
         description = edit_desc.getText().toString();
+        ProductStorage.addProduct(new Product(name, description));
         Intent returnIntent = new Intent();
 //        returnIntent.putExtra("result",result);
         setResult(ScrollingActivity.RESULT_OK, returnIntent);

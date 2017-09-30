@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eee"
-        android:onClick="doClick"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="doClick">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -25,6 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/app_name" />
+
+        <!--Здесь черезжопный костыль, для передачи ID-->
+        <TextView
+            android:id="@+id/product_id"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
     </LinearLayout>
 
 </LinearLayout>

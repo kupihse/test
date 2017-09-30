@@ -11,9 +11,14 @@ public class ProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-        String text =getIntent().getStringExtra("text");
-        setTitle(text);
-        TextView textView = (TextView) findViewById(R.id.product_activity_text);
-        textView.setText(text);
+        String id = getIntent().getStringExtra("item_id");
+        Product p = ProductStorage.getProduct(id);
+        if (p == null) {
+            setTitle("NULL "+id);
+        } else {
+            setTitle(p.getName());
+            TextView textView = (TextView) findViewById(R.id.product_activity_text);
+            textView.setText(p.getDesctiption());
+        }
     }
 }

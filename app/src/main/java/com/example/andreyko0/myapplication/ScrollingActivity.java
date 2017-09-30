@@ -13,8 +13,6 @@ import com.example.application.R;
 import com.example.s1k0de.entry.EntryFormActivity;
 
 public class ScrollingActivity extends AppCompatActivity {
-
-    protected String product_name, product_descripton;
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private LinearLayout ll;
     private int counter = 0;
@@ -25,11 +23,23 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ll = (LinearLayout) findViewById(R.id.products);
+        rerender();
     }
+
+    private void rerender() {
+        if (ll == null) {
+            return;
+        }
+        ll.removeAllViews();
+        for (Product p: ProductStorage.storage.values()) {
+            ll.addView(new ProductLayout(this, p));
+        }
+    }
+
     public void doClick(View v) {
-          TextView tv = v.findViewById(R.id.product_text);
+        TextView tv =  v.findViewById(R.id.product_id);
         Intent productIntent = new Intent(this, ProductActivity.class);
-        productIntent.putExtra("text", tv.getText());
+        productIntent.putExtra("item_id", tv.getText());
         startActivity(productIntent);
     }
 
@@ -59,14 +69,12 @@ public class ScrollingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+//    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             if(requestCode==1){
-                product_name = AddProductActivity.name;
-                product_descripton =  AddProductActivity.description;
-                ll.addView(new Product(this, product_name));
+                rerender();
             }
         }
     }
