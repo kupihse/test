@@ -48,7 +48,7 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_settings:
                 return true;
             case R.id.scrolling_menu_add_product:
-                startActivityForResult(new Intent(this, item_parameters.class), 1);
+                startActivityForResult(new Intent(this, AddProductActivity.class), 1);
 //                String format = getString(R.string.product_name_format);
                 counter++;
                 return true;
@@ -64,8 +64,8 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             if(requestCode==1){
-                product_name = item_parameters.name;
-                product_descripton =  item_parameters.description;
+                product_name = AddProductActivity.name;
+                product_descripton =  AddProductActivity.description;
                 ll.addView(new Product(this, product_name));
             }
         }

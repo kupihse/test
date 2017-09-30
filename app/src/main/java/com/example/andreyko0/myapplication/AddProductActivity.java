@@ -1,28 +1,21 @@
 package com.example.andreyko0.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.andreyko0.myapplication.ProductActivity;
-import com.example.andreyko0.myapplication.ScrollingActivity;
 import com.example.application.R;
-import com.example.s1k0de.entry.EntryFormActivity;
 
-import static android.R.id.edit;
-
-public class item_parameters extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
 
     protected static String name, description;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_parameters);
+        setContentView(R.layout.activity_add_product);
 
     }
 

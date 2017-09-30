@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.application">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,7 +30,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.andreyko0.myapplication.ScrollingActivity" />
         </activity>
-        <activity android:name="com.example.andreyko0.myapplication.item_parameters"></activity>
+        <activity android:name="com.example.andreyko0.myapplication.AddProductActivity"></activity>
     </application>
 
 </manifest>
