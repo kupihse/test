@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Application</string>
     <string name="title_activity_scrolling">Recent Items</string>
     <string name="action_settings">Settings</string>
     <string name="add_product_setting">Add item</string>
@@ -12,4 +12,10 @@
     <string name="email_entryform">Email</string>
     <string name="question_entryform">Зарегистрироваться</string>
     <string name="login">Login</string>
+    <string name="UserName">Имя</string>
+    <string name="passwordreg">Пароль</string>
+    <string name="emailreg">Email</string>
+    <string name="backtoregistration">Уже есть аккаунт?</string>
+    <string name="registration_again">Повторите пароль</string>
+    <string name="registration_registrate">Регистрация</string>
 </resources>
