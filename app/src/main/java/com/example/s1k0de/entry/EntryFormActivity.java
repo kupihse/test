@@ -30,4 +30,8 @@ public class EntryFormActivity extends Activity {
             }
         });
     }
+
+    public void doLogin(View v) {
+
+    }
 }
