@@ -21,7 +21,8 @@
     <string name="title_activity_add_item_parameters">Parameters</string>
 
     <!-- Strings related to adding item -->
-    <string name="prompt_name_product">Name</string>
+    <string name="prompt_name_product">Product Name</string>
     <string name="prompt_description_product">Description</string>
-    <string name="action_admit_parameters">Add</string>
+    <string name="action_admit_parameters">ADD</string>
+    <string name="parameters_empty">Все поля обязательны для заполнения</string>
 </resources>
