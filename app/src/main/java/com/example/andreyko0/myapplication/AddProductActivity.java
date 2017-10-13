@@ -1,5 +1,6 @@
 package com.example.andreyko0.myapplication;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +10,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.application.R;
 
-public class AddProductActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+public class AddProductActivity extends AppCompatActivity {
     protected static String name, description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -22,7 +37,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-    public void buttonOnClick(View v) {
+    public void buttonOnClick(View v) throws Exception {
         Button button = (Button) v;
         final EditText edit_name =  (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString();
@@ -34,7 +49,42 @@ public class AddProductActivity extends AppCompatActivity {
             params_empty.setVisibility(View.VISIBLE);
         }
         else {
-            ProductStorage.addProduct(new Product(name, description));
+            Product p = new Product(name, description);
+            ProductStorage.addProduct(p);
+// +test
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://10.0.2.2:8080/pr/new";
+            JSONObject o = new JSONObject();
+            o.put("name", name);
+            o.put("description", description);
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url,o,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            VolleyLog.v("Got resp", response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+//            StringRequest req = new StringRequest(Request.Method.GET, "http://example.com",
+//                    new Response.Listener<String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//                            VolleyLog.d("Got res", response);
+//                        }
+//                    },
+//                    new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            VolleyLog.e("Error2:");
+//                        }
+//                    }
+//            );
+            queue.add(req);
+// -test
             Intent returnIntent = new Intent();
             setResult(ScrollingActivity.RESULT_OK, returnIntent);
             finish();

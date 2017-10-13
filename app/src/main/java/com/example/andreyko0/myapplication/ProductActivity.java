@@ -18,7 +18,7 @@ public class ProductActivity extends AppCompatActivity {
         } else {
             setTitle(p.getName());
             TextView textView = (TextView) findViewById(R.id.product_activity_text);
-            textView.setText(p.getDesctiption());
+            textView.setText(p.getDescription());
         }
     }
 }

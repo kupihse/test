@@ -6,7 +6,7 @@ package com.example.andreyko0.myapplication;
 
 public class Product {
     private String name;
-    private String desctiption;
+    private String description;
     private String id;
 
     public Product(String name) {
@@ -15,15 +15,15 @@ public class Product {
 
     public Product(String name, String desctiption) {
         this.name = name;
-        this.desctiption = desctiption;
+        this.description = desctiption;
     }
 
-    public String getDesctiption() {
-        return desctiption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesctiption(String desctiption) {
-        this.desctiption = desctiption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
