@@ -66,12 +66,14 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
                     android:text="@string/registration_again"/>
-                <EditText android:id="@+id/reg_password"
+
+                <EditText
+                    android:id="@+id/reg_password1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:layout_marginTop="5dip"/>
+                    android:maxLines="1" />
                 <!-- Register Button -->
                 <RelativeLayout
                     android:layout_width="match_parent"
