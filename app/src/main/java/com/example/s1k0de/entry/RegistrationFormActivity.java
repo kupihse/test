@@ -113,7 +113,7 @@ public class RegistrationFormActivity extends Activity {
                         queuek.add(req);
 
                         Intent returnIntent = new Intent();
-                        setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                        setResult(RegistrationFormActivity.RESULT_OK, returnIntent);
                         finish();
                     }
 

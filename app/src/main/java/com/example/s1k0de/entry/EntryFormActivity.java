@@ -57,8 +57,8 @@ public class EntryFormActivity extends Activity {
                  //*******************************************************
                  //**************** Проверка на пустые поля **************
                  if ((!login.equals("")) && (!password.equals(""))) {
-                     RequestQueue queuek = Volley.newRequestQueue(EntryFormActivity.this.getApplicationContext());
-                     String url = "http://10.0.2.2:8080/user/log";
+                     RequestQueue queuekd = Volley.newRequestQueue(EntryFormActivity.this.getApplicationContext());
+                     String urls = "http://10.0.2.2:8080/user/log";
                      JSONObject o = new JSONObject();
                      try{
                          o.put("login", login);
@@ -66,7 +66,7 @@ public class EntryFormActivity extends Activity {
                      } catch (JSONException e) {
                          throw new RuntimeException(e);
                      }
-                     JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
+                     JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, urls, o,
                          new Response.Listener<JSONObject>() {
                              @Override
                              public void onResponse(JSONObject response) {
@@ -78,10 +78,10 @@ public class EntryFormActivity extends Activity {
                              VolleyLog.e("Error: ", error.getMessage());
                          }
                      });
-                     queuek.add(req);
+                     queuekd.add(req);
 
                      Intent returnIntent = new Intent();
-                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                     setResult(EntryFormActivity.RESULT_OK, returnIntent);
                      finish();
                  }
 
