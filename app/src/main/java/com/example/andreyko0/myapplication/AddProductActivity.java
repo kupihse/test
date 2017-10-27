@@ -47,7 +47,7 @@ public class AddProductActivity extends AppCompatActivity {
             ProductStorage.addProduct(p);
 // +test
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://10.0.2.2:8080/pr/new";
+            String url = "http://51.15.92.91/pr/new";
             JSONObject o = new JSONObject();
             o.put("name", name);
             o.put("description", description);

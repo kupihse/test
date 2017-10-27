@@ -58,7 +58,7 @@ public class EntryFormActivity extends Activity {
                  //**************** Проверка на пустые поля **************
                  if ((!login.equals("")) && (!password.equals(""))) {
                      RequestQueue queuekd = Volley.newRequestQueue(EntryFormActivity.this.getApplicationContext());
-                     String urls = "http://51.15.47.229/user/log";
+                     String urls = "http://51.15.92.91/user/log";
                      JSONObject o = new JSONObject();
                      try{
                          o.put("name", "unknown");
