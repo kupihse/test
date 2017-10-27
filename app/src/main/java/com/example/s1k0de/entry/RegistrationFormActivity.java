@@ -87,7 +87,7 @@ public class RegistrationFormActivity extends Activity {
                     else {
                         User s = new User(name, login, password);
                         RequestQueue queuek = Volley.newRequestQueue(RegistrationFormActivity.this.getApplicationContext());
-                        String url = "http://10.0.2.2:8080/user/new";
+                        String url = "http://51.15.47.229/user/new";
                         JSONObject o = new JSONObject();
                         // обрабатываем так как Exception нужно либо обработать либо указать наверху через throws
                         // второй вариант не работает в данном случае, сделал через первый, замена на рантайм
