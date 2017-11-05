@@ -2,8 +2,10 @@ package com.example.andreyko0.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.example.application.R;
+import java.lang.Integer;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class ProductActivity extends AppCompatActivity {
         } else {
             setTitle(p.getName());
             TextView textView = (TextView) findViewById(R.id.product_activity_text);
-            textView.setText(p.getDescription());
+            textView.setText(p.getDescription() + "\n\n" + "Price: " + Integer.toString(p.getPrice()));
         }
     }
 }

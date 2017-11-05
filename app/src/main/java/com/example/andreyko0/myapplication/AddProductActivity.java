@@ -20,9 +20,12 @@ import com.example.application.R;
 
 import org.json.JSONObject;
 
+import java.lang.Integer;
+
 
 public class AddProductActivity extends AppCompatActivity {
     protected static String name, description;
+    protected int price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,17 @@ public class AddProductActivity extends AppCompatActivity {
         description = edit_desc.getText().toString();
         final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
 
+        final EditText edit_price = (EditText) findViewById(R.id.item_price);
+        price = Integer.parseInt(edit_price.getText().toString());
+
 //        if (name.equals("") || description.equals("")) {
         if (name.equals("")) {
             params_empty.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else {
             Product p = new Product(name);
             p.setDescription(description);
+            p.setPrice(price);
             ProductStorage.addProduct(p);
 // +test
             RequestQueue queue = Volley.newRequestQueue(this);
