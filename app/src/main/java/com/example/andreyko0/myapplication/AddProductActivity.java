@@ -1,4 +1,5 @@
 package com.example.andreyko0.myapplication;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,17 +34,18 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void buttonOnClick(View v) throws Exception {
         Button button = (Button) v;
-        final EditText edit_name =  (EditText) findViewById(R.id.item_name);
+        final EditText edit_name = (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString();
-        final EditText edit_desc =  (EditText) findViewById(R.id.item_description);
+        final EditText edit_desc = (EditText) findViewById(R.id.item_description);
         description = edit_desc.getText().toString();
-        final TextView params_empty =  (TextView) findViewById(R.id.empty_parameters);
+        final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
 
-        if (name.equals("") || description.equals("")) {
+//        if (name.equals("") || description.equals("")) {
+        if (name.equals("")) {
             params_empty.setVisibility(View.VISIBLE);
-        }
-        else {
-            Product p = new Product(name, description);
+        } else {
+            Product p = new Product(name);
+            p.setDescription(description);
             ProductStorage.addProduct(p);
 // +test
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -51,7 +53,7 @@ public class AddProductActivity extends AppCompatActivity {
             JSONObject o = new JSONObject();
             o.put("name", name);
             o.put("description", description);
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url,o,
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -63,20 +65,6 @@ public class AddProductActivity extends AppCompatActivity {
                     VolleyLog.e("Error: ", error.getMessage());
                 }
             });
-//            StringRequest req = new StringRequest(Request.Method.GET, "http://example.com",
-//                    new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            VolleyLog.d("Got res", response);
-//                        }
-//                    },
-//                    new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            VolleyLog.e("Error2:");
-//                        }
-//                    }
-//            );
             queue.add(req);
 // -test
             Intent returnIntent = new Intent();

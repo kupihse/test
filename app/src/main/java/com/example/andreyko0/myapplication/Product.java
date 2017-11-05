@@ -8,14 +8,10 @@ public class Product {
     private String name;
     private String description;
     private String id;
+    private int price;
 
     public Product(String name) {
         this.name = name;
-    }
-
-    public Product(String name, String desctiption) {
-        this.name = name;
-        this.description = desctiption;
     }
 
     public String getDescription() {
@@ -40,5 +36,13 @@ public class Product {
 
     public String getId() {
         return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
