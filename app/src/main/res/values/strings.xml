@@ -25,7 +25,7 @@
     <string name="prompt_description_product">Description</string>
     <string name="action_admit_parameters">ADD</string>
     <!--<string name="parameters_empty">Все поля обязательны для заполнения</string>-->
-    <string name="parameters_empty">Необходимо добавить название товара></string>
+    <string name="parameters_empty">Название товара и цена обязательны</string>
     <string name="registrationpopup">Пароли не совпадают</string>
     <string name="popupbutton">Окей</string>
 </resources>

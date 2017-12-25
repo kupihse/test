@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.andreyko0.myapplication.AddProductActivity">
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="com.example.andreyko0.myapplication.AddProductActivity">-->
 
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.example.andreyko0.myapplication.AddProductActivity"
+    android:fillViewport="true">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="MissingConstraints"
@@ -53,8 +61,7 @@
             android:hint="@string/prompt_description_product"
             android:inputType="textMultiLine"
             android:maxLines="6"
-            android:scrollbars="vertical"
-            android:singleLine="false" />
+            android:scrollbars="vertical" />
 
         <EditText
             android:id="@+id/item_price"
@@ -68,17 +75,54 @@
             android:inputType="number" />
 
 
-        <Button
+        <com.dd.CircularProgressButton
             android:id="@+id/button"
-            style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="8dp"
             android:onClick="buttonOnClick"
-            android:text="ADD " />
+            app:cpb_textError="Failed"
+            app:cpb_textComplete="Complete"
+            app:cpb_textIdle="Submit"
+            />
+
+
+        <!--<com.spark.submitbutton.SubmitButton-->
+            <!--android:id="@+id/button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_gravity="bottom|center_horizontal|center_vertical"-->
+            <!--android:clickable="true"-->
+            <!--android:onClick="buttonOnClick"-->
+            <!--android:text="Submit"-->
+            <!--app:sub_btn_background="@color/white"-->
+            <!--app:sub_btn_duration="1000"-->
+            <!--app:sub_btn_tick_color="@color/white" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button"-->
+            <!--style="@style/Widget.AppCompat.Button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:background="@layout/button_entryform"-->
+            <!--android:backgroundTint="@color/colorButton"-->
+            <!--android:onClick="buttonOnClick"-->
+            <!--android:text="ADD " />-->
+
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
+
+<!--</android.support.constraint.ConstraintLayout>-->
