@@ -22,5 +22,9 @@ public class ProductLayout extends LinearLayout {
         nameView.setText(name);
         TextView idView = v.findViewById(R.id.product_id);
         idView.setText(p.getId());
+
+        Integer price = p.getPrice();
+        TextView priceView  =  v.findViewById(R.id.price);
+        priceView.setText(Integer.toString(price) + " руб.");
     }
 }
