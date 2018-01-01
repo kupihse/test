@@ -2,6 +2,7 @@ package com.example.andreyko0.myapplication;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,9 +15,12 @@ import org.w3c.dom.Text;
  */
 
 public class ProductLayout extends LinearLayout {
+    private ImageView imgPicture;
     public ProductLayout(Context ctx, Product p) {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_product, this);
+        imgPicture = (ImageView) findViewById(R.id.ImageView);
+        imgPicture.setImageBitmap(p.getImage());
         String name = p.getName();
         TextView nameView  =  v.findViewById(R.id.product_text);
         nameView.setText(name);

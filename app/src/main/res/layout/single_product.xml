@@ -16,9 +16,11 @@
         android:onClick="doClick">
 
         <ImageView
+            android:id="@+id/ImageView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/unknown_item"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/unknown_item"
+            android:layout_marginRight="15dp" />
             <!--android:src="@mipmap/ic_launcher" />-->
 
         <TextView

@@ -92,6 +92,31 @@
             app:cpb_textError="Failed"
             app:cpb_textIdle="Submit" />
 
+        <Button
+            android:id="@+id/select_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/empty_parameters"
+            android:layout_alignRight="@+id/empty_parameters"
+            android:layout_below="@+id/item_price"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="18dp"
+            android:onClick="onImageGalleryClicked"
+            android:text="Button" />
+
+        <ImageView
+            android:id="@+id/imgPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/empty_parameters"
+            android:layout_alignStart="@+id/empty_parameters"
+            android:layout_alignTop="@+id/select_photo"
+            android:layout_marginLeft="48dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="6dp"
+            app:srcCompat="@drawable/cpb_background" />
+
 
         <!--<com.spark.submitbutton.SubmitButton-->
         <!--android:id="@+id/button"-->
