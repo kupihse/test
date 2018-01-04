@@ -28,4 +28,5 @@
     <string name="parameters_empty">Название товара и цена обязательны</string>
     <string name="registrationpopup">Пароли не совпадают</string>
     <string name="popupbutton">Окей</string>
+    <string name="add_photo">Add Photo</string>
 </resources>

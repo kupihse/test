@@ -1,10 +1,12 @@
 package com.example.andreyko0.myapplication;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class AddProductActivity extends AppCompatActivity {
@@ -37,7 +40,8 @@ public class AddProductActivity extends AppCompatActivity {
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
     private ImageView imgPicture;
-    Bitmap image;
+    ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+    int num_imgs = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +49,19 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        imgPicture = (ImageView) findViewById(R.id.imgPicture);
+//        imgPicture = (ImageView) findViewById(R.id.imgPicture);
 
     }
 
     public void onImageGalleryClicked(View v) {
+        Button image_button = (Button) v;
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         String pictureDirectoryPath = pictureDirectory.getPath();
         Uri data = Uri.parse(pictureDirectoryPath);
         photoPickerIntent.setDataAndType(data, "image/*");
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+        if (num_imgs == 5) { image_button.setEnabled(false); }
     }
 
     @Override
@@ -76,14 +82,19 @@ public class AddProductActivity extends AppCompatActivity {
                     inputStream = getContentResolver().openInputStream(imageUri);
 
                     // get a bitmap from the stream.
-                    image = BitmapFactory.decodeStream(inputStream);
+                    images.add(BitmapFactory.decodeStream(inputStream));
 
                     // show the image to the user
-                    imgPicture.setImageBitmap(image);
-
+                    Resources res = getResources();
+                    String idName = "imgPicture" + num_imgs;
+                    imgPicture = (ImageView) findViewById(res.getIdentifier(idName, "id", getPackageName()));
+                    imgPicture.setImageBitmap(images.get(num_imgs));
+//                    imgPicture = (ImageView) findViewById(R.id.imgPicture);
+//                    imgPicture.setImageBitmap(images.get(num_imgs));
+                    num_imgs += 1;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    // show a message to the user indictating that the image is unavailable.
+                    // show a message to the user indicating that the image is unavailable.
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
                 }
 
@@ -111,7 +122,7 @@ public class AddProductActivity extends AppCompatActivity {
             Product p = new Product(name);
             p.setDescription(description);
             p.setPrice(price);
-            p.setImage(image);
+            p.setImage(images);
             ProductStorage.addProduct(p);
 // +test
             RequestQueue queue = Volley.newRequestQueue(this);

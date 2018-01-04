@@ -9,6 +9,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by Andreyko0 on 30/09/2017.
@@ -19,7 +20,7 @@ public class Product {
     private String description;
     private String id;
     private int price;
-    Bitmap image;
+    ArrayList<Bitmap> images = new ArrayList<Bitmap>();
 
     public Product(String name) {
         this.name = name;
@@ -55,9 +56,9 @@ public class Product {
 
     public void setPrice(int price) { this.price = price; }
 
-    public Bitmap getImage() {
-        return image;
+    public Bitmap getImage(int idx) {
+        return images.get(idx);
     }
 
-    public void setImage(Bitmap image) { this.image = image; }
+    public void setImage(ArrayList<Bitmap> image) { this.images = image; }
 }
