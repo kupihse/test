@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
 
@@ -45,6 +50,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
@@ -55,17 +61,26 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void onImageGalleryClicked(View v) {
         Button image_button = (Button) v;
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-        Uri data = Uri.parse(pictureDirectoryPath);
-        photoPickerIntent.setDataAndType(data, "image/*");
-        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-        if (num_imgs == 5) { image_button.setEnabled(false); }
+        if (num_imgs == 6) { image_button.setEnabled(false); }
+        else {
+//            LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
+//            ImageView view = new ImageView(this);
+//            view.setId(num_imgs);
+//            view.setLayoutParams(new ViewGroup.LayoutParams(80, ViewGroup.LayoutParams.MATCH_PARENT));
+//            view.setClickable(true);
+//            layout.addView(view);
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            String pictureDirectoryPath = pictureDirectory.getPath();
+            Uri data = Uri.parse(pictureDirectoryPath);
+            photoPickerIntent.setDataAndType(data, "image/*");
+            startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        TextView test = (TextView)findViewById(R.id.test);
         if (resultCode == RESULT_OK) {
             // if we are here, everything processed successfully.
             if (requestCode == IMAGE_GALLERY_REQUEST) {
@@ -89,9 +104,13 @@ public class AddProductActivity extends AppCompatActivity {
                     String idName = "imgPicture" + num_imgs;
                     imgPicture = (ImageView) findViewById(res.getIdentifier(idName, "id", getPackageName()));
                     imgPicture.setImageBitmap(images.get(num_imgs));
+                    imgPicture.setVisibility(View.VISIBLE);
+
+
 //                    imgPicture = (ImageView) findViewById(R.id.imgPicture);
 //                    imgPicture.setImageBitmap(images.get(num_imgs));
                     num_imgs += 1;
+                    test.setText(Integer.toString(images.size()));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     // show a message to the user indicating that the image is unavailable.
@@ -99,6 +118,26 @@ public class AddProductActivity extends AppCompatActivity {
                 }
 
             }
+        }
+    }
+
+    public void showPopUp(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_photo, popup.getMenu());
+        popup.show();
+    }
+
+    public void buttonDeleteImage(MenuItem item) {
+        Button image_button = (Button)findViewById(R.id.select_photo);
+        Resources res = getResources();
+        String idName = "imgPicture" + (num_imgs-1);
+        imgPicture = (ImageView) findViewById(res.getIdentifier(idName, "id", getPackageName()));
+        if (num_imgs != 0) {
+            imgPicture.setVisibility(View.INVISIBLE);
+            num_imgs -= 1;
+            images.remove(images.size()-1);
+            if (num_imgs < 6) { image_button.setEnabled(true); }
         }
     }
 

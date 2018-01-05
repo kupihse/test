@@ -29,4 +29,5 @@
     <string name="registrationpopup">Пароли не совпадают</string>
     <string name="popupbutton">Окей</string>
     <string name="add_photo">Add Photo</string>
+    <string name="delete_photo">Delete last</string>
 </resources>

@@ -92,7 +92,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                     <ImageView
                         android:id="@+id/imgPicture1"
@@ -100,7 +103,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                     <ImageView
                         android:id="@+id/imgPicture2"
@@ -108,7 +114,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                     <ImageView
                         android:id="@+id/imgPicture3"
@@ -116,7 +125,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                     <ImageView
                         android:id="@+id/imgPicture4"
@@ -124,7 +136,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                     <ImageView
                         android:id="@+id/imgPicture5"
@@ -132,7 +147,10 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginStart="0dp" />
+                        android:layout_marginStart="0dp"
+                        android:clickable="true"
+                        android:longClickable="false"
+                        android:onClick="showPopUp" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -171,6 +189,15 @@
             app:cpb_textComplete="Complete"
             app:cpb_textError="Failed"
             app:cpb_textIdle="Submit" />
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="TextView" />
 
 
         <!--<com.spark.submitbutton.SubmitButton-->
