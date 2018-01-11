@@ -2,6 +2,7 @@ package com.example.andreyko0.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -20,7 +21,7 @@ public class Product {
     private String description;
     private String id;
     private int price;
-    ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+    ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
 
     public Product(String name) {
         this.name = name;
@@ -56,9 +57,9 @@ public class Product {
 
     public void setPrice(int price) { this.price = price; }
 
-    public Bitmap getImage(int idx) {
+    public BitmapDrawable getImage(int idx) {
         return images.get(idx);
     }
 
-    public void setImage(ArrayList<Bitmap> image) { this.images = image; }
+    public void setImage(ArrayList<BitmapDrawable> image) { this.images = image; }
 }

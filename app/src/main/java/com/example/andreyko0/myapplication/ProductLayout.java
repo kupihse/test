@@ -20,7 +20,7 @@ public class ProductLayout extends LinearLayout {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_product, this);
         imgPicture = (ImageView) findViewById(R.id.ImageView);
-        imgPicture.setImageBitmap(p.getImage(0));
+        imgPicture.setImageDrawable(p.getImage(0));
         String name = p.getName();
         TextView nameView  =  v.findViewById(R.id.product_text);
         nameView.setText(name);

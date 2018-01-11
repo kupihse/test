@@ -2,16 +2,15 @@ package com.example.andreyko0.myapplication;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
@@ -45,8 +44,9 @@ public class AddProductActivity extends AppCompatActivity {
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
     private ImageView imgPicture;
-    ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+    ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
     int num_imgs = 0;
+    String ViewId_Str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +55,12 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-//        imgPicture = (ImageView) findViewById(R.id.imgPicture);
-
     }
 
     public void onImageGalleryClicked(View v) {
         Button image_button = (Button) v;
         if (num_imgs == 6) { image_button.setEnabled(false); }
         else {
-//            LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
-//            ImageView view = new ImageView(this);
-//            view.setId(num_imgs);
-//            view.setLayoutParams(new ViewGroup.LayoutParams(80, ViewGroup.LayoutParams.MATCH_PARENT));
-//            view.setClickable(true);
-//            layout.addView(view);
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             String pictureDirectoryPath = pictureDirectory.getPath();
@@ -97,20 +89,19 @@ public class AddProductActivity extends AppCompatActivity {
                     inputStream = getContentResolver().openInputStream(imageUri);
 
                     // get a bitmap from the stream.
-                    images.add(BitmapFactory.decodeStream(inputStream));
+                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    BitmapDrawable bitmapDrawable = new BitmapDrawable(image);
+                    images.add(bitmapDrawable);
 
                     // show the image to the user
                     Resources res = getResources();
                     String idName = "imgPicture" + num_imgs;
                     imgPicture = (ImageView) findViewById(res.getIdentifier(idName, "id", getPackageName()));
-                    imgPicture.setImageBitmap(images.get(num_imgs));
+                    imgPicture.setImageDrawable(images.get(num_imgs));
                     imgPicture.setVisibility(View.VISIBLE);
 
-
-//                    imgPicture = (ImageView) findViewById(R.id.imgPicture);
-//                    imgPicture.setImageBitmap(images.get(num_imgs));
                     num_imgs += 1;
-                    test.setText(Integer.toString(images.size()));
+                    test.setText(String.format("%s", images.size()));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     // show a message to the user indicating that the image is unavailable.
@@ -121,22 +112,46 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
+    private void moveImages(Integer idxStart) {
+        for (Integer i = idxStart; i < images.size()-1; i++) {
+            images.set(i, images.get(i+1));
+        }
+
+        for (Integer i = 0; i <= images.size()-1; i++) {
+            Resources res = getResources();
+            String num = "imgPicture" + i;
+            ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
+            img.setImageDrawable(images.get(i));
+        }
+        Resources res = getResources();
+        String num = "imgPicture" + (images.size()-1);
+        ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
+        img.setImageDrawable(null);
+
+        images.remove(images.size()-1);
+    }
+
     public void showPopUp(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_photo, popup.getMenu());
-        popup.show();
+        ImageView test = (ImageView)findViewById(v.getId());
+        if (test.getDrawable() != null) {
+            PopupMenu popup = new PopupMenu(this, v);
+            MenuInflater inflater = popup.getMenuInflater();
+            inflater.inflate(R.menu.menu_photo, popup.getMenu());
+            popup.show();
+            ViewId_Str = Integer.toString(v.getId());
+        }
     }
 
     public void buttonDeleteImage(MenuItem item) {
+//        TextView test = (TextView)findViewById(R.id.test);
         Button image_button = (Button)findViewById(R.id.select_photo);
         Resources res = getResources();
-        String idName = "imgPicture" + (num_imgs-1);
-        imgPicture = (ImageView) findViewById(res.getIdentifier(idName, "id", getPackageName()));
+        imgPicture = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
         if (num_imgs != 0) {
-            imgPicture.setVisibility(View.INVISIBLE);
+            ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
             num_imgs -= 1;
-            images.remove(images.size()-1);
+//            test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
+            moveImages(Integer.parseInt(ViewId_Str) - first_img.getId());
             if (num_imgs < 6) { image_button.setEnabled(true); }
         }
     }

@@ -23,7 +23,7 @@ public class ProductActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.product_activity_text);
             textView.setText(p.getDescription() + "\n\n" + "Price: " + Integer.toString(p.getPrice()));
             imgPicture = (ImageView) findViewById(R.id.image);
-            imgPicture.setImageBitmap(p.getImage(0));
+            imgPicture.setImageDrawable(p.getImage(0));
         }
     }
 }
