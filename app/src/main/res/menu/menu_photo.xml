@@ -5,9 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-    android:id="@+id/delete"
-    android:title="@string/delete_photo"
-    android:onClick="buttonDeleteImage"/>
+        android:id="@+id/fullscreen"
+        android:title="@string/full_screen"
+        android:onClick="buttonFullScreen"/>
 
+    <item
+        android:id="@+id/delete"
+        android:title="@string/delete_photo"
+        android:onClick="buttonDeleteImage"/>
 
 </menu>

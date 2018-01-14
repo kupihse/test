@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
 
@@ -23,6 +24,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.application.R;
+
 import org.json.JSONObject;
 
 import java.lang.Integer;
@@ -37,7 +39,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
 
 public class AddProductActivity extends AppCompatActivity {
     protected static String name, description;
@@ -54,7 +55,6 @@ public class AddProductActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-
     }
 
     public void onImageGalleryClicked(View v) {
@@ -101,7 +101,7 @@ public class AddProductActivity extends AppCompatActivity {
                     imgPicture.setVisibility(View.VISIBLE);
 
                     num_imgs += 1;
-                    test.setText(String.format("%s", images.size()));
+//                    test.setText(String.format("%s", images.size()));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     // show a message to the user indicating that the image is unavailable.
@@ -132,21 +132,25 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        ImageView test = (ImageView)findViewById(v.getId());
-        if (test.getDrawable() != null) {
+        ImageView Image = (ImageView)findViewById(v.getId());
+        TextView test = (TextView)findViewById(R.id.test);
+
+        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+        if (Image.getDrawable() != null) {
             PopupMenu popup = new PopupMenu(this, v);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_photo, popup.getMenu());
             popup.show();
+            ImageView im = (ImageView) findViewById(v.getId());
+            im.buildDrawingCache();
             ViewId_Str = Integer.toString(v.getId());
         }
+        test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
     }
 
     public void buttonDeleteImage(MenuItem item) {
 //        TextView test = (TextView)findViewById(R.id.test);
         Button image_button = (Button)findViewById(R.id.select_photo);
-        Resources res = getResources();
-        imgPicture = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
         if (num_imgs != 0) {
             ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
             num_imgs -= 1;
@@ -154,6 +158,22 @@ public class AddProductActivity extends AppCompatActivity {
             moveImages(Integer.parseInt(ViewId_Str) - first_img.getId());
             if (num_imgs < 6) { image_button.setEnabled(true); }
         }
+    }
+
+    public void buttonFullScreen(MenuItem item) {
+        Resources res = getResources();
+        ImageView im = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
+        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+
+        im.buildDrawingCache();
+        Bitmap image = im.getDrawingCache();
+
+        Intent intent = new Intent(AddProductActivity.this, FullScreenImage.class);
+
+        Bundle extras = new Bundle();
+        extras.putParcelable("Bitmap", image);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
     public void buttonOnClick(View v) throws Exception {

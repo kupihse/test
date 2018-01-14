@@ -17,6 +17,7 @@
     tools:context="com.example.andreyko0.myapplication.AddProductActivity">
 
     <RelativeLayout
+        android:id="@+id/RelativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -67,11 +68,11 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:orientation="horizontal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/item_price"
-            android:layout_marginTop="16dp" >
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
 
             <HorizontalScrollView
@@ -93,8 +94,9 @@
                         android:layout_gravity="start"
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
+                        android:adjustViewBounds="true"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                     <ImageView
@@ -105,7 +107,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                     <ImageView
@@ -116,7 +118,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                     <ImageView
@@ -127,7 +129,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                     <ImageView
@@ -138,7 +140,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                     <ImageView
@@ -149,7 +151,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:clickable="true"
-                        android:longClickable="false"
+                        android:focusable="true"
                         android:onClick="showPopUp" />
 
                 </LinearLayout>

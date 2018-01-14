@@ -28,14 +28,17 @@
         <activity android:name="com.example.s1k0de.entry.EntryFormActivity" />
         <activity android:name="com.example.s1k0de.entry.RegistrationFormActivity" />
         <activity
-            android:name=".add_item_parameters"
+            android:name="com.example.andreyko0.myapplication.AddProductActivity"
             android:label="@string/title_activity_add_item_parameters"
             android:parentActivityName="com.example.andreyko0.myapplication.ScrollingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.andreyko0.myapplication.ScrollingActivity" />
         </activity>
-        <activity android:name="com.example.andreyko0.myapplication.AddProductActivity"></activity>
+        <activity
+            android:name="com.example.andreyko0.myapplication.FullScreenImage">
+            <!--android:theme="@android:style/Theme.Holo.NoActionBar">-->
+        </activity>
     </application>
 
 </manifest>
