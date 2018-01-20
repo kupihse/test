@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class Regular {
     //заготовка для регулярки
     public static final Pattern pattern = Pattern.compile
-            ("[a-zA-Z]{1}[a-zA-Z\\d\\u002E\\u005F]+@([a-zA-Z]+\\u002E){1,2}((net)|(com)|(org)|(ru))");
+            ("(.*@+.*@*)+");
 
     public static boolean doMatch(String word){
         Matcher matcher=pattern.matcher(word);
