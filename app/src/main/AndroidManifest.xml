@@ -39,7 +39,6 @@
             android:name="com.example.andreyko0.myapplication.FullScreenImage">
             <!--android:theme="@android:style/Theme.Holo.NoActionBar">-->
         </activity>
-        <activity android:name="com.example.andreyko0.myapplication.AddProductActivity2"/>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import com.example.s1k0de.entry.EntryFormActivity;
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private LinearLayout ll;
+    private int counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +60,10 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_add_product:
                 startActivityForResult(new Intent(this, AddProductActivity.class), 1);
 //                String format = getString(R.string.product_name_format);
+                counter++;
                 return true;
             case R.id.scrolling_menu_reg:
                 startActivity(new Intent(this, EntryFormActivity.class));
-                return true;
-            case R.id.scrolling_menu_add_product_2:
-                startActivityForResult(new Intent(this, AddProductActivity2.class), 1);
                 return true;
         }
         return super.onOptionsItemSelected(item);
