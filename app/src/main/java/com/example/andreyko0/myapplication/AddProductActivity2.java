@@ -25,22 +25,17 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.dd.CircularProgressButton;
 import com.example.application.R;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddProductActivity2 extends AppCompatActivity {
     protected static String name, description;
@@ -63,8 +58,9 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     public void onImageGalleryClicked(View v) {
         Button image_button = (Button) v;
-        if (num_imgs == 6) { image_button.setEnabled(false); }
-        else {
+        if (num_imgs == 6) {
+            image_button.setEnabled(false);
+        } else {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             String pictureDirectoryPath = pictureDirectory.getPath();
@@ -76,7 +72,7 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        TextView test = (TextView)findViewById(R.id.test);
+        TextView test = (TextView) findViewById(R.id.test);
         if (resultCode == RESULT_OK) {
             // if we are here, everything processed successfully.
             if (requestCode == IMAGE_GALLERY_REQUEST) {
@@ -112,7 +108,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         int i = 0;
         ll.removeAllViews();
         LayoutInflater inflater = this.getLayoutInflater();
-        for (BitmapDrawable img: images) {
+        for (BitmapDrawable img : images) {
 //            ImageView vv = new ImageView(this);
 //            vv.setImageDrawable(img);
 //            ll.addView(vv);
@@ -150,14 +146,14 @@ public class AddProductActivity2 extends AppCompatActivity {
 //        ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
 //        img.setImageDrawable(null);
 
-        images.remove(images.size()-1);
+        images.remove(images.size() - 1);
         rerenderImages();
 
     }
 
     public void showPopUp(View v) {
-        ImageView Image = (ImageView)findViewById(v.getId());
-        TextView test = (TextView)findViewById(R.id.test);
+        ImageView Image = (ImageView) findViewById(v.getId());
+        TextView test = (TextView) findViewById(R.id.test);
 
 //        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
         if (Image.getDrawable() != null) {
@@ -167,7 +163,7 @@ public class AddProductActivity2 extends AppCompatActivity {
             popup.show();
             ImageView im = (ImageView) findViewById(v.getId());
             im.buildDrawingCache();
-            ViewId_Str = Integer.toString((Integer)v.getTag());
+            ViewId_Str = Integer.toString((Integer) v.getTag());
         }
 
 //        test.setText(String.format("%s", Integer.parseInt(ViewId_Str)));
@@ -176,13 +172,15 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     public void buttonDeleteImage(MenuItem item) {
 //        TextView test = (TextView)findViewById(R.id.test);
-        Button image_button = (Button)findViewById(R.id.select_photo);
+        Button image_button = (Button) findViewById(R.id.select_photo);
         if (num_imgs != 0) {
 //            ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
             num_imgs -= 1;
 //            test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
             moveImages(Integer.parseInt(ViewId_Str));
-            if (num_imgs < 6) { image_button.setEnabled(true); }
+            if (num_imgs < 6) {
+                image_button.setEnabled(true);
+            }
         }
     }
 
@@ -217,8 +215,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         if (name.equals("") | edit_price.getText().toString().equals("")) {
             params_empty.setVisibility(View.VISIBLE);
             button.setProgress(-1);
-        }
-        else {
+        } else {
             price = Integer.parseInt(edit_price.getText().toString());
             Product p = new Product(name);
             p.setDescription(description);
@@ -226,24 +223,26 @@ public class AddProductActivity2 extends AppCompatActivity {
             p.setImage(images);
             ProductStorage.addProduct(p);
 // +test
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://51.15.92.91/pr/new";
-            JSONObject o = new JSONObject();
-            o.put("name", name);
-            o.put("description", description);
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            VolleyLog.v("Got resp", response);
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.e("Error: ", error.getMessage());
-                }
-            });
-            queue.add(req);
+//            RequestQueue queue = Volley.newRequestQueue(this);
+//            String url = "http://51.15.92.91/pr/new";
+//            JSONObject o = new JSONObject();
+//            o.put("name", name);
+//            o.put("description", description);
+//            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            VolleyLog.v("Got resp", response);
+//                        }
+//                    }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    VolleyLog.e("Error: ", error.getMessage());
+//                }
+//            });
+//            queue.add(req);
+            Call<Void> c = Services.productService.newProduct(p);
+            c.enqueue(Services.emptyCallBack);
 // -test
             Intent returnIntent = new Intent();
             setResult(ScrollingActivity.RESULT_OK, returnIntent);

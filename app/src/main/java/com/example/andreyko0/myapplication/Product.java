@@ -21,7 +21,7 @@ public class Product {
     private String description;
     private String id;
     private int price;
-    ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
+    transient ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
 
     public Product(String name) {
         this.name = name;

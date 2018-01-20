@@ -16,13 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.dd.CircularProgressButton;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.application.R;
 
 import org.json.JSONObject;
@@ -199,25 +192,31 @@ public class AddProductActivity extends AppCompatActivity {
             p.setImage(images);
             ProductStorage.addProduct(p);
 // +test
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://51.15.92.91/pr/new";
-            JSONObject o = new JSONObject();
-            o.put("name", name);
-            o.put("description", description);
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            VolleyLog.v("Got resp", response);
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.e("Error: ", error.getMessage());
-                }
-            });
-            queue.add(req);
+//            RequestQueue queue = Volley.newRequestQueue(this);
+//            String url = "http://51.15.92.91/pr/new";
+//            JSONObject o = new JSONObject();
+//            o.put("name", name);
+//            o.put("description", description);
+//            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            VolleyLog.v("Got resp", response);
+//                        }
+//                    }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    VolleyLog.e("Error: ", error.getMessage());
+//                }
+//            });
+//            queue.add(req);
+
+//            Retrofit
+
+
+
 // -test
+
             Intent returnIntent = new Intent();
             setResult(ScrollingActivity.RESULT_OK, returnIntent);
             finish();

@@ -13,13 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.application.R;
 import org.json.JSONException;
 import android.widget.Spinner;
@@ -111,31 +104,31 @@ public class RegistrationFormActivity extends Activity {
                         android.util.Log.d("mylog ", login);
                         //получено готовое поле login
                         User s = new User(name, login, password);
-                        RequestQueue queuek = Volley.newRequestQueue(RegistrationFormActivity.this.getApplicationContext());
-                        String url = "http://51.15.92.91/user/new";
-                        JSONObject o = new JSONObject();
-                        // обрабатываем так как Exception нужно либо обработать либо указать наверху через throws
-                        // второй вариант не работает в данном случае, сделал через первый, замена на рантайм
-                        try {
-                            o.put("name", name);
-                            o.put("login", login);
-                            o.put("password",password);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        VolleyLog.v("Got resp", response);
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                VolleyLog.e("Error: ", error.getMessage());
-                            }
-                        });
-                        queuek.add(req);
+//                        RequestQueue queuek = Volley.newRequestQueue(RegistrationFormActivity.this.getApplicationContext());
+//                        String url = "http://51.15.92.91/user/new";
+//                        JSONObject o = new JSONObject();
+//                         обрабатываем так как Exception нужно либо обработать либо указать наверху через throws
+//                         второй вариант не работает в данном случае, сделал через первый, замена на рантайм
+//                        try {
+//                            o.put("name", name);
+//                            o.put("login", login);
+//                            o.put("password",password);
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
+//                                new Response.Listener<JSONObject>() {
+//                                    @Override
+//                                    public void onResponse(JSONObject response) {
+//                                        VolleyLog.v("Got resp", response);
+//                                    }
+//                                }, new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                VolleyLog.e("Error: ", error.getMessage());
+//                            }
+//                        });
+//                        queuek.add(req);
 
                         Intent returnIntent = new Intent();
                         setResult(RegistrationFormActivity.RESULT_OK, returnIntent);
