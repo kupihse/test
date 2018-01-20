@@ -7,6 +7,7 @@
     <string name="title_activity_product">ProductActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="product_name_format">Product #%d</string>
+    <!-- Все что связано с работой юзеров -->
     <string name="password_entryform">Пароль</string>
     <string name="login_entryform">Войти</string>
     <string name="email_entryform">Email</string>
@@ -18,6 +19,12 @@
     <string name="backtoregistration">Уже есть аккаунт?</string>
     <string name="registration_again">Повторите пароль</string>
     <string name="registration_registrate">Регистрация</string>
+    <string-array name="emailAddition">
+        <item>edu.hse.ru</item>
+        <item>hse.ru</item>
+    </string-array>
+    <!-- Все что связано с работой юзеров -->
+
     <string name="title_activity_add_item_parameters">Parameters</string>
 
     <!-- Strings related to adding item -->
@@ -32,4 +39,5 @@
     <string name="delete_photo">Delete</string>
     <string name="full_screen">Full Screen</string>
     <string name="close">Close</string>
+    <string name="registration_popup_1">Некорректный ввод</string>
 </resources>
