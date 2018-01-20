@@ -13,17 +13,18 @@
         <RelativeLayout android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@layout/header_entryform"
+            android:background="#545454"
             android:paddingTop="5dip"
             android:paddingBottom="5dip"
             android:weightSum="1"
             android:layout_alignParentTop="true">
             <!-- Logo Start-->
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="115dp"
-                android:src="@drawable/logicsucces" />
+            <ImageView android:src="@drawable/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center_horizontal" />
 
             <!-- Logo Ends -->
 
@@ -38,7 +39,8 @@
                 <!--  Email Label -->
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
+                    android:textColor="#ffffff"
+                    android:layout_marginTop="40dip"
                     android:text="@string/email_entryform"/>
 
                 <EditText
@@ -52,7 +54,7 @@
                 <!--  Password Label -->
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#372c24"
+                    android:textColor="#ffffff"
                     android:text="@string/password_entryform"/>
 
                 <EditText
@@ -67,33 +69,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     <Button
-                        android:id="@+id/angry_btn"
-
+                        android:id="@+id/loginButton"
                         android:text="@string/login_entryform"
-                        android:textColor="#60AB96"
+                        android:textColor="#ffffff"
                         android:textSize="25sp"
                         android:textAllCaps="false"
                         android:layout_marginTop="18dp"
                         android:layout_width="fill_parent"
                         android:layout_centerInParent="true"
                         android:layout_height="40dp"
-                        android:background="@layout/button_entryform"
-                        android:layout_alignParentTop="true"
-                        android:onClick="doLogin"/>
+                        android:background="@layout/button_login_and_registration"
+                        android:layout_alignParentBottom="true" />
+
+                        <TextView
+                            android:id="@+id/link_to_register"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dip"
+                            android:layout_marginTop="40dip"
+                            android:gravity="center"
+                            android:text="@string/question_entryform"
+                            android:textColor="#c2c2c2"
+                            android:textSize="20sp"
+                            android:layout_alignParentBottom="true"
+                            />
                     </RelativeLayout>
                 <!-- Login button -->
                 <!-- Link to Registration Screen -->
                 <!-- Link to Registration Screen -->
-                <TextView
-                    android:id="@+id/link_to_register"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dip"
-                    android:layout_marginTop="40dip"
-                    android:gravity="center"
-                    android:text="@string/question_entryform"
-                    android:textColor="#5b4373"
-                    android:textSize="20sp" />
+
 
             </LinearLayout>
         </RelativeLayout>
@@ -102,7 +106,6 @@
         <LinearLayout android:id="@+id/footer"
             android:layout_width="fill_parent"
             android:layout_height="180dp"
-            android:background="@layout/footer_entryform"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">

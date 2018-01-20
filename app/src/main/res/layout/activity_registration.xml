@@ -13,7 +13,7 @@
         <RelativeLayout android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@layout/header_registration"
+            android:background="#545454"
             android:paddingTop="5dip"
             android:paddingBottom="5dip"
             android:weightSum="1"
@@ -44,17 +44,40 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
                     android:text="@string/emailreg"/>
-                <EditText android:id="@+id/reg_email"
+                <!-- Password Label -->
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <EditText
+                            android:id="@+id/reg_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10" />
+
+                        <Spinner
+                            android:id="@+id/emailList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:entries="@array/emailAddition"
+                            android:textColor="#ffffff" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dip"
-                    android:maxLines="1"
-                    android:layout_marginBottom="20dip"/>
-                <!-- Password Label -->
-                <TextView android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text="@string/passwordreg"/>
+                    android:text="@string/passwordreg"
+                    android:textColor="#ffffff" />
+
                 <EditText android:id="@+id/reg_password"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -89,7 +112,7 @@
                         android:layout_width="fill_parent"
                         android:layout_centerInParent="true"
                         android:layout_height="40dp"
-                        android:background="@layout/button_registration"
+                        android:background="@layout/button_login_and_registration"
                         android:layout_alignParentTop="true" />
                 </RelativeLayout>
                 <!-- Link to Login Screen -->

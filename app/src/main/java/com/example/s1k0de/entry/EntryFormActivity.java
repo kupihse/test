@@ -14,10 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.andreyko0.myapplication.ScrollingActivity;
 import com.example.application.R;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +31,7 @@ public class EntryFormActivity extends Activity {
         // setting default screen to login.xml
         setContentView(R.layout.activity_entryform);
 
+
         TextView registerScreen = (TextView) findViewById(R.id.link_to_register);
 
         // Listening to register new account link
@@ -45,13 +44,15 @@ public class EntryFormActivity extends Activity {
             }
         });
 
-        final Button buttonlog = findViewById(R.id.angry_btn);
+        final Button buttonlog = findViewById(R.id.loginButton);
         buttonlog.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
+
                  // Берем поля
                  EditText logint, passwordt;
                  logint = (EditText) findViewById(R.id.emailspace);
                  String login = logint.getText().toString();
+
                  passwordt = (EditText) findViewById(R.id.passwordspace);
                  String password = passwordt.getText().toString();
                  //*******************************************************

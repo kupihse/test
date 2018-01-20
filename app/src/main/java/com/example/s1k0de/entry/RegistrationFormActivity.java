@@ -20,14 +20,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.andreyko0.myapplication.ScrollingActivity;
 import com.example.application.R;
 import org.json.JSONException;
-//import android.util.Log;  <----- логер не убирать
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.util.Log.*;  //<----- логер не убирать
 
 import org.json.JSONObject;
 
+
+
 public class RegistrationFormActivity extends Activity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,16 @@ public class RegistrationFormActivity extends Activity {
         setContentView(R.layout.activity_registration);
 
         TextView loginScreen = (TextView) findViewById(R.id.link_to_login);
+
+        // Получаем экземпляр элемента Spinner
+        final Spinner spinner = (Spinner)findViewById(R.id.emailList);
+
+        // Настраиваем адаптер
+        ArrayAdapter<?> adapter =
+                ArrayAdapter.createFromResource(this, R.array.emailAddition,R.layout.simple_spinner_item_custom);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Вызываем адаптер
+        spinner.setAdapter(adapter);
 
         // Listening to Login Screen link
         loginScreen.setOnClickListener(new View.OnClickListener() {
@@ -56,16 +70,20 @@ public class RegistrationFormActivity extends Activity {
                 EditText logint,namet,passwordt,passwordt1;
                 logint = (EditText) findViewById(R.id.reg_email);
                 String login=logint.getText().toString();
+                logint = null;
                 namet = (EditText) findViewById(R.id.reg_fullname);
                 String name = namet.getText().toString();
+                namet = null;
                 passwordt = (EditText) findViewById(R.id.reg_password);
                 String password = passwordt.getText().toString();
+                passwordt = null;
                 passwordt1 = (EditText) findViewById(R.id.reg_password1);
                 String password1= passwordt1.getText().toString();
+                passwordt1=null;
 
                 //*******************************************************
-                //**************** Проверка на пустые поля **************
-                if( (!login.equals("")) && (!name.equals("")) && (!password.equals("")) ) {
+                //**************** Проверка на корректные поля **************
+                if(!Regular.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("") ) {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
                     if (!password.equals(password1)) {
@@ -83,8 +101,15 @@ public class RegistrationFormActivity extends Activity {
                             }
                         });
                     }
-                    //********************** Иначе передаем юзера *********************************
+                    //********************** Иначе готовим и передаем юзера *********************************
                     else {
+                        //берем проверенное поле логина и конкетинируем с строкой из спинера, логгер временный
+                        Spinner spinner = (Spinner) findViewById(R.id.emailList);
+                        String selected = spinner.getSelectedItem().toString();
+                        login+="@"+selected;
+                        selected = null;
+                        android.util.Log.d("mylog ", login);
+                        //получено готовое поле login
                         User s = new User(name, login, password);
                         RequestQueue queuek = Volley.newRequestQueue(RegistrationFormActivity.this.getApplicationContext());
                         String url = "http://51.15.92.91/user/new";
@@ -118,6 +143,21 @@ public class RegistrationFormActivity extends Activity {
                     }
 
                     //******************************************************************************
+                }
+                else {
+                    final AlertDialog.Builder mBuilderr = new AlertDialog.Builder(RegistrationFormActivity.this);
+
+                    View mView1 = getLayoutInflater().inflate(R.layout.activity_popuwindow1, null);
+                    Button button_popup = mView1.findViewById(R.id.button_popup);
+                    mBuilderr.setView(mView1);
+                    final AlertDialog dialog1 = mBuilderr.create();
+                    dialog1.show();
+                    button_popup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog1.dismiss();
+                        }
+                    });
                 }
             }
         });
