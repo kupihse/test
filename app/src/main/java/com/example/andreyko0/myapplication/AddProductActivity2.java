@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -95,6 +96,7 @@ public class AddProductActivity2 extends AppCompatActivity {
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
                     BitmapDrawable bitmapDrawable = new BitmapDrawable(image);
                     images.add(bitmapDrawable);
+                    num_imgs += 1;
                     rerenderImages();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -122,35 +124,42 @@ public class AddProductActivity2 extends AppCompatActivity {
 //            v.setImageDrawable(img);
 //            v.setVisibility(View.VISIBLE);
 //            ll.addView(v);
-            ll.addView(new SIngleImage(this, img));
-            ll.addView(new Img(this, img));
+            SIngleImage Im = new SIngleImage(this, img, i);
+            ll.addView(Im);
+//            ll.addView(new SIngleImage(this, img));
+//            ll.setTag(i);
+            i++;
+
+//            ll.addView(new Img(this, img));
         }
     }
 
     private void moveImages(Integer idxStart) {
-        for (Integer i = idxStart; i < images.size()-1; i++) {
-            images.set(i, images.get(i+1));
+        for (Integer i = idxStart; i < images.size() - 1; i++) {
+            images.set(i, images.get(i + 1));
         }
 
-        for (Integer i = 0; i <= images.size()-1; i++) {
-            Resources res = getResources();
-            String num = "imgPicture" + i;
-            ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
-            img.setImageDrawable(images.get(i));
-        }
-        Resources res = getResources();
-        String num = "imgPicture" + (images.size()-1);
-        ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
-        img.setImageDrawable(null);
+//        for (Integer i = 0; i <= images.size()-1; i++) {
+//            Resources res = getResources();
+//            String num = "imgPicture" + i;
+//            ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
+//            img.setImageDrawable(images.get(i));
+//        }
+//        Resources res = getResources();
+//        String num = "imgPicture" + (images.size()-1);
+//        ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
+//        img.setImageDrawable(null);
 
         images.remove(images.size()-1);
+        rerenderImages();
+
     }
 
     public void showPopUp(View v) {
         ImageView Image = (ImageView)findViewById(v.getId());
         TextView test = (TextView)findViewById(R.id.test);
 
-        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+//        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
         if (Image.getDrawable() != null) {
             PopupMenu popup = new PopupMenu(this, v);
             MenuInflater inflater = popup.getMenuInflater();
@@ -158,27 +167,30 @@ public class AddProductActivity2 extends AppCompatActivity {
             popup.show();
             ImageView im = (ImageView) findViewById(v.getId());
             im.buildDrawingCache();
-            ViewId_Str = Integer.toString(v.getId());
+            ViewId_Str = Integer.toString((Integer)v.getTag());
         }
-        test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
+
+//        test.setText(String.format("%s", Integer.parseInt(ViewId_Str)));
+        test.setText(String.format("%s", v.getTag()));
     }
 
     public void buttonDeleteImage(MenuItem item) {
 //        TextView test = (TextView)findViewById(R.id.test);
         Button image_button = (Button)findViewById(R.id.select_photo);
         if (num_imgs != 0) {
-            ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+//            ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
             num_imgs -= 1;
 //            test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
-            moveImages(Integer.parseInt(ViewId_Str) - first_img.getId());
+            moveImages(Integer.parseInt(ViewId_Str));
             if (num_imgs < 6) { image_button.setEnabled(true); }
         }
     }
 
     public void buttonFullScreen(MenuItem item) {
         Resources res = getResources();
-        ImageView im = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
-        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+//        ImageView im = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
+//        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
+        ImageView im = ll.findViewWithTag(Integer.parseInt(ViewId_Str));
 
         im.buildDrawingCache();
         Bitmap image = im.getDrawingCache();
