@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,6 +47,7 @@ public class AddProductActivity2 extends AppCompatActivity {
     int num_imgs = 0;
     String ViewId_Str;
     LinearLayout ll;
+    Bitmap bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,7 +213,12 @@ public class AddProductActivity2 extends AppCompatActivity {
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
         button.setIndeterminateProgressMode(true);
 
-//        if (name.equals("") || description.equals("")) {
+        if (images.size() == 0) {
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
+            BitmapDrawable drawable = new BitmapDrawable(bm);
+            images.add(drawable);
+        }
+
         if (name.equals("") | edit_price.getText().toString().equals("")) {
             params_empty.setVisibility(View.VISIBLE);
             button.setProgress(-1);
