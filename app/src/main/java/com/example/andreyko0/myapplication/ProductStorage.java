@@ -10,9 +10,10 @@ import java.util.UUID;
  * Created by Andreyko0 on 30/09/2017.
  */
 
+
+// Локальный storage, в данный момент не используется
 public class ProductStorage {
     static Map<String, SendableProduct> storage = new LinkedHashMap<>();
-    private static Random random = new Random();
 
     public static void addProduct(SendableProduct p) {
         String id = UUID.randomUUID().toString();

@@ -35,6 +35,9 @@ public class ScrollingActivity extends AppCompatActivity {
         ll = (LinearLayout) findViewById(R.id.products);
         rerender();
 
+
+        // На потом, надо сделать обновление по свайпу вниз
+        //
         //        SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
 //        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -44,36 +47,48 @@ public class ScrollingActivity extends AppCompatActivity {
 //        });
     }
 
+    // Рендерим товары, предварительно запоминаем их в массиве (надо ли?)
     private void renderItems() {
-        Log.d("RERENDER ITEMS", "items");
+        // если добавлять некуда, то зачем?
         if (ll == null) {
             return;
         }
         ll.removeAllViews();
+
+        // Если добавлять неоткуда, то как?
         if (products.isEmpty()) {
-            Log.d("RERENDER", "EMPTY");
             return;
         }
-        Log.d("RERENDER", String.format("%d", products.size()));
+        // добавляем
         for (Product p: products) {
-            Log.d("RERENDER ITEM", p.getName());
             ll.addView(new ProductLayout(this, p));
         }
     }
 
     private void rerender() {
+        //очищаем все товары, нам же не нужно дублировать
+        // оптимизировать это потом ??
         products.clear();
+
+        // делаем запрос на все товары
         Services.productService.getAll().enqueue(new Callback<List<SendableProduct>>() {
             @Override
             public void onResponse(Call<List<SendableProduct>> call, Response<List<SendableProduct>> response) {
-                Log.d("RERENDER SUCCESS", "rndr");
-                for(SendableProduct sp: response.body()) {
-                    Log.d("RERENDER SINGLE", "rndr");
+                List<SendableProduct> prs = response.body();
+
+                // Если ничего не пришло, то ничего не делаем
+                if (prs == null) {
+                    return;
+                }
+                // Если что-то есть закидываем это в массив
+                for(SendableProduct sp: prs) {
                     products.add(sp.toProduct());
                 }
+                // Ну и ререндерим
                 renderItems();
             }
 
+            // Если чет все плохо, то просто пишем в лог, пока что
             @Override
             public void onFailure(Call<List<SendableProduct>> call, Throwable t) {
                 Log.d("RERENDER FAIL", t.toString());
@@ -81,6 +96,9 @@ public class ScrollingActivity extends AppCompatActivity {
         });
     }
 
+    // КОСТЫЛЬ
+    // В отедельном, неотображаемом TextView у нас записан id
+    // забираем его и записываем в параметры запроса новой активити
     public void doClick(View v) {
         TextView tv =  v.findViewById(R.id.product_id);
         Intent productIntent = new Intent(this, ProductActivity.class);
@@ -88,6 +106,7 @@ public class ScrollingActivity extends AppCompatActivity {
         startActivity(productIntent);
     }
 
+    // Просто создание меню
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,6 +114,8 @@ public class ScrollingActivity extends AppCompatActivity {
         return true;
     }
 
+    // Нажали на кнопочку сверху справа (три точки)
+    // Думаю тут все в целом понятно, просто switch по меню
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -103,7 +124,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 return true;
             case R.id.scrolling_menu_add_product:
                 startActivityForResult(new Intent(this, AddProductActivity2.class), 1);
-//                String format = getString(R.string.product_name_format);
                 return true;
             case R.id.scrolling_menu_reg:
                 startActivity(new Intent(this, EntryFormActivity.class));
@@ -115,7 +135,8 @@ public class ScrollingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
+    // При удачном возврате из активити добавления товара, просто ререндерим
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){

@@ -12,6 +12,7 @@ import com.example.application.R;
  * Created by Andreyko0 on 26/09/2017.
  */
 
+// Тут вроде все понятно
 public class SingleImage extends LinearLayout {
     private ImageView img;
     public SingleImage(Context ctx, Bitmap i, int Tag) {

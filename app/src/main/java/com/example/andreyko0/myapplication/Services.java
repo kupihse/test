@@ -18,10 +18,11 @@ import retrofit2.http.Path;
  * Created by Andreyko0 on 20/01/2018.
  */
 
+// Класс для запросов к серверу
 public class Services {
-    // Service interfaces
+    // Сервис запросов товаров
+    // что для чего можно понять из названий методов, и что они возвращают/принимают
     public interface ProductService {
-//        "http://51.15.92.91/pr/new";
         @POST("pr/new")
         Call<Void> newProduct(@Body SendableProduct product);
 
@@ -33,12 +34,19 @@ public class Services {
     }
 
 
+    // Создаем объект ретрофита
+    // Добавляем автоматический конвертер в JSON и обратно (мы ж ленивые, да и зачем руками это делать)
+    // (потенциально руками будет быстрее работать, будет место для оптимизаций)
     static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://51.15.92.91")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    // Создаем сервис запросов товаров, описаный выше
     static ProductService productService = retrofit.create(ProductService.class);
 
+    // Пустой коллбек – затычка, если надо отправить запрос и забить на него
+    // (null передавать вместо него нельзя, кидает exception)
     static Callback<Void> emptyCallBack = new Callback<Void>() {
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {}

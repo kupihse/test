@@ -10,6 +10,8 @@ import java.util.ArrayList;
  * Created by Andreyko0 on 30/09/2017.
  */
 
+// Доп. класс, отличается от Product только тем, что картинки хранятся в массиве в виде строк
+// картинки закодированы в Base64
 public class SendableProduct {
     public String name;
     public String description;
@@ -41,6 +43,9 @@ public class SendableProduct {
         return this;
     }
 
+    // Получаем из вот этого говна, норм Product
+    // Потенциально медленно
+    // мб переделать?
     Product toProduct() {
         Product p = new Product(this.name);
         p.setDescription(this.description);

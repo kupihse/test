@@ -23,12 +23,13 @@ public class ProductLayout extends LinearLayout {
         String name = p.getName();
         TextView nameView  =  v.findViewById(R.id.product_text);
         nameView.setText(name);
+
+        // Здесь костыль, для передачи id товара, надо сделать через теги (так вроде правильнее)
         TextView idView = v.findViewById(R.id.product_id);
         idView.setText(p.getId());
 
         Integer price = p.getPrice();
         TextView priceView  =  v.findViewById(R.id.price);
         priceView.setText(Integer.toString(price) + " руб.");
-        Log.d("RERENDER NAME", name);
     }
 }
