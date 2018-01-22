@@ -9,3 +9,4 @@
 !app/build/outputs/apk/*
 /captures
 .externalNativeBuild
+.idea/misc.xml
