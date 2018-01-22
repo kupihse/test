@@ -15,8 +15,8 @@
         android:id="@+id/scrolling_menu_settings"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item android:id="@+id/scrolling_menu_add_product_2"
-        android:title="add_test"
+    <item android:id="@+id/scrolling_menu_refresh"
+        android:title="Refresh"
         app:showAsAction="never"/>
 
 </menu>

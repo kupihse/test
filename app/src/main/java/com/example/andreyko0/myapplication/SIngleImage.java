@@ -1,6 +1,7 @@
 package com.example.andreyko0.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.MenuInflater;
 import android.view.View;
@@ -18,11 +19,11 @@ import com.example.application.R;
 public class SIngleImage extends LinearLayout {
     private ImageView img;
     String ViewId_Str;
-    public SIngleImage(Context ctx, Drawable d, int Tag) {
+    public SIngleImage(Context ctx, Bitmap i, int Tag) {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_image, this);
         img = v.findViewById(R.id.test_image_single);
-        img.setImageDrawable(d);
+        img.setImageBitmap(i);
         img.setTag(Tag);
 //        View v = inflate(getContext(), R.layout.single_product, this);
 //        imgPicture = (ImageView) findViewById(R.id.ImageView);

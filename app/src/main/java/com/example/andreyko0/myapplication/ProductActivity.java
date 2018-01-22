@@ -15,7 +15,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         String id = getIntent().getStringExtra("item_id");
-        Product p = ProductStorage.getProduct(id);
+        Product p = ProductStorage.getProduct(id).toProduct();
         if (p == null) {
             setTitle("NULL "+id);
         } else {
@@ -23,7 +23,7 @@ public class ProductActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.product_activity_text);
             textView.setText(p.getDescription() + "\n\n" + "Price: " + Integer.toString(p.getPrice()));
             imgPicture = (ImageView) findViewById(R.id.image);
-            imgPicture.setImageDrawable(p.getImage(0));
+            imgPicture.setImageBitmap(p.getImage(0));
         }
     }
 }

@@ -10,9 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,8 +32,10 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.example.application.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -43,7 +48,7 @@ public class AddProductActivity2 extends AppCompatActivity {
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
     private ImageView imgPicture;
-    ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
+    ArrayList<Bitmap> images = new ArrayList<>();
     int num_imgs = 0;
     String ViewId_Str;
     LinearLayout ll;
@@ -89,14 +94,12 @@ public class AddProductActivity2 extends AppCompatActivity {
                 // we are getting an input stream, based on the URI of the image.
                 try {
                     inputStream = getContentResolver().openInputStream(imageUri);
-
-                    // get a bitmap from the stream.
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
-                    BitmapDrawable bitmapDrawable = new BitmapDrawable(image);
-                    images.add(bitmapDrawable);
+//                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), image);
+                    images.add(image);
                     num_imgs += 1;
                     rerenderImages();
-                } catch (FileNotFoundException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                     // show a message to the user indicating that the image is unavailable.
                     Toast.makeText(this, "Unable to open image", Toast.LENGTH_LONG).show();
@@ -110,7 +113,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         int i = 0;
         ll.removeAllViews();
         LayoutInflater inflater = this.getLayoutInflater();
-        for (BitmapDrawable img : images) {
+        for (Bitmap img : images) {
 //            ImageView vv = new ImageView(this);
 //            vv.setImageDrawable(img);
 //            ll.addView(vv);
@@ -215,8 +218,7 @@ public class AddProductActivity2 extends AppCompatActivity {
 
         if (images.size() == 0) {
             bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
-            BitmapDrawable drawable = new BitmapDrawable(bm);
-            images.add(drawable);
+            images.add(bm);
         }
 
         if (name.equals("") | edit_price.getText().toString().equals("")) {
@@ -224,10 +226,16 @@ public class AddProductActivity2 extends AppCompatActivity {
             button.setProgress(-1);
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
-            Product p = new Product(name);
-            p.setDescription(description);
-            p.setPrice(price);
-            p.setImage(images);
+            SendableProduct p = new SendableProduct(name)
+                    .setDescription(description)
+                    .setPrice(price);
+
+            for (Bitmap img: images) {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+                p.addImage(base64);
+            }
             ProductStorage.addProduct(p);
 // +test
 //            RequestQueue queue = Volley.newRequestQueue(this);
@@ -250,6 +258,7 @@ public class AddProductActivity2 extends AppCompatActivity {
 //            queue.add(req);
             Call<Void> c = Services.productService.newProduct(p);
             c.enqueue(Services.emptyCallBack);
+            c.wait();
 // -test
             Intent returnIntent = new Intent();
             setResult(ScrollingActivity.RESULT_OK, returnIntent);

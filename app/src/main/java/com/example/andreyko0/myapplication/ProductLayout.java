@@ -1,6 +1,7 @@
 package com.example.andreyko0.myapplication;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ public class ProductLayout extends LinearLayout {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_product, this);
         imgPicture = (ImageView) findViewById(R.id.ImageView);
-        imgPicture.setImageDrawable(p.getImage(0));
+        imgPicture.setImageBitmap(p.getImage(0));
         String name = p.getName();
         TextView nameView  =  v.findViewById(R.id.product_text);
         nameView.setText(name);
@@ -28,5 +29,6 @@ public class ProductLayout extends LinearLayout {
         Integer price = p.getPrice();
         TextView priceView  =  v.findViewById(R.id.price);
         priceView.setText(Integer.toString(price) + " руб.");
+        Log.d("RERENDER NAME", name);
     }
 }

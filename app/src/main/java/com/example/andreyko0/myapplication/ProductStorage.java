@@ -17,18 +17,24 @@ import java.util.UUID;
  */
 
 public class ProductStorage {
-    static Map<String, Product> storage = new LinkedHashMap<>();
+    static Map<String, SendableProduct> storage = new LinkedHashMap<>();
     private static Random random = new Random();
 
-    public static void addProduct(Product p) {
+    public static void addProduct(SendableProduct p) {
         String id = UUID.randomUUID().toString();
         p.setId(id);
         storage.put(id, p);
     }
 
-    public static Product getProduct(String id) {
+    public static SendableProduct getProduct(String id) {
         return storage.get(id);
     }
 
-
+    public static ArrayList<Product> getProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        for(SendableProduct sp: storage.values()) {
+            products.add(sp.toProduct());
+        }
+        return products;
+    }
 }

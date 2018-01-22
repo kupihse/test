@@ -21,7 +21,7 @@ public class Product {
     private String description;
     private String id;
     private int price;
-    transient ArrayList<BitmapDrawable> images = new ArrayList<BitmapDrawable>();
+    transient ArrayList<Bitmap> images = new ArrayList<>();
 
     public Product(String name) {
         this.name = name;
@@ -57,9 +57,9 @@ public class Product {
 
     public void setPrice(int price) { this.price = price; }
 
-    public BitmapDrawable getImage(int idx) {
+    public Bitmap getImage(int idx) {
         return images.get(idx);
     }
 
-    public void setImage(ArrayList<BitmapDrawable> image) { this.images = image; }
+    public void setImage(ArrayList<Bitmap> image) { this.images = image; }
 }
