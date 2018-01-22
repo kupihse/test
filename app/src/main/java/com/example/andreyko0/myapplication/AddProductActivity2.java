@@ -1,5 +1,6 @@
 package com.example.andreyko0.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,24 +116,9 @@ public class AddProductActivity2 extends AppCompatActivity {
         ll.removeAllViews();
         LayoutInflater inflater = this.getLayoutInflater();
         for (Bitmap img : images) {
-//            ImageView vv = new ImageView(this);
-//            vv.setImageDrawable(img);
-//            ll.addView(vv);
-//            ImageView v = (ImageView) inflater.inflate(R.layout.image_view, null);
-//            ImageView vvv = (ImageView) findViewById(R.id.test_image);
-//            vvv.setImageDrawable(img);
-//            ll.addView(vvv);
-//            ImageView v = (ImageView) View.inflate(this, R.layout.image_view, ll);
-//            v.setImageDrawable(img);
-//            v.setVisibility(View.VISIBLE);
-//            ll.addView(v);
             SIngleImage Im = new SIngleImage(this, img, i);
             ll.addView(Im);
-//            ll.addView(new SIngleImage(this, img));
-//            ll.setTag(i);
             i++;
-
-//            ll.addView(new Img(this, img));
         }
     }
 
@@ -236,34 +223,27 @@ public class AddProductActivity2 extends AppCompatActivity {
                 String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 p.addImage(base64);
             }
-            ProductStorage.addProduct(p);
-// +test
-//            RequestQueue queue = Volley.newRequestQueue(this);
-//            String url = "http://51.15.92.91/pr/new";
-//            JSONObject o = new JSONObject();
-//            o.put("name", name);
-//            o.put("description", description);
-//            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
-//                    new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            VolleyLog.v("Got resp", response);
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    VolleyLog.e("Error: ", error.getMessage());
-//                }
-//            });
-//            queue.add(req);
+//            ProductStorage.addProduct(p);
             Call<Void> c = Services.productService.newProduct(p);
-            c.enqueue(Services.emptyCallBack);
-            c.wait();
+            final ProgressBar progressBar = new ProgressBar(this);
+            progressBar.setVisibility(View.VISIBLE);
+            c.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    progressBar.setVisibility(View.GONE);
+                    Intent returnIntent = new Intent();
+                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                    finish();
+                }
 
-// -test
-            Intent returnIntent = new Intent();
-            setResult(ScrollingActivity.RESULT_OK, returnIntent);
-            finish();
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Failed to send", Toast.LENGTH_SHORT);
+                    Intent returnIntent = new Intent();
+                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                    finish();
+                }
+            });
         }
     }
 }

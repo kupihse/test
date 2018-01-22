@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 
 /**
@@ -27,6 +28,9 @@ public class Services {
 
         @GET("pr/all")
         Call<List<SendableProduct>> getAll();
+
+        @GET("pr/id/{id}")
+        Call<SendableProduct> getProduct(@Path("id") String id);
     }
 
 
