@@ -259,7 +259,6 @@ public class AddProductActivity2 extends AppCompatActivity {
             Call<Void> c = Services.productService.newProduct(p);
             c.enqueue(Services.emptyCallBack);
             c.wait();
-
             
 // -test
             Intent returnIntent = new Intent();
