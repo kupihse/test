@@ -25,6 +25,7 @@ public class SIngleImage extends LinearLayout {
         img = v.findViewById(R.id.test_image_single);
         img.setImageBitmap(i);
         img.setTag(Tag);
+        
 //        View v = inflate(getContext(), R.layout.single_product, this);
 //        imgPicture = (ImageView) findViewById(R.id.ImageView);
 //        imgPicture.setImageDrawable(p.getImage(0));
