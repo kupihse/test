@@ -2,11 +2,7 @@ package com.example.andreyko0.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.util.Base64;
-
-import com.example.application.R;
 
 import java.util.ArrayList;
 

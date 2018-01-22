@@ -3,7 +3,6 @@ package com.example.andreyko0.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.application.R;
 import com.example.s1k0de.entry.EntryFormActivity;
 
@@ -62,11 +62,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void rerender() {
-
-//        for (Product p: ProductStorage.getProducts()) {
-//            ll.addView(new ProductLayout(this, p));
-//        }
-        final Context ctx = this;
         products.clear();
         Services.productService.getAll().enqueue(new Callback<List<SendableProduct>>() {
             @Override
@@ -97,7 +92,6 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-//        menu.findItem(R.id.scrolling_menu_reg)
         return true;
     }
 

@@ -1,15 +1,7 @@
 package com.example.andreyko0.myapplication;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Environment;
-import android.widget.ImageView;
-import android.widget.Toast;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 
 /**

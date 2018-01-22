@@ -4,8 +4,6 @@ package com.example.andreyko0.myapplication;
  * Created by 31719 on 14.01.2018.
  */
 
-import com.example.application.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -14,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.application.R;
+
 public class FullScreenImage extends Activity {
 
 
@@ -21,6 +21,7 @@ public class FullScreenImage extends Activity {
 
 
 
+    // В активити передается одна картинка в виде Bitmap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

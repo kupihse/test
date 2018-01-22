@@ -1,20 +1,13 @@
 package com.example.andreyko0.myapplication;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
-import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +29,6 @@ import com.example.application.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -49,7 +41,6 @@ public class AddProductActivity2 extends AppCompatActivity {
     protected static String name, description;
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
-    private ImageView imgPicture;
     ArrayList<Bitmap> images = new ArrayList<>();
     int num_imgs = 0;
     String ViewId_Str;
@@ -61,10 +52,14 @@ public class AddProductActivity2 extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
+        // Ставим соотв. Layout
         setContentView(R.layout.activity_add_product_2);
+        // Референс на Layout фоток
         ll = (LinearLayout) findViewById(R.id.photos_2);
     }
 
+    // Кнопка добавления картинок
+    // Пропадает при 6 картинках (или нет?) удалить/исправить
     public void onImageGalleryClicked(View v) {
         Button image_button = (Button) v;
         if (num_imgs == 6) {
@@ -79,6 +74,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         }
     }
 
+    // Тут в целом на инглише описано (че не миэм, прочитать не сможешь?)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         TextView test = (TextView) findViewById(R.id.test);
@@ -111,43 +107,37 @@ public class AddProductActivity2 extends AppCompatActivity {
         }
     }
 
+    // Каждый раз при добавлении картинок, ререндерим весь список изображений
+    // (перфоманс сильно не страдает, и так сильно проще)
     private void rerenderImages() {
         int i = 0;
+        // очищаем все картинки
         ll.removeAllViews();
-        LayoutInflater inflater = this.getLayoutInflater();
+        // идем по всему их массиву и непосредственно добавляем в Layout
         for (Bitmap img : images) {
-            SIngleImage Im = new SIngleImage(this, img, i);
+            SingleImage Im = new SingleImage(this, img, i);
             ll.addView(Im);
             i++;
         }
     }
 
+
+    // удаляем картинку из массива и ререндерим (я ж говорил выше, что так проще)
+    // + проверка на вообще возможность удаления
     private void moveImages(Integer idxStart) {
-        for (Integer i = idxStart; i < images.size() - 1; i++) {
-            images.set(i, images.get(i + 1));
+        if (idxStart < 0 || idxStart >= images.size()) {
+            return;
         }
-
-//        for (Integer i = 0; i <= images.size()-1; i++) {
-//            Resources res = getResources();
-//            String num = "imgPicture" + i;
-//            ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
-//            img.setImageDrawable(images.get(i));
-//        }
-//        Resources res = getResources();
-//        String num = "imgPicture" + (images.size()-1);
-//        ImageView img = (ImageView)findViewById(res.getIdentifier(num, "id", getPackageName()));
-//        img.setImageDrawable(null);
-
-        images.remove(images.size() - 1);
+        images.remove(idxStart);
         rerenderImages();
-
     }
 
+    // При нажатии на картинку показываем менюшечку
+    // Делал александр, я не вникал что тут происходит
     public void showPopUp(View v) {
         ImageView Image = (ImageView) findViewById(v.getId());
         TextView test = (TextView) findViewById(R.id.test);
 
-//        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
         if (Image.getDrawable() != null) {
             PopupMenu popup = new PopupMenu(this, v);
             MenuInflater inflater = popup.getMenuInflater();
@@ -158,10 +148,11 @@ public class AddProductActivity2 extends AppCompatActivity {
             ViewId_Str = Integer.toString((Integer) v.getTag());
         }
 
-//        test.setText(String.format("%s", Integer.parseInt(ViewId_Str)));
         test.setText(String.format("%s", v.getTag()));
     }
 
+    // При нажатии на удаление – удаляем (ВААУ, да?)
+    // Делал александр, я не вникал, в чем тут смысл
     public void buttonDeleteImage(MenuItem item) {
 //        TextView test = (TextView)findViewById(R.id.test);
         Button image_button = (Button) findViewById(R.id.select_photo);
@@ -176,10 +167,9 @@ public class AddProductActivity2 extends AppCompatActivity {
         }
     }
 
+    // очевидно из названия
+    // Делал александр, я не вникал, в чем тут смысл
     public void buttonFullScreen(MenuItem item) {
-        Resources res = getResources();
-//        ImageView im = (ImageView) findViewById(res.getIdentifier(ViewId_Str, "id", getPackageName()));
-//        ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
         ImageView im = ll.findViewWithTag(Integer.parseInt(ViewId_Str));
 
         im.buildDrawingCache();
@@ -193,6 +183,8 @@ public class AddProductActivity2 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // при нажатии на "Submit"
+    // Делал александр, я не вникал что тут происходит (до запроса к серверу)
     public void buttonOnClick(View v) throws Exception {
         CircularProgressButton button = (CircularProgressButton) v;
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
@@ -224,10 +216,13 @@ public class AddProductActivity2 extends AppCompatActivity {
                 p.addImage(base64);
             }
 //            ProductStorage.addProduct(p);
+            // Делаем запрос, показываем Прогресс Бар (не работает, втф)
             Call<Void> c = Services.productService.newProduct(p);
             final ProgressBar progressBar = new ProgressBar(this);
             progressBar.setVisibility(View.VISIBLE);
             c.enqueue(new Callback<Void>() {
+
+                // Если все ок, убираем прогресс бар, и возвращаемся обратно
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     progressBar.setVisibility(View.GONE);
@@ -236,9 +231,12 @@ public class AddProductActivity2 extends AppCompatActivity {
                     finish();
                 }
 
+
+                // Если все плохо и сервер вернул 5хх или 4хх
+                // Показываем тост (за здоровье сервера) и возвращаемя
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Failed to send", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Failed to send", Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();
