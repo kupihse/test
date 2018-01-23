@@ -45,7 +45,6 @@ public class AddProductActivity2 extends AppCompatActivity {
     int num_imgs = 0;
     String ViewId_Str;
     LinearLayout ll;
-    Bitmap bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,6 @@ public class AddProductActivity2 extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(imageUri);
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
-//                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), image);
                     images.add(image);
                     num_imgs += 1;
                     rerenderImages();
@@ -132,34 +130,33 @@ public class AddProductActivity2 extends AppCompatActivity {
         rerenderImages();
     }
 
-    // При нажатии на картинку показываем менюшечку
-    // Делал александр, я не вникал что тут происходит
+    // Метод, вызываемый при нажатии на картинку.
+    // Показывает выпадающее меню
     public void showPopUp(View v) {
+        // Получаем id картинки, на которую нажали и её image view
         ImageView Image = (ImageView) findViewById(v.getId());
-        TextView test = (TextView) findViewById(R.id.test);
+        TextView test = (TextView) findViewById(R.id.test); // это для теста
 
+        // Это условие лишнее, так как мы изменили метод добавления картинок
         if (Image.getDrawable() != null) {
+            // Создаем, добавляем, показываем layout menu_photo
             PopupMenu popup = new PopupMenu(this, v);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.menu_photo, popup.getMenu());
             popup.show();
-            ImageView im = (ImageView) findViewById(v.getId());
-            im.buildDrawingCache();
+            // Получаем id (а точнее tag, смысл тот же) image view, на которое нажали
             ViewId_Str = Integer.toString((Integer) v.getTag());
         }
 
+        // Для теста вывод тэга
         test.setText(String.format("%s", v.getTag()));
     }
 
     // При нажатии на удаление – удаляем (ВААУ, да?)
-    // Делал александр, я не вникал, в чем тут смысл
     public void buttonDeleteImage(MenuItem item) {
-//        TextView test = (TextView)findViewById(R.id.test);
         Button image_button = (Button) findViewById(R.id.select_photo);
         if (num_imgs != 0) {
-//            ImageView first_img = (ImageView)findViewById(R.id.imgPicture0);
             num_imgs -= 1;
-//            test.setText(String.format("%s", Integer.parseInt(ViewId_Str) - first_img.getId()));
             moveImages(Integer.parseInt(ViewId_Str));
             if (num_imgs < 6) {
                 image_button.setEnabled(true);
@@ -168,15 +165,17 @@ public class AddProductActivity2 extends AppCompatActivity {
     }
 
     // очевидно из названия
-    // Делал александр, я не вникал, в чем тут смысл
     public void buttonFullScreen(MenuItem item) {
         ImageView im = ll.findViewWithTag(Integer.parseInt(ViewId_Str));
 
+        // Получаем bitmap из image view
         im.buildDrawingCache();
         Bitmap image = im.getDrawingCache();
 
+        // Переход на FullScreenImage
         Intent intent = new Intent(AddProductActivity2.this, FullScreenImage.class);
 
+        // Передаем в FullScreenImage bitmap картинки и стартуем
         Bundle extras = new Bundle();
         extras.putParcelable("Bitmap", image);
         intent.putExtras(extras);
@@ -184,7 +183,6 @@ public class AddProductActivity2 extends AppCompatActivity {
     }
 
     // при нажатии на "Submit"
-    // Делал александр, я не вникал что тут происходит (до запроса к серверу)
     public void buttonOnClick(View v) throws Exception {
         CircularProgressButton button = (CircularProgressButton) v;
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
@@ -193,14 +191,18 @@ public class AddProductActivity2 extends AppCompatActivity {
         description = edit_desc.getText().toString();
         final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
+
+        // Это для задания прогресса кнопки (а саму кнопку скорее всего заменим потом)
         button.setIndeterminateProgressMode(true);
 
         if (images.size() == 0) {
-            bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
+            // Если нет картинок, добавляем стандартную
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
             images.add(bm);
         }
 
         if (name.equals("") | edit_price.getText().toString().equals("")) {
+            // Если есть пустые поля, показываем надпись и кнопку в состояние "Failed"
             params_empty.setVisibility(View.VISIBLE);
             button.setProgress(-1);
         } else {
