@@ -1,9 +1,19 @@
 package com.example.andreyko0.myapplication;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +25,6 @@ import retrofit2.Response;
 
 public class ProductActivity extends AppCompatActivity {
     private ImageView imgPicture;
-
 
     // В активити передается id товара
     @Override
@@ -45,6 +54,21 @@ public class ProductActivity extends AppCompatActivity {
                 Product p = sp.toProduct();
                 setTitle(p.getName());
                 TextView textView = (TextView) findViewById(R.id.product_activity_text);
+                HorizontalScrollView scroll = (HorizontalScrollView) findViewById(R.id.scroll);
+                LinearLayout ll = (LinearLayout)findViewById(R.id.photos_2);
+                if (p.getImages().size() > 1) {
+                    // если вообще есть дополнительные картинки
+                    // идем по массиву и непосредственно добавляем в Layout
+                    for (int i = 1; i < p.getImages().size(); i++) {
+                        Bitmap img = p.getImage(i);
+                        SingleImage Im = new SingleImage(getApplicationContext(), img, i);
+                        ll.addView(Im);
+                        i++;
+                    }
+                }
+                else {
+                    scroll.setVisibility(View.GONE);
+                }
                 textView.setText(p.getDescription() + "\n\n" + "Price: " + Integer.toString(p.getPrice()));
                 imgPicture = (ImageView) findViewById(R.id.image);
                 imgPicture.setImageBitmap(p.getImage(0));
@@ -55,5 +79,29 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(ProductActivity.this,"Failed to load", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void buttonFullScreen(View v) {
+        // #todo
+        /* Тут проблема, drawing cache всегда null, если добавить buildDrawingCache, то
+        крашится. К тому же, дополнительные фото сделаны через SingleImage, а там
+        onClick = "showPopUp", нужно подумать как лучше изменить. */
+
+        ImageView view = (ImageView)findViewById(v.getId());
+
+//        view.buildDrawingCache(true);
+        Bitmap image = view.getDrawingCache();
+
+        if(view.getDrawingCache() == null) {
+            Log.d("Drawing cache", "cache is null");
+        }
+        // Переход на FullScreenImage
+        Intent intent = new Intent(ProductActivity.this, FullScreenImage.class);
+
+        // Передаем в FullScreenImage bitmap картинки и стартуем
+        Bundle extras = new Bundle();
+        extras.putParcelable("Bitmap", image);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

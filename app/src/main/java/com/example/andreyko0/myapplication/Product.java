@@ -54,4 +54,8 @@ public class Product {
     }
 
     public void setImage(ArrayList<Bitmap> image) { this.images = image; }
+
+    public ArrayList<Bitmap> getImages() {
+        return images;
+    }
 }

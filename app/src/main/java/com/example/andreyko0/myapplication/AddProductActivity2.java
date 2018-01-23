@@ -123,10 +123,10 @@ public class AddProductActivity2 extends AppCompatActivity {
     // удаляем картинку из массива и ререндерим (я ж говорил выше, что так проще)
     // + проверка на вообще возможность удаления
     private void moveImages(Integer idxStart) {
-        if (idxStart < 0 || idxStart >= images.size()) {
-            return;
+        for (Integer i = idxStart; i < images.size() - 1; i++) {
+            images.set(i, images.get(i + 1));
         }
-        images.remove(idxStart);
+        images.remove(images.size() - 1);
         rerenderImages();
     }
 
