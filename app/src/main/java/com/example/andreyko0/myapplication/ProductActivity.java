@@ -14,6 +14,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 public class ProductActivity extends AppCompatActivity {
     private ImageView imgPicture;
-
+    private Product product;
     // В активити передается id товара
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class ProductActivity extends AppCompatActivity {
 
                 // Тут все очевидно на мой взгляд, и я устал уже писать все это говно
                 Product p = sp.toProduct();
+                product = p;
                 setTitle(p.getName());
                 TextView textView = (TextView) findViewById(R.id.product_activity_text);
                 HorizontalScrollView scroll = (HorizontalScrollView) findViewById(R.id.scroll);
@@ -72,6 +74,7 @@ public class ProductActivity extends AppCompatActivity {
                 textView.setText(p.getDescription() + "\n\n" + "Price: " + Integer.toString(p.getPrice()));
                 imgPicture = (ImageView) findViewById(R.id.image);
                 imgPicture.setImageBitmap(p.getImage(0));
+//                imgPicture.setTag(0);
             }
 
             @Override
@@ -86,21 +89,46 @@ public class ProductActivity extends AppCompatActivity {
         /* Тут проблема, drawing cache всегда null, если добавить buildDrawingCache, то
         крашится. К тому же, дополнительные фото сделаны через SingleImage, а там
         onClick = "showPopUp", нужно подумать как лучше изменить. */
+//        int n = (int) v.getTag();
 
-        ImageView view = (ImageView)findViewById(v.getId());
-
+//        ImageView view = (ImageView)findViewById(v.getId());
 //        view.buildDrawingCache(true);
-        Bitmap image = view.getDrawingCache();
+//        Bitmap image = view.getDrawingCache();
 
-        if(view.getDrawingCache() == null) {
-            Log.d("Drawing cache", "cache is null");
-        }
+//        if(view.getDrawingCache() == null) {
+//            Log.d("Drawing cache", "cache is null");
+//        }
         // Переход на FullScreenImage
         Intent intent = new Intent(ProductActivity.this, FullScreenImage.class);
 
         // Передаем в FullScreenImage bitmap картинки и стартуем
         Bundle extras = new Bundle();
-        extras.putParcelable("Bitmap", image);
+        extras.putParcelable("Bitmap", product.getImage(0));
+        intent.putExtras(extras);
+        Log.d("IMG LOG", "ASD");
+        startActivity(intent);
+    }
+    public void showPopUp(View v) {
+        // #todo
+        /* Тут проблема, drawing cache всегда null, если добавить buildDrawingCache, то
+        крашится. К тому же, дополнительные фото сделаны через SingleImage, а там
+        onClick = "showPopUp", нужно подумать как лучше изменить. */
+        int n = (int) v.getTag();
+
+//        ImageView view = (ImageView)findViewById(v.getId());
+
+//        view.buildDrawingCache(true);
+//        Bitmap image = view.getDrawingCache();
+
+//        if(view.getDrawingCache() == null) {
+//            Log.d("Drawing cache", "cache is null");
+//        }
+        // Переход на FullScreenImage
+        Intent intent = new Intent(ProductActivity.this, FullScreenImage.class);
+
+        // Передаем в FullScreenImage bitmap картинки и стартуем
+        Bundle extras = new Bundle();
+        extras.putParcelable("Bitmap", product.getImage(n));
         intent.putExtras(extras);
         startActivity(intent);
     }
