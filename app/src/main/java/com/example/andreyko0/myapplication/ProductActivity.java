@@ -61,7 +61,7 @@ public class ProductActivity extends AppCompatActivity {
                     // идем по массиву и непосредственно добавляем в Layout
                     for (int i = 1; i < p.getImages().size(); i++) {
                         Bitmap img = p.getImage(i);
-                        SingleImage Im = new SingleImage(getApplicationContext(), img, i);
+                        SingleImage Im = new SingleImage(ProductActivity.this, img, i);
                         ll.addView(Im);
                         i++;
                     }
