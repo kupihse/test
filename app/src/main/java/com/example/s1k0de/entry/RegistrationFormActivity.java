@@ -13,14 +13,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import com.example.Services.Services;
 import com.example.application.R;
 import org.json.JSONException;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.util.Log.*;  //<----- логер не убирать
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RegistrationFormActivity extends Activity {
@@ -48,7 +53,7 @@ public class RegistrationFormActivity extends Activity {
         loginScreen.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
-                                // Closing registration screen
+                // Closing registration screen
                 // Switching to Login Screen/closing register screen
                 finish();
             }
@@ -99,44 +104,35 @@ public class RegistrationFormActivity extends Activity {
                         //берем проверенное поле логина и конкетинируем с строкой из спинера, логгер временный
                         Spinner spinner = (Spinner) findViewById(R.id.emailList);
                         String selected = spinner.getSelectedItem().toString();
-                        login+="@"+selected;
+                        login += "@" + selected;
                         selected = null;
                         android.util.Log.d("mylog ", login);
                         //получено готовое поле login
-                        User s = new User(name, login, password);
-//                        RequestQueue queuek = Volley.newRequestQueue(RegistrationFormActivity.this.getApplicationContext());
-//                        String url = "http://51.15.92.91/user/new";
-//                        JSONObject o = new JSONObject();
-//                         обрабатываем так как Exception нужно либо обработать либо указать наверху через throws
-//                         второй вариант не работает в данном случае, сделал через первый, замена на рантайм
-//                        try {
-//                            o.put("name", name);
-//                            o.put("login", login);
-//                            o.put("password",password);
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, o,
-//                                new Response.Listener<JSONObject>() {
-//                                    @Override
-//                                    public void onResponse(JSONObject response) {
-//                                        VolleyLog.v("Got resp", response);
-//                                    }
-//                                }, new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                VolleyLog.e("Error: ", error.getMessage());
-//                            }
-//                        });
-//                        queuek.add(req);
 
-                        Intent returnIntent = new Intent();
-                        setResult(RegistrationFormActivity.RESULT_OK, returnIntent);
-                        finish();
+                        //Далее проводим регистрацию
+                        Call<Void> c = Services.userService.addUser(new User(name, login, password));
+                        c.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                                Intent returnIntent = new Intent();
+                                setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                Intent returnIntent = new Intent();
+                                setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                                finish();
+                            }
+                        });
                     }
 
-                    //******************************************************************************
                 }
+                //******************************************************************************
+
                 else {
                     final AlertDialog.Builder mBuilderr = new AlertDialog.Builder(RegistrationFormActivity.this);
 

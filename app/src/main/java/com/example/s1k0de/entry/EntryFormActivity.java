@@ -7,15 +7,20 @@ package com.example.s1k0de.entry;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.example.Services.Services;
 import com.example.application.R;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+//import android.widget.ProgressBar;
+import retrofit2.Callback;
+import retrofit2.Call;
+import retrofit2.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.github.ybq.android.spinkit.style.*;
 
 public class EntryFormActivity extends Activity {
     @Override
@@ -23,7 +28,6 @@ public class EntryFormActivity extends Activity {
         super.onCreate(savedInstanceState);
         // setting default screen to login.xml
         setContentView(R.layout.activity_entryform);
-
 
         TextView registerScreen = (TextView) findViewById(R.id.link_to_register);
 
@@ -36,51 +40,49 @@ public class EntryFormActivity extends Activity {
                 startActivity(i);
             }
         });
+/*      Прогресс бар не нужен, все происходит слишком быстро
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
+        Circle doubleBounce = new Circle();
+        progressBar.setIndeterminateDrawable(doubleBounce); */
 
         final Button buttonlog = findViewById(R.id.loginButton);
         buttonlog.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
+            public void onClick(View v) {
+                //progressBar.setVisibility(ProgressBar.VISIBLE);
 
-                 // Берем поля
-                 EditText logint, passwordt;
-                 logint = (EditText) findViewById(R.id.emailspace);
-                 String login = logint.getText().toString();
+                // Берем поля
+                EditText logint, passwordt;
+                logint = (EditText) findViewById(R.id.emailspace);
+                String login = logint.getText().toString();
+                logint=null;
+                passwordt = (EditText) findViewById(R.id.passwordspace);
+                String password = passwordt.getText().toString();
+                passwordt=null;
 
-                 passwordt = (EditText) findViewById(R.id.passwordspace);
-                 String password = passwordt.getText().toString();
-                 //*******************************************************
-                 //**************** Проверка на пустые поля **************
-                 if ((!login.equals("")) && (!password.equals(""))) {
-//                     RequestQueue queuekd = Volley.newRequestQueue(EntryFormActivity.this.getApplicationContext());
-//                     String urls = "http://51.15.92.91/user/log";
-//                     JSONObject o = new JSONObject();
-//                     try{
-//                         o.put("name", "unknown");
-//                         o.put("login", login);
-//                         o.put("password", password);
-//                     } catch (JSONException e) {
-//                         throw new RuntimeException(e);
-//                     }
-//                     JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, urls, o,
-//                         new Response.Listener<JSONObject>() {
-//                             @Override
-//                             public void onResponse(JSONObject response) {
-//                                 VolleyLog.v("Got resp", response);
-//                             }
-//                         }, new Response.ErrorListener() {
-//                         @Override
-//                         public void onErrorResponse(VolleyError error) {
-//                             VolleyLog.e("Error: ", error.getMessage());
-//                         }
-//                     });
-//                     queuekd.add(req);
-
-                     Intent returnIntent = new Intent();
-                     setResult(EntryFormActivity.RESULT_OK, returnIntent);
-                     finish();
-                 }
-
-             }
-         });
+                //*******************************************************
+                //**************** Проверка на пустые поля **************
+                if ((!login.equals("")) && (!password.equals(""))) {
+                    Call<Void> c = Services.userService.logUser(new User(login,password));
+                    c.enqueue(new Callback<Void>(){
+                        @Override
+                        public void onResponse(Call<Void>call, Response<Void> response) {
+                            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                            Intent returnIntent = new Intent();
+                            setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                            finish();
+                        }
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                            Intent returnIntent = new Intent();
+                            setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                            finish();
+                        }
+                    });
+                }
+            }
+            //progressBar.setVisibility(ProgressBar.INVISIBLE);
+        });
     }
 }

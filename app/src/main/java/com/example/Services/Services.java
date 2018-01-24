@@ -1,5 +1,8 @@
-package com.example.andreyko0.myapplication;
+package com.example.Services;
 
+
+import com.example.andreyko0.myapplication.SendableProduct;
+import com.example.s1k0de.entry.User;
 
 import java.util.List;
 
@@ -31,8 +34,17 @@ public class Services {
 
         @GET("pr/id/{id}")
         Call<SendableProduct> getProduct(@Path("id") String id);
-    }
 
+    }
+    // Сервис запросов вкладок логина/регистрации
+    public interface UserService {
+        @POST("/user/log")
+        Call<Void> logUser(@Body User user);
+
+        @POST("/user/new")
+        Call<Void> addUser(@Body User user);
+
+    }
 
     // Создаем объект ретрофита
     // Добавляем автоматический конвертер в JSON и обратно (мы ж ленивые, да и зачем руками это делать)
@@ -42,8 +54,9 @@ public class Services {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    // Создаем сервис запросов товаров, описаный выше
-    static ProductService productService = retrofit.create(ProductService.class);
+    // Создаем сервисы запросов, описаные выше
+    public static ProductService productService = retrofit.create(ProductService.class);
+    public static UserService userService = retrofit.create(UserService.class);
 
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)

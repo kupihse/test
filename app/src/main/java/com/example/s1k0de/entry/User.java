@@ -1,16 +1,24 @@
 package com.example.s1k0de.entry;
 
-
+// Единичный юзер
 public class User {
     private String name;
     private String login;
     private String password;
+
+    private boolean confirmed;
 
     public User() {
         name="";
         login ="";
         password="";
     }
+    public User(String login, String password){
+        name="unknown";
+        this.login = login;
+        this.password = password;
+    }
+
     public User(String name, String logname, String password) {
         this.name = name;
         this.login = logname;
@@ -37,4 +45,22 @@ public class User {
         this.password = password;
     }
 
+    public void setNotConfirmed() {
+        this.confirmed = false;
+    }
+
+    public void confirm() {
+        this.confirmed = true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!login.equals(user.login)) return false;
+        return password.equals(user.password);
+    }
 }
