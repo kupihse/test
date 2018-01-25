@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.example.Services.ImageCache;
 import com.example.Services.Services;
 import com.example.application.R;
 
@@ -29,7 +30,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +39,8 @@ public class AddProductActivity2 extends AppCompatActivity {
     protected static String name, description;
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
-    ArrayList<Bitmap> images = new ArrayList<>();
+//    ArrayList<Bitmap> images = new ArrayList<>();
+    Product product = new Product();
     int num_imgs = 0;
     String ViewId_Str;
     LinearLayout ll;
@@ -90,7 +91,9 @@ public class AddProductActivity2 extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(imageUri);
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
-                    images.add(image);
+                    String id = ImageCache.add(image);
+                    product.addImage(id);
+//                    images.add(image);
                     num_imgs += 1;
                     rerenderImages();
                 } catch (IOException e) {
@@ -110,8 +113,8 @@ public class AddProductActivity2 extends AppCompatActivity {
         // очищаем все картинки
         ll.removeAllViews();
         // идем по всему их массиву и непосредственно добавляем в Layout
-        for (Bitmap img : images) {
-            SingleImage Im = new SingleImage(this, img, i);
+        for (String imgId : product.getImages()) {
+            SingleImage Im = new SingleImage(this, ImageCache.get(imgId), i);
             ll.addView(Im);
             i++;
         }
@@ -120,11 +123,14 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     // удаляем картинку из массива и ререндерим (я ж говорил выше, что так проще)
     // + проверка на вообще возможность удаления
-    private void moveImages(Integer idxStart) {
-        for (Integer i = idxStart; i < images.size() - 1; i++) {
-            images.set(i, images.get(i + 1));
-        }
-        images.remove(images.size() - 1);
+    private void moveImages(Integer idx) {
+//        for (Integer i = idxStart; i < images.size() - 1; i++) {
+//            images.add(i, images.get(i + 1));
+//        }
+        String id = product.getImage(idx);
+        product.getImages().remove(idx);
+        ImageCache.delete(id);
+//        images.remove(images.size() - 1);
         rerenderImages();
     }
 
@@ -164,19 +170,17 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     // очевидно из названия
     public void buttonFullScreen(MenuItem item) {
-        ImageView im = ll.findViewWithTag(Integer.parseInt(ViewId_Str));
-
-        // Получаем bitmap из image view
-        im.buildDrawingCache();
-        Bitmap image = im.getDrawingCache();
+        Integer idx = Integer.parseInt(ViewId_Str);
+        String imId = product.getImage(idx);
 
         // Переход на FullScreenImage
         Intent intent = new Intent(AddProductActivity2.this, FullScreenImage.class);
 
         // Передаем в FullScreenImage bitmap картинки и стартуем
-        Bundle extras = new Bundle();
-        extras.putParcelable("Bitmap", image);
-        intent.putExtras(extras);
+//        Bundle extras = new Bundle();
+//        extras.putParcelable("Bitmap", );
+//        intent.putExtras(extras);
+        intent.putExtra("Bitmap", imId);
         startActivity(intent);
     }
 
@@ -193,10 +197,12 @@ public class AddProductActivity2 extends AppCompatActivity {
         // Это для задания прогресса кнопки (а саму кнопку скорее всего заменим потом)
         button.setIndeterminateProgressMode(true);
 
-        if (images.size() == 0) {
+        if (product.getImages().size() == 0) {
             // Если нет картинок, добавляем стандартную
+            // #todo Возможно переделать это немного по-другому, хз
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
-            images.add(bm);
+            ImageCache.set("0", bm);
+            product.addImage("0");
         }
 
         if (name.equals("") | edit_price.getText().toString().equals("")) {
@@ -205,43 +211,58 @@ public class AddProductActivity2 extends AppCompatActivity {
             button.setProgress(-1);
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
-            SendableProduct p = new SendableProduct(name)
-                    .setDescription(description)
-                    .setPrice(price);
+            product.setName(name);
+            product.setDescription(description);
+            product.setPrice(price);
 
-            for (Bitmap img: images) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                p.addImage(base64);
-            }
+//            for (Bitmap img: images) {
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+//                p.addImage(base64);
+//            }
 //            ProductStorage.addProduct(p);
             // Делаем запрос, показываем Прогресс Бар (не работает, втф)
-            Call<Void> c = Services.products.add(p);
-            final ProgressBar progressBar = new ProgressBar(this);
-            progressBar.setVisibility(View.VISIBLE);
-            c.enqueue(new Callback<Void>() {
+            Services.products.add(product).enqueue(new Callback<Void>() {
 
                 // Если все ок, убираем прогресс бар, и возвращаемся обратно
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    progressBar.setVisibility(View.GONE);
-                    Intent returnIntent = new Intent();
-                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
-                    finish();
                 }
-
-
                 // Если все плохо и сервер вернул 5хх или 4хх
                 // Показываем тост (за здоровье сервера) и возвращаемя
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Failed to send", Toast.LENGTH_SHORT).show();
-                    Intent returnIntent = new Intent();
-                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
-                    finish();
+                    Toast.makeText(getApplicationContext(), "Failed to send Product data", Toast.LENGTH_SHORT).show();
                 }
             });
+            for (final String id : product.getImages()) {
+                Bitmap bmp = ImageCache.get(id);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+                Services.SendableImage img = new Services.SendableImage();
+                img.id = id;
+                img.body = base64;
+
+                Services.images.add(img).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        // #todo
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        // #todo
+                        Toast.makeText(getApplicationContext(), "Failed to send Product image #"+id, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            Intent returnIntent = new Intent();
+            setResult(ScrollingActivity.RESULT_OK, returnIntent);
+            finish();
         }
     }
 }

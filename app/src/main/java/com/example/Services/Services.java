@@ -1,7 +1,7 @@
 package com.example.Services;
 
 
-import com.example.andreyko0.myapplication.SendableProduct;
+import com.example.andreyko0.myapplication.Product;
 import com.example.s1k0de.entry.User;
 
 import java.util.List;
@@ -27,13 +27,13 @@ public class Services {
     // что для чего можно понять из названий методов, и что они возвращают/принимают
     public interface ProductService {
         @POST("pr/new")
-        Call<Void> add(@Body SendableProduct product);
+        Call<Void> add(@Body Product product);
 
         @GET("pr/all")
-        Call<List<SendableProduct>> getAll();
+        Call<List<Product>> getAll();
 
         @GET("pr/id/{id}")
-        Call<SendableProduct> get(@Path("id") String id);
+        Call<Product> get(@Path("id") String id);
 
     }
     // Сервис запросов вкладок логина/регистрации
@@ -44,6 +44,18 @@ public class Services {
         @POST("/user/new")
         Call<Void> add(@Body User user);
 
+    }
+
+    public static class SendableImage {
+        public String id, body;
+    }
+
+    public interface ImageService {
+        @POST("/images/add")
+        Call<Void> add(@Body SendableImage img);
+
+        @GET("/images/get/{id}")
+        Call<SendableImage> get(@Path("id") String id);
     }
 
     // Создаем объект ретрофита
@@ -57,6 +69,7 @@ public class Services {
     // Создаем сервисы запросов, описаные выше
     public static ProductService products = retrofit.create(ProductService.class);
     public static UserService users = retrofit.create(UserService.class);
+    public static ImageService images = retrofit.create(ImageService.class);
 
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)

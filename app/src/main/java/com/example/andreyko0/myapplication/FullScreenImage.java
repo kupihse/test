@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.Services.ImageCache;
 import com.example.application.R;
 
 public class FullScreenImage extends Activity {
@@ -29,7 +30,8 @@ public class FullScreenImage extends Activity {
         setContentView(R.layout.layout_full);
 
         Bundle extras = getIntent().getExtras();
-        Bitmap bmp = (Bitmap)extras.getParcelable("Bitmap");
+        String imId = getIntent().getStringExtra("Bitmap");
+        Bitmap bmp = ImageCache.get(imId);
 
         ImageView imgDisplay;
         Button btnClose;

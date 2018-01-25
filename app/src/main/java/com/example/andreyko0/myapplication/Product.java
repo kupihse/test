@@ -13,8 +13,10 @@ public class Product {
     private String description;
     private String id;
     private int price;
-    transient ArrayList<Bitmap> images = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();
 
+    public Product() {
+    }
     public Product(String name) {
         this.name = name;
     }
@@ -49,13 +51,17 @@ public class Product {
 
     public void setPrice(int price) { this.price = price; }
 
-    public Bitmap getImage(int idx) {
+    public void addImage(String id) {
+        images.add(id);
+    }
+
+    public String getImage(int idx) {
         return images.get(idx);
     }
 
-    public void setImage(ArrayList<Bitmap> image) { this.images = image; }
+    public void setImages(ArrayList<String> images) { this.images = images; }
 
-    public ArrayList<Bitmap> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 }

@@ -71,18 +71,18 @@ public class ScrollingActivity extends AppCompatActivity {
         products.clear();
 
         // делаем запрос на все товары
-        Services.products.getAll().enqueue(new Callback<List<SendableProduct>>() {
+        Services.products.getAll().enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(Call<List<SendableProduct>> call, Response<List<SendableProduct>> response) {
-                List<SendableProduct> prs = response.body();
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> prs = response.body();
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
                     return;
                 }
                 // Если что-то есть закидываем это в массив
-                for(SendableProduct sp: prs) {
-                    products.add(sp.toProduct());
+                for(Product sp: prs) {
+                    products.add(sp);
                 }
                 // Ну и ререндерим
                 renderItems();
@@ -90,7 +90,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
             // Если чет все плохо, то просто пишем в лог, пока что
             @Override
-            public void onFailure(Call<List<SendableProduct>> call, Throwable t) {
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.d("RERENDER FAIL", t.toString());
             }
         });
