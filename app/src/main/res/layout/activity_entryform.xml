@@ -25,7 +25,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="24dp"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/imageView" />
+                android:id="@+id/imageView"
+                android:contentDescription="" />
 
             <!-- Logo Ends -->
 
@@ -42,12 +43,15 @@
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="45dip"
                     android:text="@string/email_entryform"/>
 
                 <EditText
                     android:id="@+id/emailspace"
                     android:layout_width="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dip"
                     android:layout_marginTop="5dip"
@@ -57,6 +61,7 @@
                 <!--  Password Label -->
                 <TextView
                     android:id="@+id/textView"
+                    android:layout_marginStart="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/password_entryform"
@@ -65,6 +70,8 @@
                 <EditText
                     android:id="@+id/passwordspace"
                     android:layout_width="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
                     android:inputType="textPassword"
@@ -79,13 +86,14 @@
                         android:textColor="#ffffff"
                         android:textSize="25sp"
                         android:textAllCaps="false"
-                        android:layout_marginTop="18dp"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_centerInParent="true"
                         android:background="@layout/button_login_and_registration"
-                        android:layout_alignParentBottom="true"
                         android:layout_centerVertical="true" />
-
+                </RelativeLayout>
                     <TextView
                         android:id="@+id/link_to_register"
                         android:layout_width="fill_parent"
@@ -96,9 +104,8 @@
                         android:text="@string/question_entryform"
                         android:textColor="#c2c2c2"
                         android:textSize="20sp"
-                        android:layout_alignParentBottom="true"
                         />
-                </RelativeLayout>
+
 
                 <!-- Login button -->
                 <!-- Link to Registration Screen -->
@@ -114,7 +121,8 @@
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
         </LinearLayout>
         <!-- <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
