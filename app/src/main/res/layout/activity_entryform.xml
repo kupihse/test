@@ -42,23 +42,25 @@
                 <TextView android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
-                    android:layout_marginTop="40dip"
+                    android:layout_marginTop="45dip"
                     android:text="@string/email_entryform"/>
 
                 <EditText
                     android:id="@+id/emailspace"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dip"
+                    android:layout_marginBottom="3dip"
                     android:layout_marginTop="5dip"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
                 <!--  Password Label -->
-                <TextView android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text="@string/password_entryform"/>
+                    android:text="@string/password_entryform"
+                    android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/passwordspace"
@@ -79,10 +81,10 @@
                         android:textAllCaps="false"
                         android:layout_marginTop="18dp"
                         android:layout_width="fill_parent"
-                        android:layout_centerInParent="true"
                         android:layout_height="40dp"
                         android:background="@layout/button_login_and_registration"
-                        android:layout_alignParentBottom="true" />
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerVertical="true" />
 
                     <TextView
                         android:id="@+id/link_to_register"
@@ -104,10 +106,16 @@
 
 
             </LinearLayout>
-
         </RelativeLayout>
         <!--  Header Ends -->
         <!-- Footer Start -->
+        <LinearLayout android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </LinearLayout>
         <!-- <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"
