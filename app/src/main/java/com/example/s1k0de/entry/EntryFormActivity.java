@@ -20,8 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import com.github.ybq.android.spinkit.style.*;
-
 public class EntryFormActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class EntryFormActivity extends Activity {
                 //*******************************************************
                 //**************** Проверка на пустые поля **************
                 if ((!login.equals("")) && (!password.equals(""))) {
-                    Call<Void> c = Services.userService.logUser(new User(login,password));
+                    Call<Void> c = Services.users.log(new User(login,password));
                     c.enqueue(new Callback<Void>(){
                         @Override
                         public void onResponse(Call<Void>call, Response<Void> response) {

@@ -217,7 +217,7 @@ public class AddProductActivity2 extends AppCompatActivity {
             }
 //            ProductStorage.addProduct(p);
             // Делаем запрос, показываем Прогресс Бар (не работает, втф)
-            Call<Void> c = Services.productService.newProduct(p);
+            Call<Void> c = Services.products.add(p);
             final ProgressBar progressBar = new ProgressBar(this);
             progressBar.setVisibility(View.VISIBLE);
             c.enqueue(new Callback<Void>() {

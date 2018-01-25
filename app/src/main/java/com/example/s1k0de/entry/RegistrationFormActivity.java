@@ -15,13 +15,10 @@ import android.widget.EditText;
 
 import com.example.Services.Services;
 import com.example.application.R;
-import org.json.JSONException;
+
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
-import android.util.Log.*;  //<----- логер не убирать
 import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,7 +107,7 @@ public class RegistrationFormActivity extends Activity {
                         //получено готовое поле login
 
                         //Далее проводим регистрацию
-                        Call<Void> c = Services.userService.addUser(new User(name, login, password));
+                        Call<Void> c = Services.users.add(new User(name, login, password));
                         c.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {

@@ -27,22 +27,22 @@ public class Services {
     // что для чего можно понять из названий методов, и что они возвращают/принимают
     public interface ProductService {
         @POST("pr/new")
-        Call<Void> newProduct(@Body SendableProduct product);
+        Call<Void> add(@Body SendableProduct product);
 
         @GET("pr/all")
         Call<List<SendableProduct>> getAll();
 
         @GET("pr/id/{id}")
-        Call<SendableProduct> getProduct(@Path("id") String id);
+        Call<SendableProduct> get(@Path("id") String id);
 
     }
     // Сервис запросов вкладок логина/регистрации
     public interface UserService {
         @POST("/user/log")
-        Call<Void> logUser(@Body User user);
+        Call<Void> log(@Body User user);
 
         @POST("/user/new")
-        Call<Void> addUser(@Body User user);
+        Call<Void> add(@Body User user);
 
     }
 
@@ -55,8 +55,8 @@ public class Services {
             .build();
 
     // Создаем сервисы запросов, описаные выше
-    public static ProductService productService = retrofit.create(ProductService.class);
-    public static UserService userService = retrofit.create(UserService.class);
+    public static ProductService products = retrofit.create(ProductService.class);
+    public static UserService users = retrofit.create(UserService.class);
 
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)

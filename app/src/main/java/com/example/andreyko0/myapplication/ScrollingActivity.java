@@ -71,7 +71,7 @@ public class ScrollingActivity extends AppCompatActivity {
         products.clear();
 
         // делаем запрос на все товары
-        Services.productService.getAll().enqueue(new Callback<List<SendableProduct>>() {
+        Services.products.getAll().enqueue(new Callback<List<SendableProduct>>() {
             @Override
             public void onResponse(Call<List<SendableProduct>> call, Response<List<SendableProduct>> response) {
                 List<SendableProduct> prs = response.body();

@@ -29,7 +29,7 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
         String id = getIntent().getStringExtra("item_id");
         // Делаем запрос по id
-        Services.productService.getProduct(id).enqueue(new Callback<SendableProduct>() {
+        Services.products.get(id).enqueue(new Callback<SendableProduct>() {
             @Override
             public void onResponse(Call<SendableProduct> call, Response<SendableProduct> response) {
 
