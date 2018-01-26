@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Services.ImageCache;
+import com.example.Services.ImageStorage;
 import com.example.Services.Services;
 import com.example.application.R;
 
@@ -56,7 +56,7 @@ public class ProductActivity extends AppCompatActivity {
                 final LinearLayout ll = (LinearLayout)findViewById(R.id.photos_2);
                 textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
                 imgPicture = (ImageView) findViewById(R.id.image);
-                imgPicture.setImageBitmap(ImageCache.get(product.getImage(0)));
+                imgPicture.setImageBitmap(ImageStorage.get(product.getImage(0)));
                 if (product.getImages().size() > 1) {
                     // если вообще есть дополнительные картинки
                     // идем по массиву и непосредственно добавляем в Layout
@@ -64,8 +64,8 @@ public class ProductActivity extends AppCompatActivity {
                         final String id = product.getImage(i);
                         Bitmap img;
                         final int i2 = i;
-                        if (ImageCache.has(id)) {
-                            SingleImage Im = new SingleImage(ProductActivity.this, ImageCache.get(id), i2);
+                        if (ImageStorage.has(id)) {
+                            SingleImage Im = new SingleImage(ProductActivity.this, ImageStorage.get(id), i2);
                             ll.addView(Im);
                         } else {
                             Services.images.get(id).enqueue(new Callback<Services.SendableImage>() {
@@ -82,7 +82,7 @@ public class ProductActivity extends AppCompatActivity {
                                     }
                                     byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
                                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                    ImageCache.set(id, decodedByte);
+                                    ImageStorage.set(id, decodedByte);
                                     SingleImage Im = new SingleImage(ProductActivity.this, decodedByte, i2);
                                     ll.addView(Im);
                                 }

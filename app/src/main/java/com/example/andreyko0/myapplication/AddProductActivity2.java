@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.MenuInflater;
@@ -17,12 +18,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
-import com.example.Services.ImageCache;
+import com.example.Services.ImageStorage;
 import com.example.Services.Services;
 import com.example.application.R;
 
@@ -91,7 +91,7 @@ public class AddProductActivity2 extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(imageUri);
                     Bitmap image = BitmapFactory.decodeStream(inputStream);
-                    String id = ImageCache.add(image);
+                    String id = ImageStorage.add(image);
                     product.addImage(id);
 //                    images.add(image);
                     num_imgs += 1;
@@ -114,7 +114,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         ll.removeAllViews();
         // идем по всему их массиву и непосредственно добавляем в Layout
         for (String imgId : product.getImages()) {
-            SingleImage Im = new SingleImage(this, ImageCache.get(imgId), i);
+            SingleImage Im = new SingleImage(this, ImageStorage.get(imgId), i);
             ll.addView(Im);
             i++;
         }
@@ -123,13 +123,13 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     // удаляем картинку из массива и ререндерим (я ж говорил выше, что так проще)
     // + проверка на вообще возможность удаления
-    private void moveImages(Integer idx) {
+    private void moveImages(int idx) {
 //        for (Integer i = idxStart; i < images.size() - 1; i++) {
 //            images.add(i, images.get(i + 1));
 //        }
         String id = product.getImage(idx);
         product.getImages().remove(idx);
-        ImageCache.delete(id);
+        ImageStorage.delete(id);
 //        images.remove(images.size() - 1);
         rerenderImages();
     }
@@ -201,7 +201,7 @@ public class AddProductActivity2 extends AppCompatActivity {
             // Если нет картинок, добавляем стандартную
             // #todo Возможно переделать это немного по-другому, хз
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.unknown);
-            ImageCache.set("0", bm);
+            ImageStorage.set("0", bm);
             product.addImage("0");
         }
 
@@ -237,10 +237,19 @@ public class AddProductActivity2 extends AppCompatActivity {
                 }
             });
             for (final String id : product.getImages()) {
-                Bitmap bmp = ImageCache.get(id);
+                Bitmap bmp = ImageStorage.get(id);
+//                bmp.getByteCount()
 
+                int imSize = BitmapCompat.getAllocationByteCount(bmp);
+                int imSizeKB = imSize/1024;
+                int quality;
+                if (imSizeKB > 512) {
+                    quality = 51200/imSizeKB;
+                } else {
+                    quality = 100;
+                }
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bmp.compress(Bitmap.CompressFormat.PNG, quality, stream);
                 String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 Services.SendableImage img = new Services.SendableImage();
                 img.id = id;

@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.Services.ImageCache;
+import com.example.Services.ImageStorage;
 import com.example.Services.Services;
 import com.example.application.R;
 
@@ -42,33 +41,35 @@ public class ProductLayout extends LinearLayout {
 
         final String imId = p.getImage(0);
 
-        if (ImageCache.has(imId)) {
-            imgPicture.setImageBitmap(ImageCache.get(imId));
-            return;
-        }
+        ImageStorage.inject(imgPicture, imId);
 
-        Services.images.get(p.getImage(0)).enqueue(new Callback<Services.SendableImage>() {
-            @Override
-            public void onResponse(Call<Services.SendableImage> call, Response<Services.SendableImage> response) {
-                if (!response.isSuccessful()) {
-                    // maybe #todo
-                    return;
-                }
-                Services.SendableImage encImg = response.body();
-                if (encImg == null) {
-                    // maybe #todo
-                    return;
-                }
-                byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                imgs.add(decodedByte);
-                ImageCache.set(imId, decodedByte);
-                imgPicture.setImageBitmap(decodedByte);
-            }
-
-            @Override
-            public void onFailure(Call<Services.SendableImage> call, Throwable t) {
-            }
-        });
+//        if (ImageStorage.has(imId)) {
+//            imgPicture.setImageBitmap(ImageStorage.get(imId));
+//            return;
+//        }
+//
+//        Services.images.get(p.getImage(0)).enqueue(new Callback<Services.SendableImage>() {
+//            @Override
+//            public void onResponse(Call<Services.SendableImage> call, Response<Services.SendableImage> response) {
+//                if (!response.isSuccessful()) {
+//                    // maybe #todo
+//                    return;
+//                }
+//                Services.SendableImage encImg = response.body();
+//                if (encImg == null) {
+//                    // maybe #todo
+//                    return;
+//                }
+//                byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
+//                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+////                imgs.add(decodedByte);
+//                ImageStorage.set(imId, decodedByte);
+//                imgPicture.setImageBitmap(decodedByte);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Services.SendableImage> call, Throwable t) {
+//            }
+//        });
     }
 }
