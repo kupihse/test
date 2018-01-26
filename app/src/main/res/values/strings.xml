@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application</string>
+    <string name="app_name">HSE.Outlet</string>
     <string name="title_activity_scrolling">Recent Items</string>
     <string name="action_settings">Settings</string>
     <string name="add_product_setting">Add item</string>
