@@ -5,8 +5,10 @@
 ./idea/misc.xml
 .idea/
 .DS_Store
-/build/*
-!app/build/outputs/apk/debug/*
+/build/
+/app/build/generated/
+/app/build/intermediates/
+/app/build/tmp/
 /captures
 .externalNativeBuild
 .idea/misc.xml
