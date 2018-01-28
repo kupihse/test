@@ -7,7 +7,8 @@ package com.example.s1k0de.entry;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.example.Services.Services;
+import com.example.models.User;
+import com.example.services.Services;
 import com.example.application.R;
 import android.content.Intent;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.andreyko0.myapplication;
+package com.example.activities;
 
 /**
  * Created by 31719 on 14.01.2018.
@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.Services.ImageStorage;
+import com.example.services.ImageStorage;
 import com.example.application.R;
 
-public class FullScreenImage extends Activity {
+public class FullScreenImageActivity extends Activity {
 
 
     @SuppressLint("NewApi")
@@ -44,7 +44,7 @@ public class FullScreenImage extends Activity {
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FullScreenImage.this.finish();
+                FullScreenImageActivity.this.finish();
             }
         });
     }

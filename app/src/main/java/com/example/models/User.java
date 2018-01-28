@@ -1,4 +1,4 @@
-package com.example.s1k0de.entry;
+package com.example.models;
 
 // Единичный юзер
 public class User {

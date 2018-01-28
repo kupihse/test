@@ -1,4 +1,4 @@
-package com.example.andreyko0.myapplication;
+package com.example.layouts;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,9 +13,9 @@ import com.example.application.R;
  */
 
 // Тут вроде все понятно
-public class SingleImage extends LinearLayout {
+public class SingleImageLayout extends LinearLayout {
     private ImageView img;
-    public SingleImage(Context ctx, Bitmap i, int Tag) {
+    public SingleImageLayout(Context ctx, Bitmap i, int Tag) {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_image, this);
         img = v.findViewById(R.id.test_image_single);
