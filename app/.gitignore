@@ -1,2 +1,3 @@
-/build/*
-!build/outputs/apk/debug/*
+/build/generated/
+/build/intermediate/
+/build/tmp/
