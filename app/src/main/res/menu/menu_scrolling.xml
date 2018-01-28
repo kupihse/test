@@ -19,4 +19,11 @@
         android:title="Refresh"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/scrolling_menu_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_search"
+        android:title="Search..."
+        app:showAsAction="always"/>
+
 </menu>

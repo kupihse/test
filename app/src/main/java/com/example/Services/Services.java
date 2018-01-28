@@ -34,7 +34,6 @@ public class Services {
 
         @GET("pr/id/{id}")
         Call<Product> get(@Path("id") String id);
-
     }
     // Сервис запросов вкладок логина/регистрации
     public interface UserService {
