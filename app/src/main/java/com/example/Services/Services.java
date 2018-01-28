@@ -1,8 +1,8 @@
-package com.example.services;
+package com.example.Services;
 
 
-import com.example.models.Product;
-import com.example.models.User;
+import com.example.andreyko0.myapplication.Product;
+import com.example.s1k0de.entry.User;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.activities.AddProductActivity$ScrollingActivity">
+    tools:context="com.example.andreyko0.myapplication.ScrollingActivity">
 
     <item
         android:id="@+id/scrolling_menu_add_product"

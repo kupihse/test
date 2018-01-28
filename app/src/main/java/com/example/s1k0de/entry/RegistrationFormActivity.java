@@ -13,8 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
-import com.example.models.User;
-import com.example.services.Services;
+import com.example.Services.Services;
 import com.example.application.R;
 
 import android.widget.Spinner;

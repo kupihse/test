@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.activities.AddProductActivity$ScrollingActivity"
+            android:name="com.example.andreyko0.myapplication.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,14 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.activities.AddProductActivity$ProductActivity" />
+        <activity android:name="com.example.andreyko0.myapplication.ProductActivity" />
         <activity android:name="com.example.s1k0de.entry.EntryFormActivity" />
         <activity android:name="com.example.s1k0de.entry.RegistrationFormActivity" />
         <activity
-            android:name="com.example.activities.FullScreenImageActivity">
+            android:name="com.example.andreyko0.myapplication.FullScreenImage">
             <!--android:theme="@android:style/Theme.Holo.NoActionBar">-->
         </activity>
-        <activity android:name="com.example.activities.AddProductActivity"/>
+        <activity android:name="com.example.andreyko0.myapplication.AddProductActivity2"/>
     </application>
 
 </manifest>

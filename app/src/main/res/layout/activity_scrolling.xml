@@ -4,12 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< Updated upstream
     android:fitsSystemWindows="true" >
-=======
-    android:fitsSystemWindows="true"
-    tools:context="com.example.activities.AddProductActivity$ScrollingActivity">
->>>>>>> Stashed changes
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -40,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.activities.AddProductActivity$ScrollingActivity"
+        tools:context="com.example.andreyko0.myapplication.ScrollingActivity"
         tools:showIn="@layout/activity_scrolling">
 
         <LinearLayout

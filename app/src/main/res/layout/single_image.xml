@@ -3,7 +3,7 @@
     android:layout_width="80dp"
     android:layout_height="80dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.activities.AddProductActivity">
+    tools:context="com.example.andreyko0.myapplication.AddProductActivity2">
         <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/test_image_single"
             android:layout_width="80dp"

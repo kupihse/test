@@ -1,4 +1,4 @@
-package com.example.services;
+package com.example.Services;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
