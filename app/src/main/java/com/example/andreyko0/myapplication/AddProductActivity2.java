@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Base64;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -186,7 +187,7 @@ public class AddProductActivity2 extends AppCompatActivity {
 
     // при нажатии на "Submit"
     public void buttonOnClick(View v) throws Exception {
-        CircularProgressButton button = (CircularProgressButton) v;
+        AppCompatButton button = (AppCompatButton) v;
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString();
         final EditText edit_desc = (EditText) findViewById(R.id.item_description);
@@ -195,7 +196,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
 
         // Это для задания прогресса кнопки (а саму кнопку скорее всего заменим потом)
-        button.setIndeterminateProgressMode(true);
+//        button.setIndeterminateProgressMode(true);
 
         if (product.getImages().size() == 0) {
             // Если нет картинок, добавляем стандартную
@@ -208,7 +209,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         if (name.equals("") | edit_price.getText().toString().equals("")) {
             // Если есть пустые поля, показываем надпись и кнопку в состояние "Failed"
             params_empty.setVisibility(View.VISIBLE);
-            button.setProgress(-1);
+//            button.setProgress(-1);
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
             product.setName(name);

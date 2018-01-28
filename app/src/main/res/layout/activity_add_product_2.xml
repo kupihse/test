@@ -14,7 +14,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    tools:context="com.example.andreyko0.myapplication.AddProductActivity">
+    tools:context="com.example.andreyko0.myapplication.AddProductActivity2">
 
     <RelativeLayout
         android:id="@+id/RelativeLayout"
@@ -111,19 +111,28 @@
             android:textSize="20sp"
             android:visibility="invisible" />
 
-        <com.dd.CircularProgressButton
+        <!--<com.dd.CircularProgressButton-->
+            <!--android:id="@+id/button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:gravity="bottom"-->
+            <!--android:onClick="buttonOnClick"-->
+            <!--app:cpb_textComplete="Complete"-->
+            <!--app:cpb_textError="Failed"-->
+            <!--app:cpb_textIdle="Submit" />-->
+        <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:onClick="buttonOnClick"
-            app:cpb_textComplete="Complete"
-            app:cpb_textError="Failed"
-            app:cpb_textIdle="Submit" />
-
+            android:text="Submit"/>
         <TextView
             android:id="@+id/test"
             android:layout_width="wrap_content"
