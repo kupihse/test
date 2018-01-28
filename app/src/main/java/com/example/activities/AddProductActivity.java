@@ -1,14 +1,21 @@
-package com.example.andreyko0.myapplication;
+package com.example.activities;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Base64;
 import android.view.MenuInflater;
@@ -23,10 +30,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dd.CircularProgressButton;
-import com.example.Services.ImageStorage;
-import com.example.Services.Services;
+import com.example.models.SendableImage;
+import com.example.storages.ImageStorage;
+import com.example.services.Services;
 import com.example.application.R;
+import com.example.layouts.SingleImageLayout;
+import com.example.models.Product;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddProductActivity2 extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
     protected static String name, description;
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
@@ -116,7 +125,7 @@ public class AddProductActivity2 extends AppCompatActivity {
         ll.removeAllViews();
         // идем по всему их массиву и непосредственно добавляем в Layout
         for (String imgId : product.getImages()) {
-            SingleImage Im = new SingleImage(this, ImageStorage.get(imgId), i);
+            SingleImageLayout Im = new SingleImageLayout(this, ImageStorage.get(imgId), i);
             ll.addView(Im);
             i++;
         }
@@ -175,10 +184,10 @@ public class AddProductActivity2 extends AppCompatActivity {
         Integer idx = Integer.parseInt(ViewId_Str);
         String imId = product.getImage(idx);
 
-        // Переход на FullScreenImage
-        Intent intent = new Intent(AddProductActivity2.this, FullScreenImage.class);
+        // Переход на FullScreenImageActivity
+        Intent intent = new Intent(AddProductActivity.this, FullScreenImageActivity.class);
 
-        // Передаем в FullScreenImage bitmap картинки и стартуем
+        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
 //        Bundle extras = new Bundle();
 //        extras.putParcelable("Bitmap", );
 //        intent.putExtras(extras);
@@ -240,9 +249,15 @@ public class AddProductActivity2 extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Failed to send Product data", Toast.LENGTH_SHORT).show();
                 }
             });
+            int i = 0;
+            final NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= 26) {
+             NotificationChannel channel = new NotificationChannel("hse_ch", "hse outlet ch", NotificationManager.IMPORTANCE_DEFAULT);
+             channel.setDescription("hey,there");
+             manager.createNotificationChannel(channel);
+            }
             for (final String id : product.getImages()) {
                 Bitmap bmp = ImageStorage.get(id);
-//                bmp.getByteCount()
 
                 int imSize = BitmapCompat.getAllocationByteCount(bmp);
                 int imSizeKB = imSize/1024;
@@ -252,23 +267,30 @@ public class AddProductActivity2 extends AppCompatActivity {
                 } else {
                     quality = 100;
                 }
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, quality, stream);
-                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                Services.SendableImage img = new Services.SendableImage();
-                img.id = id;
-                img.body = base64;
-
+                SendableImage img = SendableImage.encode(id,bmp, quality);
+                final int _i = i;
                 Services.images.add(img).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         // #todo
+                        NotificationCompat.Builder builder = new NotificationCompat
+                                .Builder(getApplicationContext())
+                                .setSmallIcon(R.drawable.logo)
+                                .setChannel("hse_ch")
+                                .setContentTitle(String.format("Sent image #%d", _i));
+                        manager.notify(_i,builder.build());
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
                         // #todo
-                        Toast.makeText(getApplicationContext(), "Failed to send Product image #"+id, Toast.LENGTH_SHORT).show();
+                        NotificationCompat.Builder builder = new NotificationCompat
+                                .Builder(getApplicationContext())
+                                .setSmallIcon(R.drawable.logo)
+                                .setChannel("hse_ch_01")
+                                .setContentTitle(String.format("Failed to send image #%d", _i));
+                        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        manager.notify(_i,builder.build());
                     }
                 });
             }

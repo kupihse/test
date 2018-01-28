@@ -1,9 +1,13 @@
-package com.example.Services;
+package com.example.storages;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Pair;
 import android.widget.ImageView;
+
+import com.example.models.SendableImage;
+import com.example.services.Services;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,27 +73,27 @@ public class ImageStorage {
         } else {
             final String imId = id;
             final ImageView imgPicture = view;
-            Services.images.get(imId).enqueue(new Callback<Services.SendableImage>() {
+            Services.images.get(imId).enqueue(new Callback<SendableImage>() {
                 @Override
-                public void onResponse(Call<Services.SendableImage> call, Response<Services.SendableImage> response) {
+                public void onResponse(Call<SendableImage> call, Response<SendableImage> response) {
                     if (!response.isSuccessful()) {
                         // maybe #todo
                         return;
                     }
-                    Services.SendableImage encImg = response.body();
+                    SendableImage encImg = response.body();
                     if (encImg == null) {
                         // maybe #todo
                         return;
                     }
-                    byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    set(imId, decodedByte);
-                    setToDisk(imId, decodedByte);
-                    imgPicture.setImageBitmap(decodedByte);
+
+                    Bitmap bmp = encImg.decode().second;
+                    set(imId, bmp);
+                    setToDisk(imId, bmp);
+                    imgPicture.setImageBitmap(bmp);
                 }
 
                 @Override
-                public void onFailure(Call<Services.SendableImage> call, Throwable t) {
+                public void onFailure(Call<SendableImage> call, Throwable t) {
                 }
             });
         }

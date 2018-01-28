@@ -1,4 +1,4 @@
-package com.example.andreyko0.myapplication;
+package com.example.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.Services.Services;
+import com.example.services.Services;
+import com.example.layouts.ProductLayout;
 import com.example.application.R;
+import com.example.models.Product;
 import com.example.s1k0de.entry.EntryFormActivity;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -187,7 +189,7 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_settings:
                 return true;
             case R.id.scrolling_menu_add_product:
-                startActivityForResult(new Intent(this, AddProductActivity2.class), 1);
+                startActivityForResult(new Intent(this, AddProductActivity.class), 1);
                 return true;
             case R.id.scrolling_menu_reg:
                 startActivity(new Intent(this, EntryFormActivity.class));

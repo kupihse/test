@@ -1,4 +1,4 @@
-package com.example.andreyko0.myapplication;
+package com.example.models;
 
 import android.graphics.Bitmap;
 

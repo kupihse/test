@@ -13,8 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
-import com.example.Services.Services;
+import com.example.services.Services;
 import com.example.application.R;
+import com.example.models.User;
 
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;

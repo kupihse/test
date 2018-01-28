@@ -1,4 +1,4 @@
-package com.example.andreyko0.myapplication;
+package com.example.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Services.ImageStorage;
-import com.example.Services.Services;
+import com.example.models.SendableImage;
+import com.example.storages.ImageStorage;
+import com.example.services.Services;
 import com.example.application.R;
+import com.example.layouts.SingleImageLayout;
+import com.example.models.Product;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,17 +68,17 @@ public class ProductActivity extends AppCompatActivity {
                         Bitmap img;
                         final int i2 = i;
                         if (ImageStorage.has(id)) {
-                            SingleImage Im = new SingleImage(ProductActivity.this, ImageStorage.get(id), i2);
+                            SingleImageLayout Im = new SingleImageLayout(ProductActivity.this, ImageStorage.get(id), i2);
                             ll.addView(Im);
                         } else {
-                            Services.images.get(id).enqueue(new Callback<Services.SendableImage>() {
+                            Services.images.get(id).enqueue(new Callback<SendableImage>() {
                                 @Override
-                                public void onResponse(Call<Services.SendableImage> call, Response<Services.SendableImage> response) {
+                                public void onResponse(Call<SendableImage> call, Response<SendableImage> response) {
                                     if (!response.isSuccessful()) {
                                         // maybe #todo
                                         return;
                                     }
-                                    Services.SendableImage encImg = response.body();
+                                    SendableImage encImg = response.body();
                                     if (encImg == null) {
                                         // maybe #todo
                                         return;
@@ -83,12 +86,12 @@ public class ProductActivity extends AppCompatActivity {
                                     byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
                                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                                     ImageStorage.set(id, decodedByte);
-                                    SingleImage Im = new SingleImage(ProductActivity.this, decodedByte, i2);
+                                    SingleImageLayout Im = new SingleImageLayout(ProductActivity.this, decodedByte, i2);
                                     ll.addView(Im);
                                 }
 
                                 @Override
-                                public void onFailure(Call<Services.SendableImage> call, Throwable t) {
+                                public void onFailure(Call<SendableImage> call, Throwable t) {
 
                                 }
                             });
@@ -122,10 +125,10 @@ public class ProductActivity extends AppCompatActivity {
 //        if(view.getDrawingCache() == null) {
 //            Log.d("Drawing cache", "cache is null");
 //        }
-        // Переход на FullScreenImage
-        Intent intent = new Intent(ProductActivity.this, FullScreenImage.class);
+        // Переход на FullScreenImageActivity
+        Intent intent = new Intent(ProductActivity.this, FullScreenImageActivity.class);
 
-        // Передаем в FullScreenImage bitmap картинки и стартуем
+        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
 //        Bundle extras = new Bundle();
 //        extras.putParcelable("Bitmap", product.getImage(0));
 //        intent.putExtras(extras);
@@ -148,10 +151,10 @@ public class ProductActivity extends AppCompatActivity {
 //        if(view.getDrawingCache() == null) {
 //            Log.d("Drawing cache", "cache is null");
 //        }
-        // Переход на FullScreenImage
-        Intent intent = new Intent(ProductActivity.this, FullScreenImage.class);
+        // Переход на FullScreenImageActivity
+        Intent intent = new Intent(ProductActivity.this, FullScreenImageActivity.class);
 
-        // Передаем в FullScreenImage bitmap картинки и стартуем
+        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
         intent.putExtra("Bitmap", product.getImage(n));
 
         startActivity(intent);

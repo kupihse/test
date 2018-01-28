@@ -1,21 +1,14 @@
-package com.example.andreyko0.myapplication;
+package com.example.layouts;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.Services.ImageStorage;
-import com.example.Services.Services;
+import com.example.storages.ImageStorage;
 import com.example.application.R;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.models.Product;
 
 /**
  * Created by Andreyko0 on 26/09/2017.
