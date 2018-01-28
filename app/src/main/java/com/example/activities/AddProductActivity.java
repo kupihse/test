@@ -235,12 +235,32 @@ public class AddProductActivity extends AppCompatActivity {
 //                p.addImage(base64);
 //            }
 //            ProductStorage.addProduct(p);
+
+            // + #todo
+            final NotificationManagerCompat managerCompat =  NotificationManagerCompat.from(getApplicationContext());
+            final NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= 26) {
+                NotificationChannel channel = new NotificationChannel("hse_ch", "hse outlet ch", NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription("hey,there");
+                manager.createNotificationChannel(channel);
+            }
+            // - #todo
+
             // Делаем запрос, показываем Прогресс Бар (не работает, втф)
             Services.products.add(product).enqueue(new Callback<Void>() {
 
                 // Если все ок, убираем прогресс бар, и возвращаемся обратно
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
+
+                    // + #todo
+                    NotificationCompat.Builder builder = new NotificationCompat
+                            .Builder(getApplicationContext())
+                            .setSmallIcon(R.drawable.logo)
+                            .setChannel("hse_ch")
+                            .setContentTitle(String.format("Sent product #%s", product.getName()));
+                    managerCompat.notify(1,builder.build());
+                    // - #todo
                 }
                 // Если все плохо и сервер вернул 5хх или 4хх
                 // Показываем тост (за здоровье сервера) и возвращаемя
@@ -250,12 +270,6 @@ public class AddProductActivity extends AppCompatActivity {
                 }
             });
             int i = 0;
-            final NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= 26) {
-             NotificationChannel channel = new NotificationChannel("hse_ch", "hse outlet ch", NotificationManager.IMPORTANCE_DEFAULT);
-             channel.setDescription("hey,there");
-             manager.createNotificationChannel(channel);
-            }
             for (final String id : product.getImages()) {
                 Bitmap bmp = ImageStorage.get(id);
 
