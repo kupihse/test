@@ -40,4 +40,5 @@
     <string name="full_screen">Full Screen</string>
     <string name="close">Close</string>
     <string name="registration_popup_1">Некорректный ввод</string>
+    <string name="price_hint">Price</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.andreyko0.myapplication;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -209,6 +210,8 @@ public class AddProductActivity2 extends AppCompatActivity {
         if (name.equals("") | edit_price.getText().toString().equals("")) {
             // Если есть пустые поля, показываем надпись и кнопку в состояние "Failed"
             params_empty.setVisibility(View.VISIBLE);
+            button.setText("Failed");
+            button.setBackgroundColor(Color.parseColor("#FF2B2B"));
 //            button.setProgress(-1);
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
