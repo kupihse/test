@@ -207,9 +207,6 @@ public class AddProductActivity extends AppCompatActivity {
         final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
 
-        // Это для задания прогресса кнопки (а саму кнопку скорее всего заменим потом)
-//        button.setIndeterminateProgressMode(true);
-
         if (product.getImages().size() == 0) {
             // Если нет картинок, добавляем стандартную
             // #todo Возможно переделать это немного по-другому, хз
@@ -218,12 +215,11 @@ public class AddProductActivity extends AppCompatActivity {
             product.addImage("0");
         }
 
-        if (name.equals("") | edit_price.getText().toString().equals("")) {
+        if (name.equals("") || edit_price.getText().toString().equals("")) {
             // Если есть пустые поля, показываем надпись и кнопку в состояние "Failed"
             params_empty.setVisibility(View.VISIBLE);
             button.setText("Failed");
             button.setBackgroundColor(Color.parseColor("#FF2B2B"));
-//            button.setProgress(-1);
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
             product.setName(name);
@@ -236,7 +232,7 @@ public class AddProductActivity extends AppCompatActivity {
                 // Если все ок
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    new UploadImagesTask(getApplicationContext()).execute(product.getImages(););
+                    new UploadImagesTask(getApplicationContext()).execute(product.getImages());
                     Intent returnIntent = new Intent();
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();

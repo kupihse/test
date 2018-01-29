@@ -35,6 +35,8 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Services.logger.sendLog("Started new scrolling activity").enqueue(Services.emptyCallBack);
+        Log.d("START","SCROLL");
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

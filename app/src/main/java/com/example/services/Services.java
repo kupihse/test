@@ -36,10 +36,10 @@ public class Services {
     public static ProductService products = retrofit.create(ProductService.class);
     public static UserService users = retrofit.create(UserService.class);
     public static ImageService images = retrofit.create(ImageService.class);
-
+    public static LoggerService logger = retrofit.create(LoggerService.class);
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)
-    static Callback<Void> emptyCallBack = new Callback<Void>() {
+    public static Callback<Void> emptyCallBack = new Callback<Void>() {
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {
         }
