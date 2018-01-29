@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Pair;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.models.SendableImage;
 import com.example.services.Services;
@@ -62,6 +63,7 @@ public class ImageStorage {
     public static void inject(ImageView view, String id) {
         Bitmap img = null;
         if (has(id)) {
+            Toast.makeText(view.getContext(), "Has img", Toast.LENGTH_LONG).show();
             img = get(id);
         } else if (isOnDisk(id)) {
             img = getFromDisk(id);
