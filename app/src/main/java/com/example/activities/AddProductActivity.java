@@ -236,10 +236,7 @@ public class AddProductActivity extends AppCompatActivity {
                 // Если все ок
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    ArrayList<String> imgs = product.getImages();
-                    new UploadImagesTask().setContext(getApplicationContext())
-                            .execute(imgs.toArray(new String[imgs.size()]));
-                    
+                    new UploadImagesTask(getApplicationContext()).execute(product.getImages(););
                     Intent returnIntent = new Intent();
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();

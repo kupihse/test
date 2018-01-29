@@ -1,17 +1,16 @@
 package com.example.services;
 
-import android.app.Application;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.graphics.BitmapCompat;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.example.application.R;
 import com.example.models.SendableImage;
 import com.example.storages.ImageStorage;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,20 +20,24 @@ import retrofit2.Response;
  * Created by Andreyko0 on 29/01/2018.
  */
 
-public class UploadImagesTask extends AsyncTask<String,Void,Void> {
+public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
     private int got = 0;
-    private int sent = 0;
 
     private Context context;
 
-    public UploadImagesTask setContext(Context context) {
+    public UploadImagesTask(Context context) {
         this.context = context;
-        return this;
     }
 
-    public Void doInBackground(String... ids) {
-        this.got = ids.length;
-        for (String id: ids) {
+    protected Void doInBackground(List<String>... ids) {
+
+        if (ids.length == 0) {
+            throw new IllegalArgumentException("Provide 1 argument");
+        }
+        this.got = ids[0].size();
+        int i = 0;
+        for (String id : ids[0]) {
+            i++;
             Bitmap bmp = ImageStorage.get(id);
 
             int imSize = BitmapCompat.getAllocationByteCount(bmp);
@@ -45,18 +48,19 @@ public class UploadImagesTask extends AsyncTask<String,Void,Void> {
             } else {
                 quality = 100;
             }
+            Log.d("QUALITY", ": " + quality);
             SendableImage img = SendableImage.encode(id, bmp, quality);
+            final int x = i;
             Services.images.add(img).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    // #todo
-                    UploadImagesTask.this.sent++;
-                    UploadImagesTask.this.publishProgress();
+                    // 1 –– success, 0 –– fail
+                    publishProgress(1, x);
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    // #todo
+                    publishProgress(0, x);
                 }
             });
         }
@@ -64,13 +68,13 @@ public class UploadImagesTask extends AsyncTask<String,Void,Void> {
         return null;
     }
 
-    public void onProgressUpdate(Void... progress) {
-        Toast.makeText(this.context, "Uploaded " + this.sent+"/"+this.got + " images", Toast.LENGTH_SHORT).show();
-//        setProgressPercent(progress[0]);
+    protected void onProgressUpdate(Integer... progress) {
+        String successOrFail = progress[0] == 1 ? "Success: " : "Fail: ";
+        Toast.makeText(this.context,
+                successOrFail
+                        + progress[1]
+                        + "/"
+                        + this.got, Toast.LENGTH_SHORT).show();
     }
 
-    public void onPostExecute(Void result) {
-//        showDialog("Downloaded " + result + " bytes");
-        Toast.makeText(this.context, "Uploaded1 " + this.sent+"/"+this.got + " images", Toast.LENGTH_SHORT).show();
-    }
 }
