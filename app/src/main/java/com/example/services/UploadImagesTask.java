@@ -42,8 +42,8 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
         for (String id : ids[0]) {
             i++;
             Bitmap bmp = ImageStorage.get(id);
-
-            int imSize = BitmapCompat.getAllocationByteCount(bmp);
+            bmp.setDensity();
+            int imSize = bmp.getByteCount();
             int imSizeKB = imSize / 1024;
             int quality;
             if (imSizeKB > 512) {
@@ -51,7 +51,7 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
             } else {
                 quality = 100;
             }
-            Log.d("QUALITY", ": " + quality);
+            publishProgress(99,quality, imSizeKB);
             SendableImage img = SendableImage.encode(id, bmp, quality);
             final int x = i;
             Services.images.add(img).enqueue(new Callback<Void>() {
@@ -72,6 +72,11 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
     }
 
     protected void onProgressUpdate(Integer... progress) {
+        if (progress[0] == 99) {
+            Log.d("QUALITY", ": " + progress[1]);
+            Log.d("SIZE", ": "+progress[2]);
+            return;
+        }
         String successOrFail = progress[0] == 1 ? "Success: " : "Fail: ";
         Toast.makeText(this.context,
                 successOrFail
