@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.models.SendableImage;
+import com.example.services.UploadImagesTask;
 import com.example.storages.ImageStorage;
 import com.example.services.Services;
 import com.example.application.R;
@@ -41,6 +42,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -228,39 +230,19 @@ public class AddProductActivity extends AppCompatActivity {
             product.setDescription(description);
             product.setPrice(price);
 
-//            for (Bitmap img: images) {
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                String base64 = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-//                p.addImage(base64);
-//            }
-//            ProductStorage.addProduct(p);
-
-            // + #todo
-            final NotificationManagerCompat managerCompat =  NotificationManagerCompat.from(getApplicationContext());
-            final NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= 26) {
-                NotificationChannel channel = new NotificationChannel("hse_ch", "hse outlet ch", NotificationManager.IMPORTANCE_DEFAULT);
-                channel.setDescription("hey,there");
-                manager.createNotificationChannel(channel);
-            }
-            // - #todo
-
-            // Делаем запрос, показываем Прогресс Бар (не работает, втф)
+            // Делаем запрос
             Services.products.add(product).enqueue(new Callback<Void>() {
 
-                // Если все ок, убираем прогресс бар, и возвращаемся обратно
+                // Если все ок
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-
-                    // + #todo
-                    NotificationCompat.Builder builder = new NotificationCompat
-                            .Builder(getApplicationContext())
-                            .setSmallIcon(R.drawable.logo)
-                            .setChannel("hse_ch")
-                            .setContentTitle(String.format("Sent product #%s", product.getName()));
-                    managerCompat.notify(1,builder.build());
-                    // - #todo
+                    ArrayList<String> imgs = product.getImages();
+                    new UploadImagesTask().setContext(getApplicationContext())
+                            .execute(imgs.toArray(new String[imgs.size()]));
+                    
+                    Intent returnIntent = new Intent();
+                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                    finish();
                 }
                 // Если все плохо и сервер вернул 5хх или 4хх
                 // Показываем тост (за здоровье сервера) и возвращаемя
@@ -269,49 +251,7 @@ public class AddProductActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Failed to send Product data", Toast.LENGTH_SHORT).show();
                 }
             });
-            int i = 0;
-            for (final String id : product.getImages()) {
-                Bitmap bmp = ImageStorage.get(id);
 
-                int imSize = BitmapCompat.getAllocationByteCount(bmp);
-                int imSizeKB = imSize/1024;
-                int quality;
-                if (imSizeKB > 512) {
-                    quality = 51200/imSizeKB;
-                } else {
-                    quality = 100;
-                }
-                SendableImage img = SendableImage.encode(id,bmp, quality);
-                final int _i = i;
-                Services.images.add(img).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        // #todo
-                        NotificationCompat.Builder builder = new NotificationCompat
-                                .Builder(getApplicationContext())
-                                .setSmallIcon(R.drawable.logo)
-                                .setChannel("hse_ch")
-                                .setContentTitle(String.format("Sent image #%d", _i));
-                        manager.notify(_i,builder.build());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        // #todo
-                        NotificationCompat.Builder builder = new NotificationCompat
-                                .Builder(getApplicationContext())
-                                .setSmallIcon(R.drawable.logo)
-                                .setChannel("hse_ch_01")
-                                .setContentTitle(String.format("Failed to send image #%d", _i));
-                        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                        manager.notify(_i,builder.build());
-                    }
-                });
-            }
-
-            Intent returnIntent = new Intent();
-            setResult(ScrollingActivity.RESULT_OK, returnIntent);
-            finish();
         }
     }
 }

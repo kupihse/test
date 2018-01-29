@@ -3,6 +3,7 @@ package com.example.storages;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -62,10 +63,11 @@ public class ImageStorage {
 
     public static void inject(ImageView view, String id) {
         Bitmap img = null;
-        if (has(id)) {
-            Toast.makeText(view.getContext(), "Has img", Toast.LENGTH_LONG).show();
-            img = get(id);
-        } else if (isOnDisk(id)) {
+        if (ImageStorage.has(id)) {
+//            Toast.makeText(view.getContext(), "Has img", Toast.LENGTH_LONG).show();
+            Log.d("GOT", "IMG");
+            img = ImageStorage.get(id);
+        } else if (ImageStorage.isOnDisk(id)) {
             img = getFromDisk(id);
         }
 
@@ -87,10 +89,10 @@ public class ImageStorage {
                         // maybe #todo
                         return;
                     }
-
+                    Log.d("GOT", "loaded");
                     Bitmap bmp = encImg.decode().second;
-                    set(imId, bmp);
-                    setToDisk(imId, bmp);
+                    ImageStorage.set(imId, bmp);
+//                    setToDisk(imId, bmp);
                     imgPicture.setImageBitmap(bmp);
                 }
 
