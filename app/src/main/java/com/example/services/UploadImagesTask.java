@@ -42,7 +42,6 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
         for (String id : ids[0]) {
             i++;
             Bitmap bmp = ImageStorage.get(id);
-            bmp.setDensity();
             int imSize = bmp.getByteCount();
             int imSizeKB = imSize / 1024;
             int quality;

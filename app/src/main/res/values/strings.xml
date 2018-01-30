@@ -38,6 +38,7 @@
     <string name="add_photo">Add Photo</string>
     <string name="delete_photo">Delete</string>
     <string name="full_screen">Full Screen</string>
+    <string name="photo_picker_select_image">Select image from gallery</string>
     <string name="close">Close</string>
     <string name="registration_popup_1">Некорректный ввод</string>
     <string name="price_hint">Price</string>

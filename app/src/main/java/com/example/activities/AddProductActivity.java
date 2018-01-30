@@ -1,23 +1,14 @@
 package com.example.activities;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Base64;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +21,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.models.SendableImage;
 import com.example.services.UploadImagesTask;
 import com.example.storages.ImageStorage;
 import com.example.services.Services;
@@ -38,11 +28,9 @@ import com.example.application.R;
 import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,9 +52,10 @@ public class AddProductActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         // Ставим соотв. Layout
-        setContentView(R.layout.activity_add_product_2);
+        setContentView(R.layout.activity_add_product);
         // Референс на Layout фоток
         ll = (LinearLayout) findViewById(R.id.photos_2);
+
     }
 
     // Кнопка добавления картинок
@@ -167,6 +156,33 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Для теста вывод тэга
         test.setText(String.format("%s", v.getTag()));
+    }
+
+    public void showPhotoPickerMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_photo_picker_popup, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+              switch(menuItem.getItemId()) {
+                  case R.id.photo_picker_select:
+                      onImageGalleryClickedCopy();
+                      return true;
+              }
+              return false;
+            }
+        });
+    }
+
+    public void onImageGalleryClickedCopy() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri data = Uri.parse(pictureDirectoryPath);
+        photoPickerIntent.setDataAndType(data, "image/*");
+        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 
     // При нажатии на удаление – удаляем (ВААУ, да?)
