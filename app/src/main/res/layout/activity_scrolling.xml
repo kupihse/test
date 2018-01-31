@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/bottom_nav_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.activities.ScrollingActivity"
         tools:showIn="@layout/activity_scrolling">
@@ -45,5 +46,21 @@
             android:orientation="vertical">
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
+    <!--<fragment-->
+        <!--android:id="@+id/scrolling_fragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="0dp"-->
+        <!--android:name="com.example.activities.test.BottomMenuFragment"-->
+        <!--android:layout_alignParentBottom="true"/>-->
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/bottom_menu_height">-->
+<!---->
+    <!--</android.support.design.widget.BottomNavigationView>-->
+    <com.example.layouts.BottomNav
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_nav_height"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

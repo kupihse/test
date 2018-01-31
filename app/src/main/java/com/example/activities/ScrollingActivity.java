@@ -3,6 +3,8 @@ package com.example.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.layouts.BottomNav;
 import com.example.services.Services;
 import com.example.layouts.ProductLayout;
 import com.example.application.R;
@@ -80,6 +83,26 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
         ll = (LinearLayout) findViewById(R.id.products);
+        BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
+
+        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Log.d("DBG", "SCROLL_1");
+                return ScrollingActivity.this.onNavigationItemSelected(item);
+            }
+        });
+        Log.d("DBG", "SCROLL_btw");
+
+        nav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                Log.d("DBG", "SCROLL_2");
+                ScrollingActivity.this.onNavigationItemSelected(item);
+            }
+        });
+
+
         rerender();
 
 
@@ -212,5 +235,30 @@ public class ScrollingActivity extends AppCompatActivity {
                 rerender();
             }
         }
+    }
+
+
+
+
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.bottom_nav_list:
+                Log.d("DBG,","SCROLL");
+                startActivity(new Intent(this, ScrollingActivity.class));
+                return true;
+            case R.id.bottom_nav_search:
+                Log.d("DBG,","SCROLL2");
+
+                startActivity(new Intent(this, AddProductActivity.class));
+                return true;
+            case R.id.bottom_nav_user:
+                Log.d("DBG,","SCROLL3");
+
+                startActivity(new Intent(this, EntryFormActivity.class));
+                return true;
+        }
+        return false;
     }
 }
