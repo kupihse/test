@@ -29,7 +29,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity
+        implements
+            BottomNavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemReselectedListener {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private LinearLayout ll;
     private ArrayList<Product> products = new ArrayList<>();
@@ -83,25 +86,12 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
         ll = (LinearLayout) findViewById(R.id.products);
-        BottomNavigationView nav = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
+        BottomNav nav = (BottomNav) findViewById(R.id.bottom_nav_view);
 
-        nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Log.d("DBG", "SCROLL_1");
-                return ScrollingActivity.this.onNavigationItemSelected(item);
-            }
-        });
+//        nav.setOnNavigationItemSelectedListener(this);
+        nav.setNavig(this);
         Log.d("DBG", "SCROLL_btw");
-
-        nav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                Log.d("DBG", "SCROLL_2");
-                ScrollingActivity.this.onNavigationItemSelected(item);
-            }
-        });
-
+//        nav.setOnNavigationItemReselectedListener(this);
 
         rerender();
 
@@ -260,5 +250,25 @@ public class ScrollingActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    public void onNavigationItemReselected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.bottom_nav_list:
+                Log.d("DBG,","SCROLL");
+                startActivity(new Intent(this, ScrollingActivity.class));
+                return;
+            case R.id.bottom_nav_search:
+                Log.d("DBG,","SCROLL2");
+
+                startActivity(new Intent(this, AddProductActivity.class));
+                return;
+            case R.id.bottom_nav_user:
+                Log.d("DBG,","SCROLL3");
+
+                startActivity(new Intent(this, EntryFormActivity.class));
+                return;
+        }
+        return;
     }
 }
