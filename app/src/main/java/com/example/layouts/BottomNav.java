@@ -20,9 +20,6 @@ import com.example.s1k0de.entry.EntryFormActivity;
  */
 
 public class BottomNav extends BottomNavigationView {
-
-    BottomNavigationView view;
-
     public BottomNav(Context ctx) {
         super(ctx);
         init(ctx);
@@ -38,14 +35,8 @@ public class BottomNav extends BottomNavigationView {
 
     void init(Context context) {
         inflate(context, R.layout.bottom_nav_view, this);
-        view = findViewById(R.id.bottom_nav_view_inner);
-        view.setOnNavigationItemReselectedListener(null);
+//        this.setOnNavigationItemSelectedListener(this);
     }
-
-    public void setNavig(OnNavigationItemSelectedListener l) {
-        view.setOnNavigationItemSelectedListener(l);
-    }
-
 //
 //    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        switch (item.getItemId()) {
