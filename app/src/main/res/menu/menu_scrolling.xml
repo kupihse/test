@@ -11,6 +11,14 @@
         android:id="@+id/scrolling_menu_reg"
         android:title="@string/scrolling_menu_reg"
         app:showAsAction="never"/>
+
+    <!--user info // invisible by default-->
+    <item
+        android:id="@+id/scrolling_menu_user_page"
+        android:title="User page"
+        app:showAsAction="never"
+        android:visible="false"/>
+
     <item
         android:id="@+id/scrolling_menu_settings"
         android:title="@string/action_settings"

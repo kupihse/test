@@ -17,6 +17,7 @@ import com.example.layouts.ProductLayout;
 import com.example.application.R;
 import com.example.models.Product;
 import com.example.s1k0de.entry.EntryFormActivity;
+import com.example.storages.CurrentUser;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -177,6 +178,22 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+
+        // если юзер сейчас есть, то кнопка входа не нужна
+        // вместо нее ставим user page
+        // если юзера нет, то наоборот
+        if (CurrentUser.isLoggedIn()) {
+            MenuItem item = menu.findItem(R.id.scrolling_menu_reg);
+            item.setVisible(false);
+            item = menu.findItem(R.id.scrolling_menu_user_page);
+            item.setVisible(true);
+        } else {
+            MenuItem item = menu.findItem(R.id.scrolling_menu_reg);
+            item.setVisible(true);
+            item = menu.findItem(R.id.scrolling_menu_user_page);
+            item.setVisible(false);
+        }
+
         MenuItem item = menu.findItem(R.id.scrolling_menu_search);
         searchView.setMenuItem(item);
         return true;
@@ -194,10 +211,15 @@ public class ScrollingActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, AddProductActivity.class), 1);
                 return true;
             case R.id.scrolling_menu_reg:
-                startActivity(new Intent(this, EntryFormActivity.class));
+                startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
                 return true;
             case R.id.scrolling_menu_refresh:
                 rerender();
+                return true;
+
+            // сделал реквест код, чтоб нормально ререндерить меню обратно
+            case R.id.scrolling_menu_user_page:
+                startActivityForResult(new Intent(this, UserPageActivity.class),2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -207,9 +229,12 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            if(requestCode==1){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
                 rerender();
+            }
+            if (requestCode == 2) {
+                invalidateOptionsMenu();
             }
         }
     }

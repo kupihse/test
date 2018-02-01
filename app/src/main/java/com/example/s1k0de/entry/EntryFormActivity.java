@@ -10,14 +10,19 @@ import android.os.Bundle;
 import com.example.services.Services;
 import com.example.application.R;
 import com.example.models.User;
+import com.example.storages.CurrentUser;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 //import android.widget.ProgressBar;
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -63,18 +68,49 @@ public class EntryFormActivity extends Activity {
                 //*******************************************************
                 //**************** Проверка на пустые поля **************
                 if ((!login.equals("")) && (!password.equals(""))) {
-                    Call<Void> c = Services.users.log(new User(login,password));
-                    c.enqueue(new Callback<Void>(){
+                    final User user = new User(login,password);
+                    Call<ResponseBody> c = Services.users.log(user);
+                    c.enqueue(new Callback<ResponseBody>(){
+
+                        // пришлось делать через ResponseBody (или так и надо, хз)
+                        // но выгляди неидеально, мб потом переделать имеет смысл
+                        // допустим в отдельный класс TokenResp{respCode, token}
                         @Override
-                        public void onResponse(Call<Void>call, Response<Void> response) {
-                            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                            Intent returnIntent = new Intent();
-                            setResult(EntryFormActivity.RESULT_OK, returnIntent);
-                            finish();
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                            // Забираем тело запроса – строка, содержит токен
+                            String token = null;
+                            try {
+                                token = response.body().string();
+                            } catch (IOException e)  {
+                                Toast.makeText(getApplicationContext(), "IOException", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
+                            // если токена нет, посылаем нахер
+                            if (token == null || token.equals("")) {
+                                String text = token == null ? "Failed null" : "Failed empty";
+                                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                Intent returnIntent = new Intent();
+                                setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                                finish();
+                            } else {
+
+                                // если токен есть ставим текущего юзера и возвращаемя
+                                CurrentUser.user(user);
+                                CurrentUser.token(token);
+
+                                Toast.makeText(getApplicationContext(), "Success "+ response.code(), Toast.LENGTH_SHORT).show();
+                                Intent returnIntent = new Intent();
+                                setResult(EntryFormActivity.RESULT_OK, returnIntent);
+                                finish();
+                            }
                         }
+
                         @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                            Log.d("THROW", t.getMessage());
                             Intent returnIntent = new Intent();
                             setResult(EntryFormActivity.RESULT_OK, returnIntent);
                             finish();
