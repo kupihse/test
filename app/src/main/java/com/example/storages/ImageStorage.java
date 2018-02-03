@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.util.LruCache;
 import android.util.Pair;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import okhttp3.internal.cache.DiskLruCache;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +27,8 @@ import retrofit2.Response;
 
 public class ImageStorage {
     private static Map<String, Bitmap> storage = new HashMap<>();
+
+//    private DiskLruCache diskLruCache =
 
     public static String add(Bitmap img) {
         String id = UUID.randomUUID().toString();

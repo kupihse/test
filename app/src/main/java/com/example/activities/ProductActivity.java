@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.models.SendableImage;
+import com.example.storages.DiskLruCache;
 import com.example.storages.ImageStorage;
 import com.example.services.Services;
 import com.example.application.R;
@@ -28,6 +30,9 @@ import retrofit2.Response;
 public class ProductActivity extends AppCompatActivity {
     private ImageView imgPicture;
     private Product product;
+
+    //test
+    private Bitmap bitmap;
     // В активити передается id товара
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,8 @@ public class ProductActivity extends AppCompatActivity {
                 final LinearLayout ll = (LinearLayout)findViewById(R.id.photos_2);
                 textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
                 imgPicture = (ImageView) findViewById(R.id.image);
-                imgPicture.setImageBitmap(ImageStorage.get(product.getImage(0)));
+                ProductActivity.this.bitmap = ImageStorage.get(product.getImage(0));
+                imgPicture.setImageBitmap(ProductActivity.this.bitmap);
                 if (product.getImages().size() > 1) {
                     // если вообще есть дополнительные картинки
                     // идем по массиву и непосредственно добавляем в Layout
@@ -107,6 +113,14 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 Toast.makeText(ProductActivity.this,"Failed to load", Toast.LENGTH_LONG).show();
+            }
+        });
+        DiskLruCache.init(getExternalCacheDir());
+        Button button = (Button) findViewById(R.id.product_activity_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                     DiskLruCache.setFile(product.getImage(0), bitmap);
             }
         });
     }

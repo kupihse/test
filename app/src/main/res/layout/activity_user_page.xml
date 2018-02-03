@@ -28,8 +28,8 @@
 
         <Button
             android:id="@+id/user_page_log_out"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:text="Log out" />
     </LinearLayout>
 
