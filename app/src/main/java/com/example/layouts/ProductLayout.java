@@ -35,34 +35,5 @@ public class ProductLayout extends LinearLayout {
         final String imId = p.getImage(0);
 
         ImageStorage.inject(imgPicture, imId);
-
-//        if (ImageStorage.has(imId)) {
-//            imgPicture.setImageBitmap(ImageStorage.get(imId));
-//            return;
-//        }
-//
-//        Services.images.get(p.getImage(0)).enqueue(new Callback<Services.SendableImage>() {
-//            @Override
-//            public void onResponse(Call<Services.SendableImage> call, Response<Services.SendableImage> response) {
-//                if (!response.isSuccessful()) {
-//                    // maybe #todo
-//                    return;
-//                }
-//                Services.SendableImage encImg = response.body();
-//                if (encImg == null) {
-//                    // maybe #todo
-//                    return;
-//                }
-//                byte[] decodedString = Base64.decode(encImg.body, Base64.DEFAULT);
-//                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-////                imgs.add(decodedByte);
-//                ImageStorage.set(imId, decodedByte);
-//                imgPicture.setImageBitmap(decodedByte);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Services.SendableImage> call, Throwable t) {
-//            }
-//        });
     }
 }

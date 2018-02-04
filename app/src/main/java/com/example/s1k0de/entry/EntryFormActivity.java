@@ -82,8 +82,8 @@ public class EntryFormActivity extends Activity {
                             String token = null;
                             try {
                                 token = response.body().string();
-                            } catch (IOException e)  {
-                                Toast.makeText(getApplicationContext(), "IOException", Toast.LENGTH_SHORT).show();
+                            } catch (IOException|NullPointerException e)  {
+                                Toast.makeText(getApplicationContext(), "IOException|NullPointerException", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
 

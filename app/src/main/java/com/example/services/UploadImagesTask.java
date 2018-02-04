@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,19 +43,25 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
         int i = 0;
         for (String id : ids[0]) {
             i++;
-            Bitmap bmp = ImageStorage.get(id);
-            int imSize = bmp.getByteCount();
-            int imSizeKB = imSize / 1024;
-            int quality;
-            if (imSizeKB > 512) {
-                quality = 51200 / imSizeKB;
-            } else {
-                quality = 100;
-            }
-            publishProgress(99,quality, imSizeKB);
-            SendableImage img = SendableImage.encode(id, bmp, quality);
+//            Bitmap bmp = ImageStorage.get(id);
+//            int imSize = bmp.getByteCount();
+//            int imSizeKB = imSize / 1024;
+//            int quality;
+//            if (imSizeKB > 512) {
+//                quality = 51200 / imSizeKB;
+//            } else {
+//                quality = 100;
+//            }
+            publishProgress(99,50, -1);
+//            SendableImage img = SendableImage.encode(id, bmp, quality);
             final int x = i;
-            Services.images.add(img).enqueue(new Callback<Void>() {
+
+            File file = ImageStorage.diskCache.getFile(id);
+            if (!file.exists()) {
+                Log.d("UPLOAD", "fail");
+            }
+            RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
+            Services.images.upload(id, body).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     // 1 –– success, 0 –– fail

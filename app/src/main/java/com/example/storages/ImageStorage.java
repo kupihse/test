@@ -1,22 +1,18 @@
 package com.example.storages;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.Log;
-import android.util.LruCache;
-import android.util.Pair;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.models.SendableImage;
+import com.example.cache.images.DiskCache;
+import com.example.cache.images.MemoryCache;
 import com.example.services.Services;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
-import okhttp3.internal.cache.DiskLruCache;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,84 +22,86 @@ import retrofit2.Response;
  */
 
 public class ImageStorage {
-    private static Map<String, Bitmap> storage = new HashMap<>();
+    public static MemoryCache memoryCache = new MemoryCache();
+    public static DiskCache diskCache = new DiskCache();
 
-//    private DiskLruCache diskLruCache =
+
+    public static boolean init(Context context) {
+        memoryCache.init();
+        return diskCache.init(context);
+    }
 
     public static String add(Bitmap img) {
         String id = UUID.randomUUID().toString();
-        storage.put(id, img);
+        diskCache.compress(id, img);
+        memoryCache.set(id, diskCache.get(id));
         return id;
     }
 
+    public static boolean delete(String id) {
+        memoryCache.delete(id);
+        return diskCache.delete(id);
+    }
+
     public static void set(String id, Bitmap img) {
-        storage.put(id, img);
+        memoryCache.set(id, img);
+        diskCache.set(id, img);
     }
 
     public static Bitmap get(String id) {
-        return storage.get(id);
+        Bitmap img = memoryCache.get(id);
+        if (img != null) {
+            return img;
+        }
+        img = diskCache.get(id);
+        if (img == null) {
+            return null;
+        }
+        memoryCache.set(id, img);
+        return img;
     }
 
-    public static void delete(String id) {
-        storage.remove(id);
-    }
-
-    public static boolean has(String id) {
-        return storage.containsKey(id);
-    }
-
-    public static boolean isOnDisk(String id) {
-        return false;
-    }
-
-    public static Bitmap getFromDisk(String id) {
-        // #todo
-        return null;
-    }
-
-    public static void setToDisk(String id, Bitmap img) {
-        // #todo
-    }
+//
+//    public static boolean has(String id) {
+//        return storage.containsKey(id);
+//    }
+//
 
     public static void inject(ImageView view, String id) {
-        Bitmap img = null;
-        if (ImageStorage.has(id)) {
-//            Toast.makeText(view.getContext(), "Has img", Toast.LENGTH_LONG).show();
-            Log.d("GOT", "IMG");
-            img = ImageStorage.get(id);
-        } else if (ImageStorage.isOnDisk(id)) {
-            img = getFromDisk(id);
-        }
-
-
+        Bitmap img = ImageStorage.get(id);
         if (img != null) {
             view.setImageBitmap(img);
-        } else {
-            final String imId = id;
-            final ImageView imgPicture = view;
-            Services.images.get(imId).enqueue(new Callback<SendableImage>() {
-                @Override
-                public void onResponse(Call<SendableImage> call, Response<SendableImage> response) {
-                    if (!response.isSuccessful()) {
-                        // maybe #todo
-                        return;
-                    }
-                    SendableImage encImg = response.body();
-                    if (encImg == null) {
-                        // maybe #todo
-                        return;
-                    }
-                    Log.d("GOT", "loaded");
-                    Bitmap bmp = encImg.decode().second;
-                    ImageStorage.set(imId, bmp);
-//                    setToDisk(imId, bmp);
-                    imgPicture.setImageBitmap(bmp);
-                }
-
-                @Override
-                public void onFailure(Call<SendableImage> call, Throwable t) {
-                }
-            });
+            return;
         }
+
+        final String imId = id;
+        final ImageView imgPicture = view;
+        Services.images.download(imId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    // maybe #todo
+                    Log.d("DOWNLOAD", "unsuccessful");
+
+                    return;
+                }
+                ResponseBody body = response.body();
+                if (body == null) {
+                    // maybe #todo
+                    Log.d("DOWNLOAD", "body null");
+                    return;
+                }
+                Bitmap bitmap = BitmapFactory.decodeStream(body.byteStream());
+                ImageStorage.set(imId, bitmap);
+                Log.d("GOT", "loaded");
+                imgPicture.setImageBitmap(bitmap);
+                Log.d("DOWNLOAD", "ok");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("DOWNLOAD", "fail");
+            }
+        });
     }
 }

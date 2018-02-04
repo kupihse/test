@@ -21,12 +21,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.services.UploadImagesTask;
-import com.example.storages.ImageStorage;
-import com.example.services.Services;
 import com.example.application.R;
 import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
+import com.example.services.Services;
+import com.example.services.UploadImagesTask;
+import com.example.storages.ImageStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,6 @@ public class AddProductActivity extends AppCompatActivity {
     protected static String name, description;
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
-//    ArrayList<Bitmap> images = new ArrayList<>();
     Product product = new Product();
     int num_imgs = 0;
     String ViewId_Str;
@@ -116,7 +115,7 @@ public class AddProductActivity extends AppCompatActivity {
         ll.removeAllViews();
         // идем по всему их массиву и непосредственно добавляем в Layout
         for (String imgId : product.getImages()) {
-            SingleImageLayout Im = new SingleImageLayout(this, ImageStorage.get(imgId), i);
+            SingleImageLayout Im = new SingleImageLayout(this, imgId, i);
             ll.addView(Im);
             i++;
         }
@@ -126,13 +125,9 @@ public class AddProductActivity extends AppCompatActivity {
     // удаляем картинку из массива и ререндерим (я ж говорил выше, что так проще)
     // + проверка на вообще возможность удаления
     private void moveImages(int idx) {
-//        for (Integer i = idxStart; i < images.size() - 1; i++) {
-//            images.add(i, images.get(i + 1));
-//        }
         String id = product.getImage(idx);
         product.getImages().remove(idx);
         ImageStorage.delete(id);
-//        images.remove(images.size() - 1);
         rerenderImages();
     }
 
@@ -206,9 +201,6 @@ public class AddProductActivity extends AppCompatActivity {
         Intent intent = new Intent(AddProductActivity.this, FullScreenImageActivity.class);
 
         // Передаем в FullScreenImageActivity bitmap картинки и стартуем
-//        Bundle extras = new Bundle();
-//        extras.putParcelable("Bitmap", );
-//        intent.putExtras(extras);
         intent.putExtra("Bitmap", imId);
         startActivity(intent);
     }
