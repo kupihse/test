@@ -31,10 +31,23 @@ public class ImageStorage {
         return diskCache.init(context);
     }
 
+    private static int calculateQuality(Bitmap img) {
+        int imSize = img.getByteCount();
+        int imSizeKB = imSize / 1024;
+        if (imSizeKB > 512) {
+            return 51200 / imSizeKB;
+        }
+        return 100;
+    }
+
     public static String add(Bitmap img) {
         String id = UUID.randomUUID().toString();
-        diskCache.compress(id, img);
+
+        int quality = calculateQuality(img);
+        diskCache.set(id, img, quality);
+
         memoryCache.set(id, diskCache.get(id));
+
         return id;
     }
 

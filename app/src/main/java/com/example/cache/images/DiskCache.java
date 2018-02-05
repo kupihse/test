@@ -37,10 +37,6 @@ public class DiskCache {
         return true;
     }
 
-    public boolean compress(String id, Bitmap bmp) {
-        return this.set(id,bmp,50);
-    }
-
     public boolean set(String id, Bitmap bmp) {
         return this.set(id, bmp, 100);
     }
