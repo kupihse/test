@@ -45,7 +45,7 @@ public class ImageStorage {
 
 //        int quality = calculateQuality(img);
         Bitmap compressed = diskCache.getResizedBitmap(img, 1280);
-        diskCache.compress(id, compressed, 30);
+        diskCache.compress(id, compressed, 40);
 
         memoryCache.set(id, diskCache.get(id));
         
