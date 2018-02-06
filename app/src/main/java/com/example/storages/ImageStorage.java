@@ -65,7 +65,7 @@ public class ImageStorage {
 
     public static void set(String id, Bitmap img) {
         memoryCache.set(id, img);
-        diskCache.set(id, img);
+        diskCache.compress(id, img, 40);
     }
 
     public static Bitmap get(String id) {
