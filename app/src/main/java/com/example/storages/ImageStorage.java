@@ -112,7 +112,7 @@ public class ImageStorage {
                     return;
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(body.byteStream());
-                int s = bitmap.getByteCount();
+                int s = bitmap.getAllocationByteCount();
                 Log.d("SIZE", "download: "+s);
                 Toast.makeText(imgPicture.getContext().getApplicationContext(), "s:"+s, Toast.LENGTH_SHORT).show();
                 ImageStorage.set(imId, bitmap);
