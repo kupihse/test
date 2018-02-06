@@ -69,23 +69,17 @@ public class EntryFormActivity extends Activity {
                 //**************** Проверка на пустые поля **************
                 if ((!login.equals("")) && (!password.equals(""))) {
                     final User user = new User(login,password);
-                    Call<ResponseBody> c = Services.users.log(user);
-                    c.enqueue(new Callback<ResponseBody>(){
+                    Call<String> c = Services.users.log(user);
+                    c.enqueue(new Callback<String>(){
 
                         // пришлось делать через ResponseBody (или так и надо, хз)
                         // но выгляди неидеально, мб потом переделать имеет смысл
                         // допустим в отдельный класс TokenResp{respCode, token}
                         @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        public void onResponse(Call<String> call, Response<String> response) {
 
                             // Забираем тело запроса – строка, содержит токен
-                            String token = null;
-                            try {
-                                token = response.body().string();
-                            } catch (IOException|NullPointerException e)  {
-                                Toast.makeText(getApplicationContext(), "IOException|NullPointerException", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
+                            String token = response.body();
 
                             // если токена нет, посылаем нахер
                             if (token == null || token.equals("")) {
@@ -108,7 +102,7 @@ public class EntryFormActivity extends Activity {
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        public void onFailure(Call<String> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                             Log.d("THROW", t.getMessage());
                             Intent returnIntent = new Intent();

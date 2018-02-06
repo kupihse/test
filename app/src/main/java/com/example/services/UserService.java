@@ -17,7 +17,7 @@ public interface UserService {
 
     // Здесь также юзаем ResponseBody (пока что)
     @POST("/user/log")
-    Call<ResponseBody> log(@Body User user);
+    Call<String> log(@Body User user);
 
     @POST("/user/new")
     Call<Void> add(@Body User user);
