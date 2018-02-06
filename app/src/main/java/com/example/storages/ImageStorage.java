@@ -43,11 +43,12 @@ public class ImageStorage {
     public static String add(Bitmap img) {
         String id = UUID.randomUUID().toString();
 
-        int quality = calculateQuality(img);
-        diskCache.set(id, img, quality);
+//        int quality = calculateQuality(img);
+        Bitmap compressed = diskCache.getResizedBitmap(img, 1280);
+        diskCache.set(id, compressed);
 
         memoryCache.set(id, diskCache.get(id));
-
+        
         return id;
     }
 

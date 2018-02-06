@@ -38,11 +38,11 @@ public class DiskCache {
     }
 
     public boolean set(String id, Bitmap bmp) {
-        return this.set(id, bmp, 100);
+        return this.compress(id, bmp, 100);
     }
 
     // здесь сжимаем фотку
-    public boolean set(String id, Bitmap bmp, int quality) {
+    public boolean compress(String id, Bitmap bmp, int quality) {
         try {
             File f = getFile(id);
             f.createNewFile();
@@ -88,5 +88,23 @@ public class DiskCache {
     public boolean delete(String id) {
         return getFile(id).delete();
     }
+
+
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
 
 }
