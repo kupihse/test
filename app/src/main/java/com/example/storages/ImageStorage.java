@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cache.images.DiskCache;
 import com.example.cache.images.MemoryCache;
@@ -43,8 +44,13 @@ public class ImageStorage {
     public static String add(Bitmap img) {
         String id = UUID.randomUUID().toString();
 
-//        int quality = calculateQuality(img);
+        int s1 = img.getByteCount();
+        Log.d("SIZE", "b4 resize: "+s1);
+
         Bitmap compressed = diskCache.getResizedBitmap(img, 1280);
+        int s2 = compressed.getByteCount();
+        Log.d("SIZE", "after resize: "+s2);
+
         diskCache.compress(id, compressed, 40);
 
         memoryCache.set(id, diskCache.get(id));
@@ -106,6 +112,9 @@ public class ImageStorage {
                     return;
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(body.byteStream());
+                int s = bitmap.getByteCount();
+                Log.d("SIZE", "download: "+s);
+                Toast.makeText(imgPicture.getContext().getApplicationContext(), "s:"+s, Toast.LENGTH_SHORT).show();
                 ImageStorage.set(imId, bitmap);
                 Log.d("GOT", "loaded");
                 imgPicture.setImageBitmap(bitmap);
