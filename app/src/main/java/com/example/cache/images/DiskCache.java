@@ -94,7 +94,9 @@ public class DiskCache {
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
-
+        if (width <= maxSize && height <= maxSize) {
+            return image;
+        }
         float bitmapRatio = (float)width / (float) height;
         if (bitmapRatio > 1) {
             width = maxSize;
