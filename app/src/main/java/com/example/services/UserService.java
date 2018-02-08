@@ -24,7 +24,7 @@ public interface UserService {
     @POST("/user/new")
     Call<Void> add(@Body User user);
 
-    @GET("/user/get/{id}")
-    Call<User> get(@Path("id") String id);
+    @GET("/user/get/")
+    Call<User> get(@Body String id);
 
 }
