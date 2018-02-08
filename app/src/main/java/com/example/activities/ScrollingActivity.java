@@ -226,7 +226,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
             // сделал реквест код, чтоб нормально ререндерить меню обратно
             case R.id.scrolling_menu_user_page:
-                startActivityForResult(new Intent(this, UserPageActivity.class),2);
+                Intent intent = new Intent(this, UserPageActivity.class);
+                intent.putExtra(UserPageActivity.USER_ID, CurrentUser.user().getLogin());
+                startActivityForResult(intent,2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
