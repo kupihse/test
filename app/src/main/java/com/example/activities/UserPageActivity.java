@@ -32,7 +32,7 @@ public class UserPageActivity extends AppCompatActivity {
             Toast.makeText(this, "WTF", Toast.LENGTH_LONG).show();
             finish();
         }
-        Services.users.get("\""+id+"\"").enqueue(new Callback<User>() {
+        Services.users.get(id).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 setUser(response.body());
@@ -61,8 +61,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         TextView token = (TextView) findViewById(R.id.user_page_name);
         token.setText("Name: \n" + user.getName());
-
-        if (!user.getLogin().equals(CurrentUser.user().getLogin())){
+        User currentUser = CurrentUser.user();
+        if (currentUser == null || !user.getLogin().equals(currentUser.getLogin())){
             return;
         }
 

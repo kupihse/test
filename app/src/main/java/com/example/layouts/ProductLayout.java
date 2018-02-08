@@ -2,6 +2,7 @@ package com.example.layouts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ public class ProductLayout extends LinearLayout {
 
         TextView sellerName = v.findViewById(R.id.product_user_login);
         sellerName.setText(seller_id);
+        Log.d("POD_LAYOUT_ID", seller_id == null? "none":seller_id);
 
         // ВОзможно костыльненько, хз
         sellerName.setOnClickListener(new OnClickListener() {

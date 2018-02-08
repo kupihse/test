@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Andreyko0 on 28/01/2018.
@@ -25,6 +26,6 @@ public interface UserService {
     Call<Void> add(@Body User user);
 
     @GET("/user/get/")
-    Call<User> get(@Body String id);
+    Call<User> get(@Query("id") String id);
 
 }
