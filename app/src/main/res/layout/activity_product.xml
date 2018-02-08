@@ -43,9 +43,12 @@
             tools:layout_editor_absoluteY="8dp" />
 
         <Button
-            android:id="@+id/product_activity_button"
+            android:id="@+id/seller_button"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="wrap_content"
+            android:onClick="buttonSeller"
+            android:text="Destroy App" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

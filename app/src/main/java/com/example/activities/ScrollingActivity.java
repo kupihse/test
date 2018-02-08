@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.services.Services;
 import com.example.layouts.ProductLayout;
@@ -208,8 +209,14 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_settings:
                 return true;
             case R.id.scrolling_menu_add_product:
-                startActivityForResult(new Intent(this, AddProductActivity.class), 1);
-                return true;
+                if (CurrentUser.isLoggedIn()) {
+                    startActivityForResult(new Intent(this, AddProductActivity.class), 1);
+                    return true;
+                }
+                else {
+                    Toast.makeText(this, "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
             case R.id.scrolling_menu_reg:
                 startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
                 return true;

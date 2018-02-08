@@ -27,6 +27,7 @@ import com.example.models.Product;
 import com.example.services.Services;
 import com.example.services.UploadImagesTask;
 import com.example.storages.ImageStorage;
+import com.example.storages.CurrentUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddProductActivity extends AppCompatActivity {
-    protected static String name, description;
+    protected static String name, description, seller_login;
     protected int price;
     public static final int IMAGE_GALLERY_REQUEST = 20;
     Product product = new Product();
@@ -208,6 +209,8 @@ public class AddProductActivity extends AppCompatActivity {
     // при нажатии на "Submit"
     public void buttonOnClick(View v) throws Exception {
         AppCompatButton button = (AppCompatButton) v;
+        seller_login = CurrentUser.user().getLogin();
+
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString();
         final EditText edit_desc = (EditText) findViewById(R.id.item_description);
@@ -233,6 +236,7 @@ public class AddProductActivity extends AppCompatActivity {
             product.setName(name);
             product.setDescription(description);
             product.setPrice(price);
+            product.setSellerId(seller_login);
 
             // Делаем запрос
             Services.products.add(product).enqueue(new Callback<Void>() {
@@ -241,6 +245,7 @@ public class AddProductActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     new UploadImagesTask(getApplicationContext()).execute(product.getImages());
+                    CurrentUser.user().addProduct(product.getId());
                     Intent returnIntent = new Intent();
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();

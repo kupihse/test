@@ -14,6 +14,7 @@ public class Product {
     private String id;
     private int price;
     private ArrayList<String> images = new ArrayList<>();
+    private String seller_id;
 
     public Product() {
     }
@@ -64,4 +65,9 @@ public class Product {
     public ArrayList<String> getImages() {
         return images;
     }
+
+    public void setSellerId (String id) { seller_id = id; }
+
+    public String getSellerId () { return seller_id; }
+
 }

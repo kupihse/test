@@ -1,10 +1,13 @@
 package com.example.activities;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -88,6 +91,7 @@ public class ProductActivity extends AppCompatActivity {
         Log.d("IMG LOG", "ASD");
         startActivity(intent);
     }
+
     public void showPopUp(View v) {
         // #todo
         /* Тут проблема, drawing cache всегда null, если добавить buildDrawingCache, то
@@ -102,5 +106,12 @@ public class ProductActivity extends AppCompatActivity {
         intent.putExtra("Bitmap", product.getImage(n));
 
         startActivity(intent);
+    }
+
+    public void buttonSeller(View v) {
+//        Intent intent = new Intent(ProductActivity.this, UserPageActivity.class);
+//        intent.putExtra("id", product.getSellerId());
+
+        startActivityForResult(new Intent(this, UserPageActivity.class),2);
     }
 }

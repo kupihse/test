@@ -1,11 +1,13 @@
 package com.example.models;
 
+import java.util.ArrayList;
+
 // Единичный юзер
 public class User {
     private String name;
     private String login;
     private String password;
-
+    private ArrayList<String> products = new ArrayList<>();
     private boolean confirmed;
 
     public User() {
@@ -52,6 +54,10 @@ public class User {
     public void confirm() {
         this.confirmed = true;
     }
+
+    public void addProduct(String product) { products.add(product); }
+
+    public ArrayList<String> getProducts() { return products; }
 
     @Override
     public boolean equals(Object o) {
