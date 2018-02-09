@@ -46,40 +46,40 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
-        searchView = (MaterialSearchView)findViewById(R.id.search_view);
-        // Тут пишем что происходит при закрытии поиска
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
+//        searchView = (MaterialSearchView)findViewById(R.id.search_view);
+//         Тут пишем что происходит при закрытии поиска
+//        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+//            @Override
+//            public void onSearchViewShown() {
+//
+//            }
+//
+//            @Override
+//            public void onSearchViewClosed() {
+//                rerender();
+//            }
+//        });
+//
+//         Тут сам поиск
+//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                 При нажатии на поиск ищем (мб можно как-то лучше сделать процесс поиска)
+//                for (int i = 0; i < products.size(); i++) {
+//                    if (products.get(i).getName().contains(query)) {
+//                        products_search.add(products.get(i));
+//                    }
+//                }
+//                renderItems_search();
+//                return true;
+//            }
 
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                rerender();
-            }
-        });
-
-        // Тут сам поиск
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // При нажатии на поиск ищем (мб можно как-то лучше сделать процесс поиска)
-                for (int i = 0; i < products.size(); i++) {
-                    if (products.get(i).getName().contains(query)) {
-                        products_search.add(products.get(i));
-                    }
-                }
-                renderItems_search();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                // Это для динамического поиска
-                return false;
-            }
-        });
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                 Это для динамического поиска
+//                return false;
+//            }
+//        });
 
         ll = (LinearLayout) findViewById(R.id.products);
         rerender();
@@ -195,8 +195,8 @@ public class ScrollingActivity extends AppCompatActivity {
             item.setVisible(false);
         }
 
-        MenuItem item = menu.findItem(R.id.scrolling_menu_search);
-        searchView.setMenuItem(item);
+//        MenuItem item = menu.findItem(R.id.scrolling_menu_search);
+//        searchView.setMenuItem(item);
         return true;
     }
 
@@ -229,6 +229,10 @@ public class ScrollingActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, UserPageActivity.class);
                 intent.putExtra(UserPageActivity.USER_ID, CurrentUser.user().getLogin());
                 startActivityForResult(intent,2);
+                return true;
+
+            case R.id.scrolling_menu_search:
+                startActivity(new Intent(this, SearchActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

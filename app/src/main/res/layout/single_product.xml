@@ -39,6 +39,8 @@
                 android:text="@string/app_name" />
             <TextView
                 android:id="@+id/product_user_login"
+                android:textColor="@color/colorPrimary"
+                android:textColorHighlight="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
