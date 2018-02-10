@@ -1,5 +1,6 @@
 package com.example.activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +36,12 @@ public class ScrollingActivity extends AppCompatActivity {
     private LinearLayout ll;
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Product> products_search = new ArrayList<>();
-    MaterialSearchView searchView;
+//    MaterialSearchView searchView;
+
+    // попытка сделать подсказки через курсор как в SearchActivity
+    // не вышло
+    private CursorAdapter cursorAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +53,10 @@ public class ScrollingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Recent items");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
+
+
+        cursorAdapter = SearchActivity.buildProductSuggestionCursorAdapter(this);
+
 
 //        searchView = (MaterialSearchView)findViewById(R.id.search_view);
 //         Тут пишем что происходит при закрытии поиска
@@ -195,9 +207,34 @@ public class ScrollingActivity extends AppCompatActivity {
             item.setVisible(false);
         }
 
-//        MenuItem item = menu.findItem(R.id.scrolling_menu_search);
-//        searchView.setMenuItem(item);
+        setSearchSettings(menu.findItem(R.id.scrolling_menu_search));
+
         return true;
+    }
+
+    private void setSearchSettings(MenuItem item) {
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            // Если пользователь подтвердил запрос, ставим текст запроса в SearchManager.QUERY
+            // и открываем активити
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Intent intent = new Intent(ScrollingActivity.this, SearchActivity.class);
+                intent.putExtra(SearchManager.QUERY, s);
+                startActivity(intent);
+                return true;
+            }
+
+            // Попытка сделать подсказки как в SearchActivity
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                SearchActivity.setSuggestions(cursorAdapter, s);
+
+                return true;
+            }
+        });
     }
 
     // Нажали на кнопочку сверху справа (три точки)
@@ -229,10 +266,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, UserPageActivity.class);
                 intent.putExtra(UserPageActivity.USER_ID, CurrentUser.user().getLogin());
                 startActivityForResult(intent,2);
-                return true;
-
-            case R.id.scrolling_menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

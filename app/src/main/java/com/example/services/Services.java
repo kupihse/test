@@ -34,9 +34,11 @@ public class Services {
 
     // Создаем сервисы запросов, описаные выше
     public static ProductService products = retrofit.create(ProductService.class);
-    public static UserService users = retrofit.create(UserService.class);
-    public static ImageService images = retrofit.create(ImageService.class);
-    public static LoggerService logger = retrofit.create(LoggerService.class);
+    public static UserService    users    = retrofit.create(UserService.class);
+    public static ImageService   images   = retrofit.create(ImageService.class);
+    public static LoggerService  logger   = retrofit.create(LoggerService.class);
+    public static SearchService  search   = retrofit.create(SearchService.class);
+
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)
     public static Callback<Void> emptyCallBack = new Callback<Void>() {
