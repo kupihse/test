@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
 MERGED from [com.github.ybq:Android-SpinKit:1.1.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/Android-SpinKit-1.1.0.aar/bdf62d7cb50cb8d9dcd8e7428a587b9f/AndroidManifest.xml:2:1-10:12
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:2:1-13:12
 MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/design-26.0.0-alpha1.aar/545c348162f6c1a58c00a540febb25b6/AndroidManifest.xml:17:1-31:12
@@ -20,20 +20,20 @@ MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Andrey
 MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.0.0-alpha1.aar/2f90f6df3bb2a5738b33eb94265944fa/AndroidManifest.xml:17:1-26:12
 MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.0.0-alpha1.aar/84343c7aee5c9160c77f2e4a54b232e5/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/support-compat-26.0.0-alpha1.aar/8e25b2f0a3399c85c647237247cc3032/AndroidManifest.xml:17:1-31:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
 	package
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:3:5-38
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-64:12
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-77:12
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:11-69
@@ -54,7 +54,7 @@ ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/sr
 	android:name
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:9:22-76
 application
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:12:5-62:19
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:12:5-75:19
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:11:5-20
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:11:5-20
 MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/design-26.0.0-alpha1.aar/545c348162f6c1a58c00a540febb25b6/AndroidManifest.xml:29:5-20
@@ -98,7 +98,7 @@ MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Andreyko0/
 	android:name
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:13:9-45
 activity#com.example.activities.ScrollingActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:20:9-32:20
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:20:9-36:20
 	android:label
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:22:13-61
 	android:launchMode
@@ -118,67 +118,67 @@ ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/sr
 	android:name
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:27:27-74
 meta-data#android.app.default_searchable
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:29:13-31:72
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:33:13-35:72
 	android:value
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:31:17-70
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:35:17-70
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:30:17-62
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:34:17-62
 activity#com.example.activities.ProductActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:33:9-75
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:38:9-75
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:33:19-72
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:38:19-72
 activity#com.example.s1k0de.entry.EntryFormActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:34:9-79
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:39:9-79
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:34:19-76
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:39:19-76
 activity#com.example.s1k0de.entry.RegistrationFormActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:35:9-86
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:40:9-86
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:35:19-83
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:40:19-83
 activity#com.example.activities.FullScreenImageActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:36:9-39:20
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:41:9-44:20
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:36:19-80
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:41:19-80
 activity#com.example.activities.AddProductActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:40:9-78
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:45:9-78
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:40:19-75
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:45:19-75
 activity#com.example.activities.UserPageActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:41:9-76
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:46:9-76
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:41:19-73
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:46:19-73
 activity#com.example.activities.SearchActivity
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:44:9-59:20
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:49:9-72:20
 	android:label
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:45:13-45
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:50:13-45
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:44:19-71
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:49:19-71
 intent-filter#android.intent.action.PROCESS_TEXT+android.intent.action.SEARCH
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:46:13-51:29
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:54:13-59:29
 action#android.intent.action.SEARCH
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:47:17-71
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:55:17-71
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:47:25-68
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:55:25-68
 action#android.intent.action.PROCESS_TEXT
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:48:17-76
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:56:17-76
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:48:25-74
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:56:25-74
 data
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:49:17-55
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:57:17-55
 	android:mimeType
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:49:23-52
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:57:23-52
 meta-data#android.app.searchable
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:52:13-54:53
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:63:13-65:53
 	android:resource
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:54:17-51
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:65:17-51
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:53:17-54
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:64:17-54
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:55:13-57:76
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:68:13-70:76
 	android:value
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:57:17-73
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:70:17-73
 	android:name
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:56:17-63
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:69:17-63
 uses-sdk
 INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
