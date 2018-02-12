@@ -1,4 +1,4 @@
-package com.example.s1k0de.entry;
+package com.example.activities.entry;
 
 /**
  * Created by Eugeen on 28/09/2017.
@@ -20,9 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 //import android.widget.ProgressBar;
-import java.io.IOException;
 
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Call;
 import retrofit2.Response;

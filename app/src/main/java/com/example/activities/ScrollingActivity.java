@@ -20,9 +20,8 @@ import com.example.services.Services;
 import com.example.layouts.ProductLayout;
 import com.example.application.R;
 import com.example.models.Product;
-import com.example.s1k0de.entry.EntryFormActivity;
+import com.example.activities.entry.EntryFormActivity;
 import com.example.storages.CurrentUser;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class ScrollingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Recent items");
+        getSupportActionBar().setTitle("HSE.Outlet");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 

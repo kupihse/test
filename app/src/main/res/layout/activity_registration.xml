@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    tools:context="com.example.s1k0de.entry.RegistrationFormActivity">
+    tools:context="com.example.activities.entry.RegistrationFormActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -35,6 +35,7 @@
                     android:layout_marginStart="5dp"
                     android:text="@string/UserName"/>
                 <EditText android:id="@+id/reg_fullname"
+                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -62,6 +63,7 @@
 
                         <EditText
                             android:id="@+id/reg_email"
+                            android:textColor="@color/cpb_white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10" />
@@ -87,6 +89,7 @@
                     android:textColor="#ffffff" />
 
                 <EditText android:id="@+id/reg_password"
+                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -103,6 +106,7 @@
 
                 <EditText
                     android:id="@+id/reg_password1"
+                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

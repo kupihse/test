@@ -1,4 +1,4 @@
-package com.example.s1k0de.entry;
+package com.example.activities.entry;
 
 /**
  * Created by Eugeen on 30/09/2017.
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import com.example.services.RegularChecker;
 import com.example.services.Services;
 import com.example.application.R;
 import com.example.models.User;
@@ -79,7 +80,7 @@ public class RegistrationFormActivity extends Activity {
 
                 //*******************************************************
                 //**************** Проверка на корректные поля **************
-                if(!Regular.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("") ) {
+                if(!RegularChecker.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("") ) {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
                     if (!password.equals(password1)) {
