@@ -194,7 +194,7 @@ public class ScrollingActivity extends AppCompatActivity {
         // если юзер сейчас есть, то кнопка входа не нужна
         // вместо нее ставим user page
         // если юзера нет, то наоборот
-        if (CurrentUser.isLoggedIn()) {
+        if (CurrentUser.isSet()) {
             MenuItem item = menu.findItem(R.id.scrolling_menu_reg);
             item.setVisible(false);
             item = menu.findItem(R.id.scrolling_menu_user_page);
@@ -245,7 +245,7 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_settings:
                 return true;
             case R.id.scrolling_menu_add_product:
-                if (CurrentUser.isLoggedIn()) {
+                if (CurrentUser.isSet()) {
                     startActivityForResult(new Intent(this, AddProductActivity.class), 1);
                     return true;
                 }
@@ -263,7 +263,7 @@ public class ScrollingActivity extends AppCompatActivity {
             // сделал реквест код, чтоб нормально ререндерить меню обратно
             case R.id.scrolling_menu_user_page:
                 Intent intent = new Intent(this, UserPageActivity.class);
-                intent.putExtra(UserPageActivity.USER_ID, CurrentUser.user().getLogin());
+                intent.putExtra(UserPageActivity.USER_ID, CurrentUser.getLogin());
                 startActivityForResult(intent,2);
                 return true;
         }

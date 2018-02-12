@@ -1,6 +1,7 @@
 package com.example.storages;
 
-import com.example.models.User;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 /**
  * Created by Andreyko0 on 01/02/2018.
@@ -9,32 +10,62 @@ import com.example.models.User;
 // В классе хранится текущий юзер, ну и все пока
 
 public class CurrentUser {
-    private static User user;
+    final public static String USER_PREF = "user_pref";
+
+    private static String login;
     private static String token;
+    private static SharedPreferences preferences;
 
-
-    public static boolean isLoggedIn() {
-        return !(user == null);
+    public static boolean isSet() {
+        return login != null && token != null;
     }
 
-    public static boolean hasToken() {
-        return !(token == null);
+    public static boolean isSaved() {
+        return preferences != null
+            && preferences.contains("login")
+            && preferences.contains("token");
     }
 
-    public static void token(String tkn) {
-        token = tkn;
+    public static void save() {
+        if (isSet()) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("login", login);
+            editor.putString("token", token);
+            editor.apply();
+        }
     }
 
-    public static String token() {
+    public static void save(String login1, String token1) {
+        setCredentials(login1, token1);
+        save();
+    }
+
+    public static void setCredentials(String login1, String token1) {
+        login = login1;
+        token = token1;
+    }
+
+    public static void setFromDisk() {
+        if (isSaved()) {
+            setCredentials(
+                    preferences.getString("login", null),
+                    preferences.getString("token", null));
+        }
+    }
+
+    public static String getLogin() {
+        return login;
+    }
+
+    public static String getToken() {
         return token;
     }
 
-    public static User user() {
-        return user;
+    public static void init(Context ctx) {
+        preferences = ctx.getSharedPreferences(USER_PREF, Context.MODE_PRIVATE);
+        setFromDisk();
     }
 
-    public static void user(User u) {
-        user = u;
-    }
+
 
 }

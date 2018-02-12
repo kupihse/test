@@ -89,8 +89,7 @@ public class EntryFormActivity extends Activity {
                             } else {
 
                                 // если токен есть ставим текущего юзера и возвращаемя
-                                CurrentUser.user(user);
-                                CurrentUser.token(token);
+                                CurrentUser.save(user.getLogin(), token);
 
                                 Toast.makeText(getApplicationContext(), "Success "+ response.code(), Toast.LENGTH_SHORT).show();
                                 Intent returnIntent = new Intent();

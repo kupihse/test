@@ -209,7 +209,7 @@ public class AddProductActivity extends AppCompatActivity {
     // при нажатии на "Submit"
     public void buttonOnClick(View v) throws Exception {
         AppCompatButton button = (AppCompatButton) v;
-        seller_login = CurrentUser.user().getLogin();
+        seller_login = CurrentUser.getLogin();
 
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString();
@@ -245,7 +245,7 @@ public class AddProductActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     new UploadImagesTask(getApplicationContext()).execute(product.getImages());
-                    CurrentUser.user().addProduct(product.getId());
+//                    CurrentUser.user().addProduct(product.getId());
                     Intent returnIntent = new Intent();
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();

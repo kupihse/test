@@ -61,8 +61,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         TextView token = (TextView) findViewById(R.id.user_page_name);
         token.setText("Name: \n" + user.getName());
-        User currentUser = CurrentUser.user();
-        if (currentUser == null || !user.getLogin().equals(currentUser.getLogin())){
+        String currentUserLogin = CurrentUser.getLogin();
+        if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)){
             return;
         }
 
@@ -71,8 +71,7 @@ public class UserPageActivity extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CurrentUser.user(null);
-                CurrentUser.token(null);
+                CurrentUser.setCredentials(null, null);
                 Intent returnIntent = new Intent();
                 setResult(UserPageActivity.RESULT_OK, returnIntent);
                 finish();

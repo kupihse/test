@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
 
 /**
@@ -25,5 +26,8 @@ public class HSEOutlet extends Application {
                 System.exit(0);
             }
         }
+
+        CurrentUser.init(getApplicationContext());
+
     }
 }
