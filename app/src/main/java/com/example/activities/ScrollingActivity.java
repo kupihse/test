@@ -266,6 +266,10 @@ public class ScrollingActivity extends AppCompatActivity {
                 intent.putExtra(UserPageActivity.USER_ID, CurrentUser.getLogin());
                 startActivityForResult(intent,2);
                 return true;
+
+            case R.id.scrolling_menu_search_2:
+                startActivity(new Intent(this, TestSearchActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

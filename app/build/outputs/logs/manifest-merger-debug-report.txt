@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
 MERGED from [com.makeramen:roundedimageview:2.3.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/roundedimageview-2.3.0.aar/cfab54c1c38ea5cb01b48fcbd9cbf986/AndroidManifest.xml:2:1-9:12
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:2:1-13:12
 MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/design-26.0.0-alpha1.aar/545c348162f6c1a58c00a540febb25b6/AndroidManifest.xml:17:1-31:12
@@ -20,20 +20,20 @@ MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Andrey
 MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.0.0-alpha1.aar/2f90f6df3bb2a5738b33eb94265944fa/AndroidManifest.xml:17:1-26:12
 MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.0.0-alpha1.aar/84343c7aee5c9160c77f2e4a54b232e5/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/support-compat-26.0.0-alpha1.aar/8e25b2f0a3399c85c647237247cc3032/AndroidManifest.xml:17:1-31:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
-INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
+INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
 	package
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:3:5-38
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
-		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-79:12
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:1-81:12
 		INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:2:11-69
@@ -54,7 +54,7 @@ ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/sr
 	android:name
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:9:22-76
 application
-ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:12:5-77:19
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:12:5-79:19
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:11:5-20
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/materialsearchview-1.4.0.aar/4e810990e66d7c7eff800fcf72328d05/AndroidManifest.xml:11:5-20
 MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Andreyko0/.gradle/caches/transforms-1/files-1.1/design-26.0.0-alpha1.aar/545c348162f6c1a58c00a540febb25b6/AndroidManifest.xml:29:5-20
@@ -183,6 +183,12 @@ ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/sr
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:72:17-73
 	android:name
 		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:71:17-63
+activity#com.example.activities.TestSearchActivity
+ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:76:9-77:58
+	android:theme
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:77:13-56
+	android:name
+		ADDED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml:76:19-75
 uses-sdk
 INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/Andreyko0/Documents/projects/kupihse/test/MyApplication/app/src/main/AndroidManifest.xml

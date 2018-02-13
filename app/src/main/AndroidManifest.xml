@@ -73,6 +73,8 @@
                 <!--android:resource="x"-->
         </activity>
 
+        <activity android:name="com.example.activities.TestSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
