@@ -25,8 +25,6 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-
 public class RegistrationFormActivity extends Activity {
 
     @Override
@@ -103,7 +101,7 @@ public class RegistrationFormActivity extends Activity {
                         //берем проверенное поле логина и конкетинируем с строкой из спинера, логгер временный
                         Spinner spinner = (Spinner) findViewById(R.id.emailList);
                         String selected = spinner.getSelectedItem().toString();
-                        login += "@" + selected;
+                        login += selected;
                         selected = null;
                         android.util.Log.d("mylog ", login);
                         //получено готовое поле login
