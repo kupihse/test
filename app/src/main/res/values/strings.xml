@@ -20,8 +20,8 @@
     <string name="registration_again">Повторите пароль</string>
     <string name="registration_registrate">Регистрация</string>
     <string-array name="emailAddition">
-        <item>edu.hse.ru</item>
-        <item>hse.ru</item>
+        <item>\u0040edu.hse.ru</item>
+        <item>\u0040hse.ru</item>
     </string-array>
     <!-- Все что связано с работой юзеров -->
 
