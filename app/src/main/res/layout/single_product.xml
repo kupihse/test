@@ -66,6 +66,7 @@
 
                 <TextView
                     android:id="@+id/product_text"
+                    android:maxLength="25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
