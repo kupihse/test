@@ -24,6 +24,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.security.AccessController.getContext;
+
 public class ProductActivity extends AppCompatActivity {
     private ImageView imgPicture;
     private Product product;
@@ -78,6 +80,17 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 Toast.makeText(ProductActivity.this,"Failed to load", Toast.LENGTH_LONG).show();
+            }
+        });
+
+//        String seller_id = product.getSellerId();
+        TextView sellerName = (TextView) findViewById(R.id.product_user_login);
+        sellerName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductActivity.this, UserPageActivity.class);
+                intent.putExtra(UserPageActivity.USER_ID, product.getSellerId());
+                startActivity(intent);
             }
         });
     }

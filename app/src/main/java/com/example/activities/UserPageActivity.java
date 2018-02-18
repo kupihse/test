@@ -1,7 +1,9 @@
 package com.example.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.application.R;
+import com.example.models.Product;
 import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +25,7 @@ import retrofit2.Response;
 public class UserPageActivity extends AppCompatActivity {
 
     static public final String USER_ID = "user_id";
-
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,9 @@ public class UserPageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
     }
 
 
@@ -52,8 +60,8 @@ public class UserPageActivity extends AppCompatActivity {
             Toast.makeText(UserPageActivity.this, "WTF 3", Toast.LENGTH_LONG).show();
             return;
         }
-
-        TextView login = (TextView) findViewById(R.id.user_page_login);
+        this.user = user;
+        final TextView login = (TextView) findViewById(R.id.user_page_login);
         login.setText("login: \n"+user.getLogin());
 
         TextView pass = (TextView) findViewById(R.id.user_page_pass);
@@ -77,6 +85,28 @@ public class UserPageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        Button myProducts = (Button) findViewById(R.id.user_page_products);
+        myProducts.setVisibility(View.VISIBLE);
+
+        Button sendMail = (Button) findViewById(R.id.user_page_sendmail);
+        sendMail.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void sendMail(View v) {
+        TextView login = (TextView) findViewById(R.id.user_page_login);
+        Toast.makeText(UserPageActivity.this, "pressed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", String.valueOf(login.getText()), null));
+        startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+    }
+
+    public void myProductsButton(View v) {
+        for (String p: user.getProducts()) {
+            Toast.makeText(UserPageActivity.this, p, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

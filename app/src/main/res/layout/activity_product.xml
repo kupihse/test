@@ -42,12 +42,15 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
 
-        <Button
-            android:id="@+id/seller_button"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/product_user_login"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="buttonSeller"
-            android:text="Destroy App" />
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Seller Contacts"
+            android:textSize="28sp" />
 
     </LinearLayout>
 
