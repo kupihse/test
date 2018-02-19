@@ -100,6 +100,7 @@ public class ScrollingActivity extends AppCompatActivity {
         // На потом, надо сделать обновление по свайпу вниз
         //
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        srl.setDistanceToTriggerSync(1000);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
