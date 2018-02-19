@@ -5,7 +5,6 @@
     style="?android:attr/spinnerItemStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:ellipsize="marquee"
+    android:singleLine="true"
     android:textColor="#ffffff"
-    android:textAlignment="inherit"
-    android:maxLines="1" />
+    android:textAlignment="inherit"/>

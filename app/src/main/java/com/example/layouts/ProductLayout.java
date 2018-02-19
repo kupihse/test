@@ -25,11 +25,10 @@ public class ProductLayout extends LinearLayout {
         String name = p.getName();
         TextView nameView  =  v.findViewById(R.id.product_text);
         nameView.setText(name);
-
         final String seller_id = p.getSellerId();
 
         TextView sellerName = v.findViewById(R.id.product_user_login);
-        sellerName.setText(seller_id);
+        sellerName.setText("By: "+seller_id);
         Log.d("POD_LAYOUT_ID", seller_id == null? "none":seller_id);
 
         // ВОзможно костыльненько, хз
@@ -49,6 +48,10 @@ public class ProductLayout extends LinearLayout {
         Integer price = p.getPrice();
         TextView priceView  =  v.findViewById(R.id.price);
         priceView.setText(Integer.toString(price) + " руб.");
+
+        TextView date = v.findViewById(R.id.product_date);
+        date.setText("Today");
+
         imgPicture = (ImageView) findViewById(R.id.ImageView);
 
         final String imId = p.getImage(0);

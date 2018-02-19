@@ -44,10 +44,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        ll = (LinearLayout) findViewById(R.id.search_products);
-        searchView = (MaterialSearchView) findViewById(R.id.search_search_view);
-        setSearchSettings();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
         setSupportActionBar(toolbar);
         ActionBar bar = getSupportActionBar();
@@ -61,6 +57,13 @@ public class SearchActivity extends AppCompatActivity {
                 }
             });
         }
+
+        getSupportActionBar().setTitle("Search Products");
+
+        ll = (LinearLayout) findViewById(R.id.search_products);
+        searchView = (MaterialSearchView) findViewById(R.id.search_search_view);
+        setSearchSettings();
+
         preferences = getSharedPreferences(SEARCH_HISTORY, Context.MODE_PRIVATE);
         history = preferences.getStringSet(SEARCH_HISTORY, new HashSet<String>());
     }
@@ -83,6 +86,8 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 rerender(query);
                 saveHistory(query);
+                getSupportActionBar().setTitle(query);
+                searchView.closeSearch();
                 return true;
             }
 
