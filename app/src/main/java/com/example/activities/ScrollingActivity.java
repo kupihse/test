@@ -126,16 +126,6 @@ public class ScrollingActivity extends AppCompatActivity {
         });
     }
 
-    // КОСТЫЛЬ
-    // В отедельном, неотображаемом TextView у нас записан id
-    // забираем его и записываем в параметры запроса новой активити
-    public void doClick(View v) {
-        TextView tv =  v.findViewById(R.id.product_id);
-        Intent productIntent = new Intent(this, ProductActivity.class);
-        productIntent.putExtra("item_id", tv.getText());
-        startActivity(productIntent);
-    }
-
     // Просто создание меню
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

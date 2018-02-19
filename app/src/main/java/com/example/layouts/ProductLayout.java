@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.activities.ProductActivity;
 import com.example.activities.UserPageActivity;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
@@ -18,20 +19,32 @@ import com.example.models.Product;
  */
 
 public class ProductLayout extends LinearLayout {
-    private ImageView imgPicture;
     public ProductLayout(final Context ctx, Product p) {
         super(ctx);
-        View v = inflate(getContext(), R.layout.single_product, this);
+
+        final String productId = p.getId();
+
+        inflate(getContext(), R.layout.single_product, this);
+
         String name = p.getName();
-        TextView nameView  =  v.findViewById(R.id.product_text);
+
+        TextView nameView  =  findViewById(R.id.product_text);
         nameView.setText(name);
+        nameView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doClick(ctx, productId);
+            }
+        });
+
+
+
         final String seller_id = p.getSellerId();
 
-        TextView sellerName = v.findViewById(R.id.product_user_login);
-        sellerName.setText("By: "+seller_id);
+        TextView sellerName = findViewById(R.id.product_user_login);
+        sellerName.setText(seller_id);
         Log.d("POD_LAYOUT_ID", seller_id == null? "none":seller_id);
 
-        // ВОзможно костыльненько, хз
         sellerName.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,21 +54,32 @@ public class ProductLayout extends LinearLayout {
             }
         });
 
-        // Здесь костыль, для передачи id товара, надо сделать через теги (так вроде правильнее)
-        TextView idView = v.findViewById(R.id.product_id);
-        idView.setText(p.getId());
+
 
         Integer price = p.getPrice();
-        TextView priceView  =  v.findViewById(R.id.price);
+        TextView priceView  =  findViewById(R.id.price);
         priceView.setText(Integer.toString(price) + " руб.");
 
-        TextView date = v.findViewById(R.id.product_date);
+        TextView date = findViewById(R.id.product_date);
         date.setText("Today");
 
-        imgPicture = (ImageView) findViewById(R.id.ImageView);
+
+
+        ImageView imgPicture = findViewById(R.id.ImageView);
+        imgPicture.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doClick(ctx, productId);
+            }
+        });
 
         final String imId = p.getImage(0);
-
         ImageStorage.inject(imgPicture, imId);
+    }
+
+    private void doClick(Context ctx, String id) {
+        Intent productIntent = new Intent(ctx, ProductActivity.class);
+        productIntent.putExtra("item_id", id);
+        ctx.startActivity(productIntent);
     }
 }
