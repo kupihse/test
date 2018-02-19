@@ -4,24 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.activities.SearchActivity">
+    android:fitsSystemWindows="true"
+    android:background="#545454">
 
-    <!--<TextView-->
-        <!--android:id="@+id/search_activity_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:searchBackIcon="@drawable/ic_action_navigation_arrow_back_inverted"
+        app:searchBackground="@color/colorPrimary"
+        app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"
+        app:searchSuggestionBackground="@color/cpb_white">
+        <!---->
+    </com.miguelcatalan.materialsearchview.MaterialSearchView>
+
+<!---->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.activities.SearchActivity"
-        tools:showIn="@layout/activity_search">
+        tools:context="com.example.activities.ScrollingActivity"
+        tools:showIn="@layout/activity_scrolling">
 
         <LinearLayout
-            android:id="@+id/search_activity_products"
+            android:id="@+id/search_products"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 </RelativeLayout>

@@ -37,44 +37,40 @@
                 android:value="com.example.activities.SearchActivity"/>
         </activity>
 
-        <activity android:name="com.example.activities.ProductActivity" />
+        <activity android:name="com.example.activities.ProductActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.activities.ScrollingActivity"/>
+        </activity>
+
         <activity android:name="com.example.activities.entry.EntryFormActivity" />
         <activity android:name="com.example.activities.entry.RegistrationFormActivity" />
         <activity android:name="com.example.activities.FullScreenImageActivity">
 
             <!-- android:theme="@android:style/Theme.Holo.NoActionBar"> -->
         </activity>
-        <activity android:name="com.example.activities.AddProductActivity" />
-        <activity android:name="com.example.activities.UserPageActivity" />
+
+
+        <activity android:name="com.example.activities.AddProductActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.activities.ScrollingActivity"/>
+        </activity>
+
+
+        <activity android:name="com.example.activities.UserPageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.activities.ScrollingActivity"/>
+        </activity>
 
 
         <activity android:name="com.example.activities.SearchActivity"
-            android:label="@string/app_name">
-            <!--
-                Говорим, что эта активити может принимать запросы на поиск (для диалога поиска)
-                Говорим, что она же может обрабатывать текст (для контекстного меню при выделении)-->
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-                <action android:name="android.intent.action.PROCESS_TEXT"/>
-                <data android:mimeType="text/plain" />
-
-            </intent-filter>
-
-            <!--
-                Показываем, что этак активити может искать-->
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
-            <!--
-                Для верхней кнопки назад, говрим, чтоб возаращала в ScrollingActivity-->
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.activities.ScrollingActivity" />
-                <!--android:resource="x"-->
+                android:value="com.example.activities.ScrollingActivity"/>
         </activity>
-
-        <activity android:name="com.example.activities.TestSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

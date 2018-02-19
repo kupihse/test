@@ -29,14 +29,8 @@
 
     <item
         android:id="@+id/scrolling_menu_search"
-        android:orderInCategory="100"
         android:title="Search..."
-        app:showAsAction="always"
-        app:actionViewClass="android.widget.SearchView"/>
-
-    <item
-        android:id="@+id/scrolling_menu_search_2"
-        android:title="search 2"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always" />
 
 </menu>

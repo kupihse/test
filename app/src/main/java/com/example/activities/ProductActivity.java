@@ -3,6 +3,7 @@ package com.example.activities;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -35,6 +36,10 @@ public class ProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setHomeButtonEnabled(true);
+        }
         String id = getIntent().getStringExtra("item_id");
         // Делаем запрос по id
         Services.products.get(id).enqueue(new Callback<Product>() {

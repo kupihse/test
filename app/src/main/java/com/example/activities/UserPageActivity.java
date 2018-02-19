@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,11 @@ public class UserPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setHomeButtonEnabled(true);
+        }
+
         Intent data = getIntent();
         String id = data.getStringExtra(USER_ID);
         if (id == null || id.isEmpty()) {
@@ -61,6 +67,7 @@ public class UserPageActivity extends AppCompatActivity {
             return;
         }
         this.user = user;
+        getSupportActionBar().setTitle(user.getLogin());
         final TextView login = (TextView) findViewById(R.id.user_page_login);
         login.setText("login: \n"+user.getLogin());
 
@@ -79,7 +86,7 @@ public class UserPageActivity extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CurrentUser.setCredentials(null, null);
+                CurrentUser.logOut();
                 Intent returnIntent = new Intent();
                 setResult(UserPageActivity.RESULT_OK, returnIntent);
                 finish();

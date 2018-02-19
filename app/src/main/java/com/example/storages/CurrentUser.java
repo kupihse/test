@@ -40,6 +40,16 @@ public class CurrentUser {
         save();
     }
 
+    public static void logOut() {
+        if (isSet()) {
+            setCredentials(null, null);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("login");
+            editor.remove("token");
+            editor.apply();
+        }
+    }
+
     public static void setCredentials(String login1, String token1) {
         login = login1;
         token = token1;

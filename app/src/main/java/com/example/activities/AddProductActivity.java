@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.MenuInflater;
@@ -53,6 +54,12 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Ставим соотв. Layout
         setContentView(R.layout.activity_add_product);
+
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setHomeButtonEnabled(true);
+        }
+
         // Референс на Layout фоток
         ll = (LinearLayout) findViewById(R.id.photos_2);
 

@@ -1,6 +1,5 @@
 package com.example.activities;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +35,6 @@ public class ScrollingActivity extends AppCompatActivity {
     private ArrayList<Product> products_search = new ArrayList<>();
 //    MaterialSearchView searchView;
 
-    // попытка сделать подсказки через курсор как в SearchActivity
-    // не вышло
-    private CursorAdapter cursorAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,44 +48,6 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
 
-        cursorAdapter = SearchActivity.buildProductSuggestionCursorAdapter(this);
-
-
-//        searchView = (MaterialSearchView)findViewById(R.id.search_view);
-//         Тут пишем что происходит при закрытии поиска
-//        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-//            @Override
-//            public void onSearchViewShown() {
-//
-//            }
-//
-//            @Override
-//            public void onSearchViewClosed() {
-//                rerender();
-//            }
-//        });
-//
-//         Тут сам поиск
-//        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                 При нажатии на поиск ищем (мб можно как-то лучше сделать процесс поиска)
-//                for (int i = 0; i < products.size(); i++) {
-//                    if (products.get(i).getName().contains(query)) {
-//                        products_search.add(products.get(i));
-//                    }
-//                }
-//                renderItems_search();
-//                return true;
-//            }
-
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                 Это для динамического поиска
-//                return false;
-//            }
-//        });
-
         ll = (LinearLayout) findViewById(R.id.products);
         rerender();
 
@@ -104,30 +59,11 @@ public class ScrollingActivity extends AppCompatActivity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                srl.setRefreshing(true);
-                rerender();
-                srl.setRefreshing(false);
+                rerender(srl);
             }
         });
     }
 
-    // Если делать через тот же метод и тот же список products, то работает хреново
-    private void renderItems_search() {
-        // если добавлять некуда, то зачем?
-        if (ll == null) {
-            return;
-        }
-        ll.removeAllViews();
-
-        // Если добавлять неоткуда, то как?
-        if (products_search.isEmpty()) {
-            return;
-        }
-        // добавляем
-        for (Product p: products_search) {
-            ll.addView(new ProductLayout(this, p));
-        }
-    }
 
     // Рендерим товары, предварительно запоминаем их в массиве (надо ли?)
     private void renderItems() {
@@ -148,6 +84,12 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void rerender() {
+        rerender(null);
+    }
+
+    private void rerender(final SwipeRefreshLayout srl) {
+        if (srl != null)
+            srl.setRefreshing(true);
         //очищаем все товары, нам же не нужно дублировать
         // оптимизировать это потом ??
         products.clear();
@@ -165,6 +107,9 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (prs == null) {
                     return;
                 }
+                if (srl != null)
+                    srl.setRefreshing(false);
+
                 // Если что-то есть закидываем это в массив
                 for(Product sp: prs) {
                     products.add(sp);
@@ -212,35 +157,10 @@ public class ScrollingActivity extends AppCompatActivity {
             item.setVisible(false);
         }
 
-        setSearchSettings(menu.findItem(R.id.scrolling_menu_search));
 
         return true;
     }
 
-    private void setSearchSettings(MenuItem item) {
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            // Если пользователь подтвердил запрос, ставим текст запроса в SearchManager.QUERY
-            // и открываем активити
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Intent intent = new Intent(ScrollingActivity.this, SearchActivity.class);
-                intent.putExtra(SearchManager.QUERY, s);
-                startActivity(intent);
-                return true;
-            }
-
-            // Попытка сделать подсказки как в SearchActivity
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                SearchActivity.setSuggestions(cursorAdapter, s);
-
-                return true;
-            }
-        });
-    }
 
     // Нажали на кнопочку сверху справа (три точки)
     // Думаю тут все в целом понятно, просто switch по меню
@@ -272,11 +192,11 @@ public class ScrollingActivity extends AppCompatActivity {
                 intent.putExtra(UserPageActivity.USER_ID, CurrentUser.getLogin());
                 startActivityForResult(intent,2);
                 return true;
-
-            case R.id.scrolling_menu_search_2:
-                startActivity(new Intent(this, TestSearchActivity.class));
+            case R.id.scrolling_menu_search:
+                startActivity(new Intent(this, SearchActivity.class));
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
