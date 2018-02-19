@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -98,13 +99,15 @@ public class ScrollingActivity extends AppCompatActivity {
 
         // На потом, надо сделать обновление по свайпу вниз
         //
-        //        SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-//        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                rerender();
-//            }
-//        });
+        final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                rerender();
+                srl.setRefreshing(false);
+            }
+        });
     }
 
     // Если делать через тот же метод и тот же список products, то работает хреново
@@ -148,6 +151,8 @@ public class ScrollingActivity extends AppCompatActivity {
         // оптимизировать это потом ??
         products.clear();
         products_search.clear();
+
+        Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
         Services.products.getAll().enqueue(new Callback<List<Product>>() {
