@@ -105,8 +105,12 @@ public class ProductActivity extends AppCompatActivity {
         Intent intent = new Intent(ProductActivity.this, FullScreenImageActivity.class);
 
         // Передаем в FullScreenImageActivity bitmap картинки и стартуем
-        intent.putExtra("Bitmap", product.getImage(0));
-        Log.d("IMG LOG", "ASD");
+//        intent.putExtra("Bitmap", product.getImage(0));
+//        Log.d("IMG LOG", "ASD");
+
+        intent.putExtra("Bitmap", product.getImages());
+        intent.putExtra("position", 0);
+
         startActivity(intent);
     }
 
@@ -120,8 +124,11 @@ public class ProductActivity extends AppCompatActivity {
         // Переход на FullScreenImageActivity
         Intent intent = new Intent(ProductActivity.this, FullScreenImageActivity.class);
 
+        intent.putExtra("Bitmap", product.getImages());
+        intent.putExtra("position", n);
+
         // Передаем в FullScreenImageActivity bitmap картинки и стартуем
-        intent.putExtra("Bitmap", product.getImage(n));
+//        intent.putExtra("Bitmap", product.getImage(n));
 
         startActivity(intent);
     }

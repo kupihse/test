@@ -10,10 +10,12 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +35,7 @@ import com.example.storages.CurrentUser;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -202,14 +205,20 @@ public class AddProductActivity extends AppCompatActivity {
 
     // очевидно из названия
     public void buttonFullScreen(MenuItem item) {
+//        Integer idx = Integer.parseInt(ViewId_Str);
+//        String imId = product.getImage(idx);
+//
+//        // Переход на FullScreenImageActivity
+//        Intent intent = new Intent(AddProductActivity.this, FullScreenImageActivity.class);
+//
+//        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
+//        intent.putExtra("Bitmap", imId);
+//        startActivity(intent);
+
         Integer idx = Integer.parseInt(ViewId_Str);
-        String imId = product.getImage(idx);
-
-        // Переход на FullScreenImageActivity
         Intent intent = new Intent(AddProductActivity.this, FullScreenImageActivity.class);
-
-        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
-        intent.putExtra("Bitmap", imId);
+        intent.putExtra("Bitmap", product.getImages());
+        intent.putExtra("position", idx);
         startActivity(intent);
     }
 
