@@ -64,14 +64,13 @@ public class ScrollingActivity extends AppCompatActivity {
 
         ((ListView) findViewById(R.id.products)).setAdapter(productAdapter);
 
-
         rerender();
 
 
         // На потом, надо сделать обновление по свайпу вниз
         //
         final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        srl.setDistanceToTriggerSync(1000);
+        srl.setDistanceToTriggerSync(500);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
