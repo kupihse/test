@@ -16,6 +16,7 @@ public class Product {
     private String sellerId;
 
     public Product() {
+        currentDate = new Date();
     }
     public Product(String name) {
         this.name = name;
