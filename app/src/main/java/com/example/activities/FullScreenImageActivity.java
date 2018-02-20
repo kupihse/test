@@ -4,22 +4,11 @@ package com.example.activities;
  * Created by 31719 on 14.01.2018.
  */
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import com.example.activities.FullScreenImageAdapter;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 import com.example.storages.ImageStorage;
 import com.example.application.R;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -56,8 +55,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         imgDisplay = (ImageView) viewLayout.findViewById(R.id.imgDisplay);
         btnClose = (Button) viewLayout.findViewById(R.id.btnClose);
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = _images.get(position);
         imgDisplay.setImageBitmap(bitmap);
 
