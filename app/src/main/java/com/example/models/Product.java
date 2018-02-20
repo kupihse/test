@@ -1,7 +1,7 @@
 package com.example.models;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 /**
  * Created by Andreyko0 on 30/09/2017.
  */
@@ -10,6 +10,7 @@ public class Product {
     private String name;
     private String description;
     private String id;
+    private Date currentDate;
     private int price;
     private ArrayList<String> images = new ArrayList<>();
     private String sellerId;
@@ -47,6 +48,9 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+    public Date getCurrentDate(){
+        return currentDate; }
 
     public void setPrice(int price) { this.price = price; }
 

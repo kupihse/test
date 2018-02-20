@@ -13,7 +13,9 @@ import com.example.activities.UserPageActivity;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
 import com.example.models.Product;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 /**
  * Created by Andreyko0 on 26/09/2017.
  */
@@ -61,9 +63,31 @@ public class ProductLayout extends LinearLayout {
         priceView.setText(Integer.toString(price) + " руб.");
 
         TextView date = findViewById(R.id.product_date);
-        date.setText("Today");
+        //формат даты
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yy");
+        // Даты сегодня и та что у продукта
+        Date todayDate = new Date();
+        String today = formatForDateNow.format(todayDate);
+        Date productDate = p.getCurrentDate();
+        String dateFromServer = productDate != null ? formatForDateNow.format(productDate) : "";
+        String result;
+        // проверка даты, мб костыльно
+        // получение вчерашней даты
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        Date todate1 = cal.getTime();
+        String yesterday = formatForDateNow.format(todate1);
+        if (dateFromServer.equals(today)){
+            result = "Сегодня";
+        }
+        else if (dateFromServer.equals(yesterday)){
+            result = "Вчера";
+        }
+        else {
+            result = dateFromServer;
+        }
 
-
+        date.setText(result);
 
         ImageView imgPicture = findViewById(R.id.ImageView);
         imgPicture.setOnClickListener(new OnClickListener() {

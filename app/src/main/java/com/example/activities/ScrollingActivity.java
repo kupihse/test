@@ -65,7 +65,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-    // Рендерим товары, предварительно запоминаем их в массиве (надо ли?)
+    // Рендерим товары, предвффжарительно запоминаем их в массиве (надо ли?)
     private void renderItems() {
         // если добавлять некуда, то зачем?
         if (ll == null) {
