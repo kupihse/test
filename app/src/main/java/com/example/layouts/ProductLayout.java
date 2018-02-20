@@ -42,30 +42,12 @@ public class ProductLayout extends LinearLayout {
 
         TextView nameView  =  findViewById(R.id.product_text);
         nameView.setText(name);
-        nameView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doClick(ctx, productId);
-            }
-        });
-
-
 
         final String seller_id = p.getSellerId();
 
         TextView sellerName = findViewById(R.id.product_user_login);
         sellerName.setText(seller_id);
         Log.d("POD_LAYOUT_ID", seller_id == null? "none":seller_id);
-
-        sellerName.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ctx, UserPageActivity.class);
-                intent.putExtra(UserPageActivity.USER_ID, seller_id);
-                ctx.startActivity(intent);
-            }
-        });
-
 
 
         Integer price = p.getPrice();
@@ -100,12 +82,14 @@ public class ProductLayout extends LinearLayout {
         date.setText(result);
 
         ImageView imgPicture = findViewById(R.id.ImageView);
-        imgPicture.setOnClickListener(new OnClickListener() {
+
+        this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 doClick(ctx, productId);
             }
         });
+
 
         final String imId = p.getImage(0);
         ImageStorage.inject(imgPicture, imId);
