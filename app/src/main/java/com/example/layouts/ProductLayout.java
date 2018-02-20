@@ -23,10 +23,20 @@ import java.util.Calendar;
 public class ProductLayout extends LinearLayout {
     public ProductLayout(final Context ctx, Product p) {
         super(ctx);
-
-        final String productId = p.getId();
-
         inflate(getContext(), R.layout.single_product, this);
+
+        setProduct(ctx,p);
+    }
+
+    private void doClick(Context ctx, String id) {
+        Intent productIntent = new Intent(ctx, ProductActivity.class);
+        productIntent.putExtra("item_id", id);
+        ctx.startActivity(productIntent);
+    }
+
+
+    public void setProduct(final Context ctx, Product p) {
+        final String productId = p.getId();
 
         String name = p.getName();
 
@@ -99,11 +109,5 @@ public class ProductLayout extends LinearLayout {
 
         final String imId = p.getImage(0);
         ImageStorage.inject(imgPicture, imId);
-    }
-
-    private void doClick(Context ctx, String id) {
-        Intent productIntent = new Intent(ctx, ProductActivity.class);
-        productIntent.putExtra("item_id", id);
-        ctx.startActivity(productIntent);
     }
 }

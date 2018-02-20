@@ -10,15 +10,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.services.Services;
-import com.example.layouts.ProductLayout;
-import com.example.application.R;
-import com.example.models.Product;
 import com.example.activities.entry.EntryFormActivity;
+import com.example.application.R;
+import com.example.layouts.ProductLayout;
+import com.example.models.Product;
+import com.example.services.Services;
 import com.example.storages.CurrentUser;
 
 import java.util.ArrayList;
@@ -30,10 +31,7 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    private LinearLayout ll;
-    private ArrayList<Product> products = new ArrayList<>();
-    private ArrayList<Product> products_search = new ArrayList<>();
-//    MaterialSearchView searchView;
+    private ArrayAdapter<Product> productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,26 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
+        productAdapter = new ArrayAdapter<Product>(this, 0, new ArrayList<Product>()) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Product product = getItem(position);
+                if (convertView == null) {
+                    convertView = new ProductLayout(ScrollingActivity.this, product);
+                }
 
-        ll = (LinearLayout) findViewById(R.id.products);
+                ((ProductLayout) convertView).setProduct(ScrollingActivity.this, product);
+
+                return convertView;
+            }
+        };
+
+
+//        ll = (LinearLayout) findViewById(R.id.products);
+
+        ((ListView) findViewById(R.id.products)).setAdapter(productAdapter);
+
+
         rerender();
 
 
@@ -65,23 +81,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-    // Рендерим товары, предвффжарительно запоминаем их в массиве (надо ли?)
-    private void renderItems() {
-        // если добавлять некуда, то зачем?
-        if (ll == null) {
-            return;
-        }
-        ll.removeAllViews();
-
-        // Если добавлять неоткуда, то как?
-        if (products.isEmpty()) {
-            return;
-        }
-        // добавляем
-        for (Product p: products) {
-            ll.addView(new ProductLayout(this, p));
-        }
-    }
 
     private void rerender() {
         rerender(null);
@@ -90,10 +89,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private void rerender(final SwipeRefreshLayout srl) {
         if (srl != null)
             srl.setRefreshing(true);
-        //очищаем все товары, нам же не нужно дублировать
-        // оптимизировать это потом ??
-        products.clear();
-        products_search.clear();
+
+        productAdapter.clear();
 
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
@@ -111,11 +108,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     srl.setRefreshing(false);
 
                 // Если что-то есть закидываем это в массив
-                for(Product sp: prs) {
-                    products.add(sp);
-                }
-                // Ну и ререндерим
-                renderItems();
+                productAdapter.addAll(prs);
             }
 
             // Если чет все плохо, то просто пишем в лог, пока что

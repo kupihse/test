@@ -4,30 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="#545454">
-
-    <!--<com.miguelcatalan.materialsearchview.MaterialSearchView-->
-        <!--android:id="@+id/search_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textColor="#FFFFFF"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay"-->
-        <!--app:searchBackIcon="@drawable/ic_action_navigation_arrow_back_inverted"-->
-        <!--app:searchBackground="@color/colorPrimary"-->
-        <!--app:searchCloseIcon="@drawable/ic_action_navigation_close_inverted"-->
-        <!--app:searchSuggestionBackground="@color/colorPrimary"-->
-        <!--app:searchSuggestionIcon="@drawable/ic_suggestion">-->
-
-    <!--</com.miguelcatalan.materialsearchview.MaterialSearchView>-->
-
-    <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="?attr/actionBarSize"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--tools:context="com.example.activities.ScrollingActivity"-->
-        <!--tools:showIn="@layout/activity_scrolling">-->
+    android:background="#545454"
+    android:fitsSystemWindows="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,10 +14,9 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:visibility="visible"
-        app:popupTheme="@style/AppTheme.PopupOverlay"></android.support.v7.widget.Toolbar>
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
@@ -47,28 +24,11 @@
         android:layout_marginTop="?attr/actionBarSize"
         tools:context="com.example.activities.ScrollingActivity">
 
-        <android.support.v4.widget.NestedScrollView
+        <ListView
+            android:id="@+id/products"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context="com.example.activities.ScrollingActivity"
-            tools:showIn="@layout/activity_scrolling">
-            <LinearLayout
-                android:id="@+id/products"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+            android:layout_height="wrap_content"/>
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/products"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
-        <!--</LinearLayout>-->
     </android.support.v4.widget.SwipeRefreshLayout>
-    <!--</android.support.v4.widget.NestedScrollView>-->
 
 </RelativeLayout>
