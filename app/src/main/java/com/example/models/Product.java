@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class Product {
+    private long sendableDate;
     private String name;
     private String description;
     private String id;
@@ -16,7 +17,6 @@ public class Product {
     private String sellerId;
 
     public Product() {
-        currentDate = new Date();
     }
     public Product(String name) {
         this.name = name;
@@ -25,7 +25,7 @@ public class Product {
     public String getDescription() {
         return description;
     }
-
+    public long getSendableDate() {return sendableDate;}
     public void setDescription(String description) {
         this.description = description;
     }

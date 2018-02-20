@@ -60,7 +60,7 @@ public class ProductLayout extends LinearLayout {
         // Даты сегодня и та что у продукта
         Date todayDate = new Date();
         String today = formatForDateNow.format(todayDate);
-        Date productDate = p.getCurrentDate();
+        Date productDate = new Date(p.getSendableDate());
         String dateFromServer = productDate != null ? formatForDateNow.format(productDate) : "";
         String result;
         // проверка даты, мб костыльно
