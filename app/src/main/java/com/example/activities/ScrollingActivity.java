@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import android.net.Uri;
 import com.example.activities.entry.EntryFormActivity;
 import com.example.application.R;
 import com.example.layouts.ProductLayout;
@@ -85,6 +85,11 @@ public class ScrollingActivity extends AppCompatActivity {
         rerender(null);
     }
 
+    private void download(){
+        Intent browserIntent = new
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kupihse/test/raw/master/app/build/outputs/apk/debug/app-debug.apk"));
+        startActivity(browserIntent);
+    }
     private void rerender(final SwipeRefreshLayout srl) {
         if (srl != null)
             srl.setRefreshing(true);
@@ -166,6 +171,9 @@ public class ScrollingActivity extends AppCompatActivity {
                 return true;
             case R.id.scrolling_menu_refresh:
                 rerender();
+                return true;
+            case R.id.scrolling_menu_download:
+                download();
                 return true;
 
             // сделал реквест код, чтоб нормально ререндерить меню обратно
