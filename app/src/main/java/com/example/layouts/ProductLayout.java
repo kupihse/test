@@ -38,23 +38,48 @@ public class ProductLayout extends LinearLayout {
     public void setProduct(final Context ctx, Product p) {
         final String productId = p.getId();
 
-        String name = p.getName();
-
         TextView nameView  =  findViewById(R.id.product_text);
+
+        TextView sellerName = findViewById(R.id.product_user_login);
+
+        TextView priceView  =  findViewById(R.id.price);
+        TextView dateView = findViewById(R.id.product_date);
+
+        ImageView imgPicture = findViewById(R.id.ImageView);
+
+        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, p);
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doClick(ctx, productId);
+            }
+        });
+
+    }
+
+    public static void setProductsViews(
+            TextView nameView, TextView sellerView, TextView priceView,
+            TextView dateView, ImageView imageView, Product p) {
+
+        final String name = p.getName();
         nameView.setText(name);
 
         final String seller_id = p.getSellerId();
-
-        TextView sellerName = findViewById(R.id.product_user_login);
-        sellerName.setText(seller_id);
-        Log.d("POD_LAYOUT_ID", seller_id == null? "none":seller_id);
+        sellerView.setText(seller_id);
 
 
-        Integer price = p.getPrice();
-        TextView priceView  =  findViewById(R.id.price);
+        final Integer price = p.getPrice();
         priceView.setText(Integer.toString(price) + " руб.");
 
-        TextView date = findViewById(R.id.product_date);
+        dateView.setText(getDateText(p));
+
+        final String imId = p.getImage(0);
+
+        ImageStorage.inject(imageView, imId);
+    }
+
+    public static String getDateText(Product p) {
         //формат даты
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yy");
         // Даты сегодня и та что у продукта
@@ -78,20 +103,6 @@ public class ProductLayout extends LinearLayout {
         else {
             result = dateFromServer;
         }
-
-        date.setText(result);
-
-        ImageView imgPicture = findViewById(R.id.ImageView);
-
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doClick(ctx, productId);
-            }
-        });
-
-
-        final String imId = p.getImage(0);
-        ImageStorage.inject(imgPicture, imId);
+        return result;
     }
 }

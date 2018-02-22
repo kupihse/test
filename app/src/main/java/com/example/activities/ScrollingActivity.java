@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +33,7 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    private ArrayAdapter<Product> productAdapter;
+    private ScrollingItemsAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +47,27 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
-        productAdapter = new ArrayAdapter<Product>(this, 0, new ArrayList<Product>()) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                Product product = getItem(position);
-                if (convertView == null) {
-                    convertView = new ProductLayout(ScrollingActivity.this, product);
-                }
-
-                ((ProductLayout) convertView).setProduct(ScrollingActivity.this, product);
-
-                return convertView;
-            }
-        };
+//        productAdapter = new ArrayAdapter<Product>(this, 0, new ArrayList<Product>()) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                Product product = getItem(position);
+//                if (convertView == null) {
+//                    convertView = new ProductLayout(ScrollingActivity.this, product);
+//                }
+//
+//                ((ProductLayout) convertView).setProduct(ScrollingActivity.this, product);
+//
+//                return convertView;
+//            }
+//        };
 
 
 //        ll = (LinearLayout) findViewById(R.id.products);
 
-        ((ListView) findViewById(R.id.products)).setAdapter(productAdapter);
+        RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.products));
+        productAdapter = new ScrollingItemsAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(productAdapter);
 
         rerender();
 
@@ -89,8 +94,6 @@ public class ScrollingActivity extends AppCompatActivity {
         if (srl != null)
             srl.setRefreshing(true);
 
-        productAdapter.clear();
-
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
@@ -101,13 +104,17 @@ public class ScrollingActivity extends AppCompatActivity {
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
+                    Log.d("AASD", "NULL");
                     return;
                 }
                 if (srl != null)
                     srl.setRefreshing(false);
 
+                Log.d("AASD", "KEK");
+                Toast.makeText(ScrollingActivity.this, "KEK", Toast.LENGTH_SHORT).show();
                 // Если что-то есть закидываем это в массив
-                productAdapter.addAll(prs);
+//                productAdapter.addAll(prs);
+                productAdapter.setProducts(prs);
             }
 
             // Если чет все плохо, то просто пишем в лог, пока что
