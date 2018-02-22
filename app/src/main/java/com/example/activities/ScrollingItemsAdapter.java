@@ -40,40 +40,28 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     }
 
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView name, seller, price, date;
-        private ImageView image;
+        private ProductLayout productLayout;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            name  =  itemView.findViewById(R.id.product_text);
-            seller = itemView.findViewById(R.id.product_user_login);
-            price  =  itemView.findViewById(R.id.price);
-            date = itemView.findViewById(R.id.product_date);
-            image = itemView.findViewById(R.id.ImageView);
+        public ViewHolder(ProductLayout layout) {
+            super(layout);
+            productLayout = layout;
         }
 
         public void setProductData(Product p) {
-            ProductLayout.setProductsViews(name,seller,price,date,image,p);
+            productLayout.setProduct(p);
         }
     }
 
     @Override
     public ScrollingItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_product, parent, false);
-
-        return new ViewHolder(v);
+        return new ViewHolder(new ProductLayout(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.setProductData(products.get(position));
     }
 

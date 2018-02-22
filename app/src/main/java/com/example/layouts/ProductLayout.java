@@ -21,11 +21,23 @@ import java.util.Calendar;
  */
 
 public class ProductLayout extends LinearLayout {
-    public ProductLayout(final Context ctx, Product p) {
-        super(ctx);
-        inflate(getContext(), R.layout.single_product, this);
 
-        setProduct(ctx,p);
+    TextView nameView,sellerName,priceView,dateView;
+
+    ImageView imgPicture;
+
+    Context context;
+
+    public ProductLayout(Context context) {
+        super(context);
+        inflate(getContext(), R.layout.single_product, this);
+        setViews();
+        this.context = context;
+    }
+
+    public ProductLayout(final Context ctx, Product p) {
+        this(ctx);
+        setProduct(p);
     }
 
     private void doClick(Context ctx, String id) {
@@ -35,27 +47,27 @@ public class ProductLayout extends LinearLayout {
     }
 
 
-    public void setProduct(final Context ctx, Product p) {
+    public void setViews() {
+        nameView  =  findViewById(R.id.product_text);
+        sellerName = findViewById(R.id.product_user_login);
+        priceView  =  findViewById(R.id.price);
+        dateView = findViewById(R.id.product_date);
+        imgPicture = findViewById(R.id.ImageView);
+    }
+
+    public void setOnClickListeners(final Context ctx, Product p) {
         final String productId = p.getId();
-
-        TextView nameView  =  findViewById(R.id.product_text);
-
-        TextView sellerName = findViewById(R.id.product_user_login);
-
-        TextView priceView  =  findViewById(R.id.price);
-        TextView dateView = findViewById(R.id.product_date);
-
-        ImageView imgPicture = findViewById(R.id.ImageView);
-
-        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, p);
-
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 doClick(ctx, productId);
             }
         });
+    }
 
+    public void setProduct(Product p) {
+        setOnClickListeners(this.context, p);
+        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, p);
     }
 
     public static void setProductsViews(
