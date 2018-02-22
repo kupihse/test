@@ -39,6 +39,11 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         notifyDataSetChanged();
     }
 
+    public void addProducts(List<Product> prs) {
+        products.addAll(prs);
+        notifyDataSetChanged();
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

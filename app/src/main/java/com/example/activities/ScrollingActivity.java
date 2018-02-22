@@ -2,6 +2,7 @@ package com.example.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,19 +13,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.Toast;
-import android.net.Uri;
+
 import com.example.activities.entry.EntryFormActivity;
 import com.example.application.R;
-import com.example.layouts.ProductLayout;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,6 +31,9 @@ import retrofit2.Response;
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private ScrollingItemsAdapter productAdapter;
+
+    int start = 0;
+    int n_pr = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,15 @@ public class ScrollingActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("HSE.Outlet");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
+
+        ((Button) findViewById(R.id.scrolling_activity_button_more))
+                .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start = 0;
+                rerender();
+            }
+        });
 
 //        productAdapter = new ArrayAdapter<Product>(this, 0, new ArrayList<Product>()) {
 //            @Override
@@ -79,11 +88,11 @@ public class ScrollingActivity extends AppCompatActivity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                start = 0;
                 rerender(srl);
             }
         });
     }
-
 
 
     private void rerender() {
@@ -102,7 +111,7 @@ public class ScrollingActivity extends AppCompatActivity {
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
-        Services.products.getAll().enqueue(new Callback<List<Product>>() {
+        Services.products.getN(start, n_pr).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> prs = response.body();
@@ -119,7 +128,8 @@ public class ScrollingActivity extends AppCompatActivity {
                 Toast.makeText(ScrollingActivity.this, "KEK", Toast.LENGTH_SHORT).show();
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
-                productAdapter.setProducts(prs);
+                productAdapter.addProducts(prs);
+                start += n_pr;
             }
 
             // Если чет все плохо, то просто пишем в лог, пока что
@@ -177,6 +187,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
                 return true;
             case R.id.scrolling_menu_refresh:
+                start = 0;
                 rerender();
                 return true;
             case R.id.scrolling_menu_download:
