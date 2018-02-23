@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.activities.entry.EntryFormActivity;
@@ -39,7 +38,7 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Services.logger.sendLog("Started new scrolling activity").enqueue(Services.emptyCallBack);
-        Log.d("START","SCROLL");
+        Log.d("START", "SCROLL");
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,64 +46,66 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
-        ((Button) findViewById(R.id.scrolling_activity_button_more))
-                .setOnClickListener(new View.OnClickListener() {
+        // На потом, надо сделать обновление по свайпу вниз
+        //
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setDistanceToTriggerSync(250);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                start = 0;
-                rerender();
+            public void onRefresh() {
+                rerender(swipeRefreshLayout);
             }
         });
 
-//        productAdapter = new ArrayAdapter<Product>(this, 0, new ArrayList<Product>()) {
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                Product product = getItem(position);
-//                if (convertView == null) {
-//                    convertView = new ProductLayout(ScrollingActivity.this, product);
-//                }
-//
-//                ((ProductLayout) convertView).setProduct(ScrollingActivity.this, product);
-//
-//                return convertView;
-//            }
-//        };
-
-
-//        ll = (LinearLayout) findViewById(R.id.products);
-
-        RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.products));
+        final RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.products));
+        recyclerView.setNestedScrollingEnabled(false);
         productAdapter = new ScrollingItemsAdapter();
+        productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
+            @Override
+            public void onUpdate() {
+                renderMore();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(productAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                // Обновляем только при отсутствии скролла (долистали до самого верха и листаем еще – тогда норм)
+                swipeRefreshLayout.setEnabled(newState == 0);
+
+                // 1 из вариантов подгрузки при пролистывании вниз
+//                if (!recyclerView.canScrollVertically(1) && newState == 0) {
+//                    Toast.makeText(ScrollingActivity.this, "" + recyclerView.getBottom() + ":" + recyclerView.getVerticalScrollbarPosition(), Toast.LENGTH_SHORT).show();
+//                    renderMore();
+//                }
+            }
+        });
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
 
         rerender();
 
-
-        // На потом, надо сделать обновление по свайпу вниз
-        //
-        final SwipeRefreshLayout srl = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        srl.setDistanceToTriggerSync(250);
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                start = 0;
-                rerender(srl);
-            }
-        });
     }
 
-
-    private void rerender() {
-        rerender(null);
-    }
-
-    private void download(){
+    private void download() {
         Intent browserIntent = new
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kupihse/test/raw/master/app/build/outputs/apk/debug/app-debug.apk"));
         startActivity(browserIntent);
     }
-    private void rerender(final SwipeRefreshLayout srl) {
+
+    private void renderMore() {
+        renderMore(null);
+    }
+
+    private void renderMore(final SwipeRefreshLayout srl) {
         if (srl != null)
             srl.setRefreshing(true);
 
@@ -118,14 +119,11 @@ public class ScrollingActivity extends AppCompatActivity {
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
-                    Log.d("AASD", "NULL");
                     return;
                 }
                 if (srl != null)
                     srl.setRefreshing(false);
 
-                Log.d("AASD", "KEK");
-                Toast.makeText(ScrollingActivity.this, "KEK", Toast.LENGTH_SHORT).show();
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
                 productAdapter.addProducts(prs);
@@ -138,6 +136,16 @@ public class ScrollingActivity extends AppCompatActivity {
                 Log.d("RERENDER FAIL", t.toString());
             }
         });
+    }
+
+    private void rerender(final SwipeRefreshLayout srl) {
+        start = 0;
+        productAdapter.clear();
+        renderMore(srl);
+    }
+
+    private void rerender() {
+        rerender(null);
     }
 
     // Просто создание меню
@@ -178,8 +186,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (CurrentUser.isSet()) {
                     startActivityForResult(new Intent(this, AddProductActivity.class), 1);
                     return true;
-                }
-                else {
+                } else {
                     Toast.makeText(this, "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -187,7 +194,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
                 return true;
             case R.id.scrolling_menu_refresh:
-                start = 0;
                 rerender();
                 return true;
             case R.id.scrolling_menu_download:
@@ -198,7 +204,7 @@ public class ScrollingActivity extends AppCompatActivity {
             case R.id.scrolling_menu_user_page:
                 Intent intent = new Intent(this, UserPageActivity.class);
                 intent.putExtra(UserPageActivity.USER_ID, CurrentUser.getLogin());
-                startActivityForResult(intent,2);
+                startActivityForResult(intent, 2);
                 return true;
             case R.id.scrolling_menu_search:
                 startActivity(new Intent(this, SearchActivity.class));
@@ -214,7 +220,7 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                rerender();
+                renderMore();
             }
             if (requestCode == 2) {
                 invalidateOptionsMenu();

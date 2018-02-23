@@ -1,14 +1,10 @@
 package com.example.activities;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.example.application.R;
 import com.example.layouts.ProductLayout;
@@ -23,8 +19,14 @@ import java.util.List;
 
 public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAdapter.ViewHolder> {
 
+    final static private int TYPE_ITEM = 0;
+    final static private int TYPE_BUTTON = 1;
 
     private List<Product> products;
+
+//    private View.OnClickListener buttonListener;
+
+    public OnUpdateListener onUpdateListener;
 
     public ScrollingItemsAdapter() {
         this(new ArrayList<Product>());
@@ -44,14 +46,37 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        products.clear();
+    }
+
+    public void clearAndUpdate() {
+        clear();
+        notifyDataSetChanged();
+    }
+
+    public void setOnUpdateListener(OnUpdateListener listener) {
+        onUpdateListener = listener;
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ProductLayout productLayout;
+        public Button button;
 
         public ViewHolder(ProductLayout layout) {
             super(layout);
             productLayout = layout;
+        }
+
+        public ViewHolder(View view) {
+            super(view);
+            this.button = view.findViewById(R.id.button);
+        }
+
+        public int getType() {
+            return productLayout == null ? TYPE_BUTTON : TYPE_ITEM;
         }
 
         public void setProductData(Product p) {
@@ -61,17 +86,50 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
 
     @Override
     public ScrollingItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                               int viewType) {
+        if (viewType == TYPE_BUTTON) {
+            View buttonView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_button_load_more, parent, false);
+            return new ViewHolder(buttonView);
+        }
         return new ViewHolder(new ProductLayout(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setProductData(products.get(position));
+
+        // 1 из вариантов подгрузки при пролистывании вниз
+//        if (position == products.size()-1) {
+//            onUpdateListener.onUpdate();
+//        }
+        switch (holder.getType()) {
+            case TYPE_BUTTON:
+                if (onUpdateListener != null) {
+                    holder.button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            onUpdateListener.onUpdate();
+                        }
+                    });
+                }
+                return;
+            case TYPE_ITEM:
+                holder.setProductData(products.get(position));
+                return;
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == products.size()) ? TYPE_BUTTON : TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return products.size() + 1;
+    }
+
+
+    public interface OnUpdateListener {
+        void onUpdate();
     }
 }
