@@ -38,7 +38,7 @@ public class UserPageActivity extends AppCompatActivity {
         }
 
         Intent data = getIntent();
-        String id = data.getStringExtra(USER_ID);
+        final String id = data.getStringExtra(USER_ID);
         if (id == null || id.isEmpty()) {
             Toast.makeText(this, "WTF", Toast.LENGTH_LONG).show();
             finish();
@@ -52,12 +52,12 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(UserPageActivity.this, "WTF 2", Toast.LENGTH_LONG).show();
+                if (id.equals(CurrentUser.getLogin())) {
+                    CurrentUser.logOut();
+                }
                 finish();
             }
         });
-
-
-
     }
 
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.activities.ProductActivity;
 import com.example.activities.UserPageActivity;
+import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
 import com.example.models.Product;
@@ -64,30 +65,37 @@ public class ProductLayout extends LinearLayout {
                 doClick(ctx, productId);
             }
         });
-        favoriteView.setImageResource(R.drawable.button_star_empty);
-        favoriteView.setTag("0");
+        if (!CurrentUser.isSet()) {
+            return;
+        }
         favoriteView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (favoriteView.getTag().equals("0")) {
-                    favoriteView.setImageResource(R.drawable.button_star_full);
-                    favoriteView.setTag("1");
-                } else {
+                if (CurrentUser.wishlist.contains(productId)) {
+
+                    CurrentUser.wishlist.remove(productId);
                     favoriteView.setImageResource(R.drawable.button_star_empty);
-                    favoriteView.setTag("0");
+
+                } else {
+
+                    CurrentUser.wishlist.add(productId);
+                    favoriteView.setImageResource(R.drawable.button_star_full);
+
                 }
+
+                CurrentUser.save();
             }
         });
     }
 
     public void setProduct(Product p) {
+        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, favoriteView, p);
         setOnClickListeners(this.context, p);
-        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, p);
     }
 
     public static void setProductsViews(
             TextView nameView, TextView sellerView, TextView priceView,
-            TextView dateView, ImageView imageView, Product p) {
+            TextView dateView, ImageView imageView, ImageView favoriteView, Product p) {
 
         final String name = p.getName();
         nameView.setText(name);
@@ -100,6 +108,19 @@ public class ProductLayout extends LinearLayout {
         priceView.setText(Integer.toString(price) + " руб.");
 
         dateView.setText(getDateText(p));
+
+        final String productId = p.getId();
+
+        if (!CurrentUser.isSet()) {
+            favoriteView.setImageResource(R.drawable.button_star_inactive);
+        } else {
+
+            if (CurrentUser.wishlist.contains(productId)) {
+                favoriteView.setImageResource(R.drawable.button_star_full);
+            } else {
+                favoriteView.setImageResource(R.drawable.button_star_empty);
+            }
+        }
 
         final String imId = p.getImage(0);
 
