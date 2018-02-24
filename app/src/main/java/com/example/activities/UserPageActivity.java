@@ -106,8 +106,11 @@ public class UserPageActivity extends AppCompatActivity {
         TextView login = (TextView) findViewById(R.id.user_page_login);
         Toast.makeText(UserPageActivity.this, "pressed", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", String.valueOf(login.getText()), null));
+                "mailto", String.valueOf(login.getText().subSequence(8,login.getText().length())),
+                null));
         startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+//        Toast.makeText(UserPageActivity.this, login.getText().subSequence(8,login.getText().length()),
+//                Toast.LENGTH_SHORT).show();
     }
 
     public void myProductsButton(View v) {
