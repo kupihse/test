@@ -24,7 +24,7 @@ public class ProductLayout extends LinearLayout {
 
     TextView nameView,sellerName,priceView,dateView;
 
-    ImageView imgPicture;
+    ImageView imgPicture, favoriteView;
 
     Context context;
 
@@ -53,6 +53,7 @@ public class ProductLayout extends LinearLayout {
         priceView  =  findViewById(R.id.price);
         dateView = findViewById(R.id.product_date);
         imgPicture = findViewById(R.id.ImageView);
+        favoriteView = findViewById(R.id.image_favorite);
     }
 
     public void setOnClickListeners(final Context ctx, Product p) {
@@ -61,6 +62,20 @@ public class ProductLayout extends LinearLayout {
             @Override
             public void onClick(View view) {
                 doClick(ctx, productId);
+            }
+        });
+        favoriteView.setImageResource(R.drawable.button_star_empty);
+        favoriteView.setTag("0");
+        favoriteView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (favoriteView.getTag().equals("0")) {
+                    favoriteView.setImageResource(R.drawable.button_star_full);
+                    favoriteView.setTag("1");
+                } else {
+                    favoriteView.setImageResource(R.drawable.button_star_empty);
+                    favoriteView.setTag("0");
+                }
             }
         });
     }

@@ -88,6 +88,17 @@
                     android:textColor="#a4a4a4"
                     android:textColorHighlight="#dc1974"
                     android:layout_marginStart="3dp" />
+                <ImageView
+                    android:id="@+id/image_favorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/button_star_empty"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:tag="0"/>
             </RelativeLayout>
 
             <RelativeLayout
