@@ -87,45 +87,45 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     @Override
     public ScrollingItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                int viewType) {
-        if (viewType == TYPE_BUTTON) {
-            View buttonView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_button_load_more, parent, false);
-            return new ViewHolder(buttonView);
-        }
+//        if (viewType == TYPE_BUTTON) {
+//            View buttonView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_button_load_more, parent, false);
+//            return new ViewHolder(buttonView);
+//        }
         return new ViewHolder(new ProductLayout(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        // 1 из вариантов подгрузки при пролистывании вниз
-//        if (position == products.size()-1) {
-//            onUpdateListener.onUpdate();
+//        switch (holder.getType()) {
+//            case TYPE_BUTTON:
+//                if (onUpdateListener != null) {
+//                    holder.button.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            onUpdateListener.onUpdate();
+//                        }
+//                    });
+//                }
+//                return;
+//            case TYPE_ITEM:
+        holder.setProductData(products.get(position));
+//                return;
 //        }
-        switch (holder.getType()) {
-            case TYPE_BUTTON:
-                if (onUpdateListener != null) {
-                    holder.button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            onUpdateListener.onUpdate();
-                        }
-                    });
-                }
-                return;
-            case TYPE_ITEM:
-                holder.setProductData(products.get(position));
-                return;
+
+        //         1 из вариантов подгрузки при пролистывании вниз
+        if (onUpdateListener != null && position == products.size()-1) {
+            onUpdateListener.onUpdate();
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return (position == products.size()) ? TYPE_BUTTON : TYPE_ITEM;
-    }
+//    @Override
+//    public int getItemViewType(int position) {
+//        return (position == products.size()) ? TYPE_BUTTON : TYPE_ITEM;
+//    }
 
     @Override
     public int getItemCount() {
-        return products.size() + 1;
+        return products.size();
     }
 
 

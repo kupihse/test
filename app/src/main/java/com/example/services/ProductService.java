@@ -26,5 +26,10 @@ public interface ProductService {
     Call<Product> get(@Path("id") String id);
 
     @GET("pr/all/n/{start}/{n}")
-    Call<List<Product>> getN(@Path("start") Integer start, @Path("n") Integer n);
+    Call<NProductsResponse> getN(@Path("start") Integer start, @Path("n") Integer n);
+
+    class NProductsResponse {
+        public List<Product> products;
+        public int max;
+    }
 }

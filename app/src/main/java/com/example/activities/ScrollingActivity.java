@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.activities.entry.EntryFormActivity;
 import com.example.application.R;
 import com.example.models.Product;
+import com.example.services.ProductService;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
 
@@ -30,6 +31,8 @@ import retrofit2.Response;
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private ScrollingItemsAdapter productAdapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     int start = 0;
     int n_pr = 10;
@@ -48,12 +51,12 @@ public class ScrollingActivity extends AppCompatActivity {
 
         // На потом, надо сделать обновление по свайпу вниз
         //
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setDistanceToTriggerSync(250);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                rerender(swipeRefreshLayout);
+                rerender(true);
             }
         });
 
@@ -63,7 +66,7 @@ public class ScrollingActivity extends AppCompatActivity {
         productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
             @Override
             public void onUpdate() {
-                renderMore();
+                renderMore(false);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,26 +75,19 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
                 // Обновляем только при отсутствии скролла (долистали до самого верха и листаем еще – тогда норм)
                 swipeRefreshLayout.setEnabled(newState == 0);
-
-                // 1 из вариантов подгрузки при пролистывании вниз
-//                if (!recyclerView.canScrollVertically(1) && newState == 0) {
-//                    Toast.makeText(ScrollingActivity.this, "" + recyclerView.getBottom() + ":" + recyclerView.getVerticalScrollbarPosition(), Toast.LENGTH_SHORT).show();
-//                    renderMore();
-//                }
             }
         });
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerView.smoothScrollToPosition(0);
+                recyclerView.scrollToPosition(0);
             }
         });
 
-        rerender();
+        rerender(false);
 
     }
 
@@ -101,51 +97,53 @@ public class ScrollingActivity extends AppCompatActivity {
         startActivity(browserIntent);
     }
 
-    private void renderMore() {
-        renderMore(null);
-    }
-
-    private void renderMore(final SwipeRefreshLayout srl) {
-        if (srl != null)
-            srl.setRefreshing(true);
+    private void renderMore(final boolean showRefreshing) {
+        if (showRefreshing)
+            swipeRefreshLayout.setRefreshing(true);
 
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
-        Services.products.getN(start, n_pr).enqueue(new Callback<List<Product>>() {
+        Services.products.getN(start, n_pr).enqueue(new Callback<ProductService.NProductsResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> prs = response.body();
+            public void onResponse(Call<ProductService.NProductsResponse> call, Response<ProductService.NProductsResponse> response) {
+                ProductService.NProductsResponse prs = response.body();
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
                     return;
                 }
-                if (srl != null)
-                    srl.setRefreshing(false);
+                if (showRefreshing)
+                    swipeRefreshLayout.setRefreshing(false);
 
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
-                productAdapter.addProducts(prs);
+                productAdapter.addProducts(prs.products);
+                if (productAdapter.getItemCount() == prs.max) {
+                    productAdapter.setOnUpdateListener(null);
+                    return;
+                }
                 start += n_pr;
             }
 
             // Если чет все плохо, то просто пишем в лог, пока что
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<ProductService.NProductsResponse> call, Throwable t) {
                 Log.d("RERENDER FAIL", t.toString());
             }
         });
     }
 
-    private void rerender(final SwipeRefreshLayout srl) {
+    private void rerender(final boolean showRefreshing) {
         start = 0;
         productAdapter.clear();
-        renderMore(srl);
-    }
-
-    private void rerender() {
-        rerender(null);
+        productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
+            @Override
+            public void onUpdate() {
+                renderMore(false);
+            }
+        });
+        renderMore(showRefreshing);
     }
 
     // Просто создание меню
@@ -194,7 +192,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
                 return true;
             case R.id.scrolling_menu_refresh:
-                rerender();
+                rerender(false);
                 return true;
             case R.id.scrolling_menu_download:
                 download();
@@ -220,7 +218,7 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                renderMore();
+                renderMore(false);
             }
             if (requestCode == 2) {
                 invalidateOptionsMenu();
