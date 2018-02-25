@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,6 +61,8 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
+        final FloatingActionButton actionButton = findViewById(R.id.activty_scrolling_fab);
+        actionButton.show();
         final RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.products));
         recyclerView.setNestedScrollingEnabled(false);
         productAdapter = new ScrollingItemsAdapter();
@@ -76,7 +79,16 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 // Обновляем только при отсутствии скролла (долистали до самого верха и листаем еще – тогда норм)
-                swipeRefreshLayout.setEnabled(newState == 0);
+                swipeRefreshLayout.setEnabled(newState == RecyclerView.SCROLL_STATE_IDLE);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy < 0) {
+                    actionButton.show();
+                } else {
+                    actionButton.hide();
+                }
             }
         });
 
