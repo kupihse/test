@@ -65,6 +65,11 @@ public class ProductActivity extends AppCompatActivity {
                 HorizontalScrollView scroll = (HorizontalScrollView) findViewById(R.id.scroll);
                 final LinearLayout ll = (LinearLayout)findViewById(R.id.photos_2);
                 textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
+
+                if (product.getImages() == null)
+                    return;
+
+                findViewById(R.id.no_images_text).setVisibility(View.GONE);
                 imgPicture = (ImageView) findViewById(R.id.image);
                 ImageStorage.inject(imgPicture, product.getImage(0));
                 if (product.getImages().size() > 1) {
@@ -75,11 +80,9 @@ public class ProductActivity extends AppCompatActivity {
                         SingleImageLayout Im = new SingleImageLayout(ProductActivity.this, id, i);
                         ll.addView(Im);
                     }
-                }
-                else {
+                } else {
                     scroll.setVisibility(View.GONE);
                 }
-//                imgPicture.setTag(0);
             }
 
             @Override

@@ -222,7 +222,7 @@ public class ScrollingActivity extends AppCompatActivity {
             }
             if (requestCode == 2) {
                 invalidateOptionsMenu();
-                rerender(false);
+                productAdapter.notifyDataSetChanged();
             }
         }
     }

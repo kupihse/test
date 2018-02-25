@@ -67,33 +67,42 @@ public class ProductLayout extends LinearLayout {
                 doClick(ctx, productId);
             }
         });
-//        if (!CurrentUser.isSet()) {
-//            return;
-//        }
         favoriteView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CurrentUser.isSet()) {
-                    if (CurrentUser.wishlist.contains(productId)) {
-
-                        CurrentUser.wishlist.remove(productId);
-                        favoriteView.setImageResource(R.drawable.button_star_empty);
-
-                    } else {
-
-                        CurrentUser.wishlist.add(productId);
-                        favoriteView.setImageResource(R.drawable.button_star_full);
-
-                    }
-
-                    CurrentUser.save();
-                }
-                else {
-                    Toast.makeText(getContext(), "Ты не вошел в аккаунт", Toast.LENGTH_SHORT).show();
-                }
-
+                switchFavoriteView(productId);
             }
         });
+
+        this.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                switchFavoriteView(productId);
+                return true;
+            }
+        });
+
+    }
+
+    private void switchFavoriteView(final String productId) {
+        if (CurrentUser.isSet()) {
+            if (CurrentUser.wishlist.contains(productId)) {
+
+                CurrentUser.wishlist.remove(productId);
+                favoriteView.setImageResource(R.drawable.button_star_empty);
+
+            } else {
+
+                CurrentUser.wishlist.add(productId);
+                favoriteView.setImageResource(R.drawable.button_star_full);
+
+            }
+
+            CurrentUser.save();
+        }
+        else {
+            Toast.makeText(getContext(), "Ты не вошел в аккаунт", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setProduct(Product p) {
@@ -128,6 +137,10 @@ public class ProductLayout extends LinearLayout {
             } else {
                 favoriteView.setImageResource(R.drawable.button_star_empty);
             }
+        }
+        if (p.getImages() == null) {
+            imageView.setImageResource(R.drawable.unknown_item);
+            return;
         }
 
         final String imId = p.getImage(0);
