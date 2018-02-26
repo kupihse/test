@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.example.application.R;
 import com.example.layouts.ProductLayout;
@@ -19,12 +21,12 @@ import java.util.List;
 
 public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAdapter.ViewHolder> {
 
-    final static private int TYPE_ITEM = 0;
-    final static private int TYPE_BUTTON = 1;
+    final static public int VIEW_LIST = 0;
+    final static public int VIEW_GRID = 1;
+    final static public int VIEW_STAGGERED_GRID = 2;
 
     private List<Product> products;
-
-//    private View.OnClickListener buttonListener;
+    public int viewType = VIEW_LIST;
 
     public OnUpdateListener onUpdateListener;
 
@@ -55,6 +57,10 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         notifyDataSetChanged();
     }
 
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public void setOnUpdateListener(OnUpdateListener listener) {
         onUpdateListener = listener;
     }
@@ -75,42 +81,33 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
             this.button = view.findViewById(R.id.button);
         }
 
-        public int getType() {
-            return productLayout == null ? TYPE_BUTTON : TYPE_ITEM;
-        }
-
         public void setProductData(Product p) {
-            productLayout.setProduct(p);
+                productLayout.setProduct(p);
         }
     }
 
     @Override
     public ScrollingItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                int viewType) {
-//        if (viewType == TYPE_BUTTON) {
-//            View buttonView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_button_load_more, parent, false);
-//            return new ViewHolder(buttonView);
-//        }
+        switch (this.viewType) {
+            case VIEW_LIST:
+                return new ViewHolder(new ProductLayout(parent.getContext()));
+            case VIEW_GRID:
+                return new ViewHolder(new ProductLayout(parent.getContext(),
+                        R.layout.single_product_grid));
+            case VIEW_STAGGERED_GRID:
+                ProductLayout layout = new ProductLayout(parent.getContext(),
+                        R.layout.single_product_grid);
+                layout.setHideImage(true);
+                return new ViewHolder(layout);
+        }
         return new ViewHolder(new ProductLayout(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        switch (holder.getType()) {
-//            case TYPE_BUTTON:
-//                if (onUpdateListener != null) {
-//                    holder.button.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            onUpdateListener.onUpdate();
-//                        }
-//                    });
-//                }
-//                return;
-//            case TYPE_ITEM:
+
         holder.setProductData(products.get(position));
-//                return;
-//        }
 
         //         1 из вариантов подгрузки при пролистывании вниз
         if (onUpdateListener != null && position == products.size()-1) {

@@ -37,4 +37,17 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/scrolling_menu_set_list"
+        android:title="Set list view"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/scrolling_menu_set_grid"
+        android:title="Set grid view"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/scrolling_menu_set_grid_2"
+        android:title="Set staggered grid view"
+        app:showAsAction="never"/>
+
 </menu>

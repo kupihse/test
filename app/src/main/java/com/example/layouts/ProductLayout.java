@@ -2,7 +2,6 @@ package com.example.layouts;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,8 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
-import com.example.activities.ScrollingActivity;
-import com.example.activities.UserPageActivity;
 import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
@@ -31,11 +28,25 @@ public class ProductLayout extends LinearLayout {
 
     Context context;
 
+    boolean hideImage = false;
+
     public ProductLayout(Context context) {
+        this(context, R.layout.single_product);
+    }
+
+    public ProductLayout(Context context, final int layout) {
         super(context);
-        inflate(getContext(), R.layout.single_product, this);
-        setViews();
         this.context = context;
+        setLayout(layout);
+    }
+
+    public void setLayout(final int layout) {
+        inflate(getContext(), layout, this);
+        setViews();
+    }
+
+    public void setHideImage(boolean hideImage) {
+        this.hideImage = hideImage;
     }
 
     public ProductLayout(final Context ctx, Product p) {
@@ -105,14 +116,16 @@ public class ProductLayout extends LinearLayout {
         }
     }
 
+
     public void setProduct(Product p) {
-        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, favoriteView, p);
+        setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, favoriteView, p, hideImage);
         setOnClickListeners(this.context, p);
     }
 
+
     public static void setProductsViews(
             TextView nameView, TextView sellerView, TextView priceView,
-            TextView dateView, ImageView imageView, ImageView favoriteView, Product p) {
+            TextView dateView, ImageView imageView, ImageView favoriteView, Product p, boolean hideImage) {
 
         final String name = p.getName();
         nameView.setText(name);
@@ -138,8 +151,14 @@ public class ProductLayout extends LinearLayout {
                 favoriteView.setImageResource(R.drawable.button_star_empty);
             }
         }
-        if (p.getImages() == null) {
-            imageView.setImageResource(R.drawable.unknown_item);
+        // todo убрать второе условие
+        if (p.getImages() == null || p.getImage(0).equals("0")) {
+            if (hideImage) {
+                imageView.setVisibility(GONE);
+            } else {
+                imageView.setVisibility(VISIBLE);
+                imageView.setImageResource(R.drawable.unknown_item);
+            }
             return;
         }
 

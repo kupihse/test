@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,12 +20,9 @@ import android.widget.Toast;
 
 import com.example.activities.entry.EntryFormActivity;
 import com.example.application.R;
-import com.example.models.Product;
 import com.example.services.ProductService;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +33,9 @@ public class ScrollingActivity extends AppCompatActivity {
     private ScrollingItemsAdapter productAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Toolbar toolbar;
+    private FloatingActionButton actionButton;
+    private RecyclerView recyclerView;
 
     int start = 0;
     int n_pr = 10;
@@ -44,9 +46,9 @@ public class ScrollingActivity extends AppCompatActivity {
         Services.logger.sendLog("Started new scrolling activity").enqueue(Services.emptyCallBack);
         Log.d("START", "SCROLL");
         setContentView(R.layout.activity_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HSE.Outlet");
+        toolbar.setTitle("HSE.Outlet");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
@@ -61,9 +63,15 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        final FloatingActionButton actionButton = findViewById(R.id.activty_scrolling_fab);
-        actionButton.show();
-        final RecyclerView recyclerView = ((RecyclerView) findViewById(R.id.products));
+        actionButton = findViewById(R.id.activty_scrolling_fab);
+
+        setRecyclerViewLayout();
+        rerender(false);
+
+    }
+
+    private void setRecyclerViewLayout() {
+        recyclerView = findViewById(R.id.products);
         recyclerView.setNestedScrollingEnabled(false);
         productAdapter = new ScrollingItemsAdapter();
         productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
@@ -84,7 +92,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy < 0) {
+                if (dy < 0 || !recyclerView.canScrollVertically(-1)) {
                     actionButton.show();
                 } else {
                     actionButton.hide();
@@ -98,9 +106,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 recyclerView.scrollToPosition(0);
             }
         });
-
-        rerender(false);
-
     }
 
     private void download() {
@@ -218,6 +223,21 @@ public class ScrollingActivity extends AppCompatActivity {
                 return true;
             case R.id.scrolling_menu_search:
                 startActivity(new Intent(this, SearchActivity.class));
+                return true;
+            case R.id.scrolling_menu_set_list:
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+                recyclerView.setAdapter(productAdapter);
+                return true;
+            case R.id.scrolling_menu_set_grid:
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
+                recyclerView.setAdapter(productAdapter);
+                return true;
+            case R.id.scrolling_menu_set_grid_2:
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                productAdapter.setViewType(2);
+                recyclerView.setAdapter(productAdapter);
                 return true;
         }
 
