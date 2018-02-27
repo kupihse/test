@@ -38,18 +38,4 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activty_scrolling_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/button_add"
-        android:scaleType="center"
-
-        app:layout_anchor="@id/products"
-        app:layout_anchorGravity="bottom|right|end"
-
-        android:layout_gravity="bottom|end"
-        android:layout_margin="28dp"/>
-
 </android.support.design.widget.CoordinatorLayout>
