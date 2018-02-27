@@ -2,13 +2,16 @@ package com.example.layouts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
+import com.example.activities.ScrollingItemsAdapter;
 import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
@@ -122,6 +125,16 @@ public class ProductLayout extends LinearLayout {
         setOnClickListeners(this.context, p);
     }
 
+    public void setLongClick(final ScrollingItemsAdapter.OnItemLongClickListener listener, final Product p) {
+        this.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onItemLongClick(p);
+                return true;
+            }
+        });
+    }
+
 
     public static void setProductsViews(
             TextView nameView, TextView sellerView, TextView priceView,
@@ -163,7 +176,7 @@ public class ProductLayout extends LinearLayout {
         }
 
         final String imId = p.getImage(0);
-
+        imageView.setVisibility(VISIBLE);
         ImageStorage.inject(imageView, imId);
     }
 

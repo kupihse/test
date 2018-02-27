@@ -29,6 +29,7 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     public int viewType = VIEW_LIST;
 
     public OnUpdateListener onUpdateListener;
+    public OnItemLongClickListener onLongClickListener;
 
     public ScrollingItemsAdapter() {
         this(new ArrayList<Product>());
@@ -64,6 +65,9 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     public void setOnUpdateListener(OnUpdateListener listener) {
         onUpdateListener = listener;
     }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        onLongClickListener = listener;
+    }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -83,6 +87,10 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
 
         public void setProductData(Product p) {
                 productLayout.setProduct(p);
+        }
+
+        public void setOnItemLongClickListener(OnItemLongClickListener listener, Product p) {
+            productLayout.setLongClick(listener, p);
         }
     }
 
@@ -107,8 +115,11 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.setProductData(products.get(position));
-
+        Product p = products.get(position);
+        holder.setProductData(p);
+        if (onLongClickListener != null ) {
+            holder.setOnItemLongClickListener(this.onLongClickListener, p);
+        }
         //         1 из вариантов подгрузки при пролистывании вниз
         if (onUpdateListener != null && position == products.size()-1) {
             onUpdateListener.onUpdate();
@@ -126,7 +137,13 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     }
 
 
+    // Listeners
+
     public interface OnUpdateListener {
         void onUpdate();
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(Product p);
     }
 }

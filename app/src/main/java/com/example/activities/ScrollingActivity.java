@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.activities.entry.EntryFormActivity;
 import com.example.application.R;
+import com.example.models.Product;
 import com.example.services.ProductService;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
@@ -34,7 +34,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private FloatingActionButton actionButton;
     private RecyclerView recyclerView;
 
     int start = 0;
@@ -63,16 +62,12 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        actionButton = findViewById(R.id.activty_scrolling_fab);
-
         setRecyclerViewLayout();
         rerender(false);
 
     }
 
     private void setRecyclerViewLayout() {
-        recyclerView = findViewById(R.id.products);
-        recyclerView.setNestedScrollingEnabled(false);
         productAdapter = new ScrollingItemsAdapter();
         productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
             @Override
@@ -80,6 +75,20 @@ public class ScrollingActivity extends AppCompatActivity {
                 renderMore(false);
             }
         });
+
+        productAdapter.setOnItemLongClickListener(new ScrollingItemsAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(Product product) {
+                Toast.makeText(ScrollingActivity.this, "clicked:"+product.getId(), Toast.LENGTH_SHORT).show();
+                PreviewFragment fragment = new PreviewFragment();
+
+                fragment.setData(product);
+                fragment.show(getFragmentManager(), "0");
+            }
+        });
+
+        recyclerView = findViewById(R.id.products);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(productAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -89,17 +98,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 // Обновляем только при отсутствии скролла (долистали до самого верха и листаем еще – тогда норм)
                 swipeRefreshLayout.setEnabled(newState == RecyclerView.SCROLL_STATE_IDLE);
             }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy < 0 || !recyclerView.canScrollVertically(-1)) {
-                    actionButton.show();
-                } else {
-                    actionButton.hide();
-                }
-            }
         });
-
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
