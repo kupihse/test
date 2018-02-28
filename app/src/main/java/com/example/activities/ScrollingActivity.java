@@ -1,9 +1,11 @@
 package com.example.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.activities.entry.EntryFormActivity;
@@ -35,6 +38,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private CountDownTimer progressTimer;
 
     int start = 0;
     int n_pr = 10;
@@ -51,6 +56,18 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
+        progressBar = findViewById(R.id.progress_bar);
+        progressTimer = new CountDownTimer(500,10) {
+            @Override
+            public void onTick(long l) {
+                progressBar.setProgress((int) (100 - l/5));
+            }
+
+            @Override
+            public void onFinish() {
+                progressBar.setProgress(100);
+            }
+        };
         // На потом, надо сделать обновление по свайпу вниз
         //
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
@@ -79,11 +96,10 @@ public class ScrollingActivity extends AppCompatActivity {
         productAdapter.setOnItemLongClickListener(new ScrollingItemsAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(Product product) {
-                Toast.makeText(ScrollingActivity.this, "clicked:"+product.getId(), Toast.LENGTH_SHORT).show();
-                PreviewFragment fragment = new PreviewFragment();
-
-                fragment.setData(product);
-                fragment.show(getFragmentManager(), "0");
+                getFragmentManager().beginTransaction()
+                        .add(R.id.scrolling_activity_layout, new PreviewTestFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -116,7 +132,10 @@ public class ScrollingActivity extends AppCompatActivity {
     private void renderMore(final boolean showRefreshing) {
         if (showRefreshing)
             swipeRefreshLayout.setRefreshing(true);
+        progressTimer.cancel();
+        progressTimer.start();
 
+        progressBar.setProgress(1);
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
@@ -132,6 +151,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (showRefreshing)
                     swipeRefreshLayout.setRefreshing(false);
 
+                progressBar.setProgress(2);
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
                 productAdapter.addProducts(prs.products);
