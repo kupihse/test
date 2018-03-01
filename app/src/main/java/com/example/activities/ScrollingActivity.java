@@ -26,6 +26,9 @@ import com.example.models.Product;
 import com.example.services.ProductService;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
+import com.example.util.Pair;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +42,6 @@ public class ScrollingActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private CountDownTimer progressTimer;
 
     int start = 0;
     int n_pr = 10;
@@ -57,17 +59,7 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
         progressBar = findViewById(R.id.progress_bar);
-        progressTimer = new CountDownTimer(500,10) {
-            @Override
-            public void onTick(long l) {
-                progressBar.setProgress((int) (100 - l/5));
-            }
 
-            @Override
-            public void onFinish() {
-                progressBar.setProgress(100);
-            }
-        };
         // На потом, надо сделать обновление по свайпу вниз
         //
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
@@ -132,17 +124,16 @@ public class ScrollingActivity extends AppCompatActivity {
     private void renderMore(final boolean showRefreshing) {
         if (showRefreshing)
             swipeRefreshLayout.setRefreshing(true);
-        progressTimer.cancel();
-        progressTimer.start();
 
-        progressBar.setProgress(1);
+        progressBar.setVisibility(View.VISIBLE);
+
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
-        Services.products.getN(start, n_pr).enqueue(new Callback<ProductService.NProductsResponse>() {
+        Services.products.getN(start, n_pr).enqueue(new Callback<Pair<List<Product>, Integer>>() {
             @Override
-            public void onResponse(Call<ProductService.NProductsResponse> call, Response<ProductService.NProductsResponse> response) {
-                ProductService.NProductsResponse prs = response.body();
+            public void onResponse(Call<Pair<List<Product>, Integer>> call, Response<Pair<List<Product>, Integer>> response) {
+                Pair<List<Product>, Integer> prs = response.body();
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
@@ -151,11 +142,11 @@ public class ScrollingActivity extends AppCompatActivity {
                 if (showRefreshing)
                     swipeRefreshLayout.setRefreshing(false);
 
-                progressBar.setProgress(2);
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
-                productAdapter.addProducts(prs.products);
-                if (productAdapter.getItemCount() == prs.max) {
+                productAdapter.addProducts(prs.first);
+                progressBar.setVisibility(View.INVISIBLE);
+                if (productAdapter.getItemCount() == prs.second) {
                     productAdapter.setOnUpdateListener(null);
                     return;
                 }
@@ -164,7 +155,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
             // Если чет все плохо, то просто пишем в лог, пока что
             @Override
-            public void onFailure(Call<ProductService.NProductsResponse> call, Throwable t) {
+            public void onFailure(Call<Pair<List<Product>, Integer>> call, Throwable t) {
                 Log.d("RERENDER FAIL", t.toString());
             }
         });

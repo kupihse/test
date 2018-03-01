@@ -21,12 +21,9 @@
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:progressBarStyleHorizontal"
+        android:indeterminateOnly="true"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:max="100"
-        android:progress="0"
-        android:background="#fff"/>
-
+        android:layout_height="wrap_content" />
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/swipe_refresh"
@@ -37,12 +34,6 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/products"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/products_grid"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

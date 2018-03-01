@@ -1,6 +1,7 @@
 package com.example.services;
 
 import com.example.models.Product;
+import com.example.util.Pair;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface ProductService {
     Call<Product> get(@Path("id") String id);
 
     @GET("pr/all/n/{start}/{n}")
-    Call<NProductsResponse> getN(@Path("start") Integer start, @Path("n") Integer n);
+    Call<Pair<List<Product>, Integer>> getN(@Path("start") Integer start, @Path("n") Integer n);
 
     class NProductsResponse {
         public List<Product> products;
