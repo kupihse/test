@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="40dp"
         tools:context="com.example.activities.ScrollingActivity">
 
         <android.support.v7.widget.RecyclerView
@@ -38,5 +39,12 @@
             android:layout_height="wrap_content" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"/>
 </android.support.design.widget.CoordinatorLayout>

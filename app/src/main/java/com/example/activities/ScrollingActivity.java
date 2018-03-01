@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -57,6 +58,40 @@ public class ScrollingActivity extends AppCompatActivity {
         toolbar.setTitle("HSE.Outlet");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.list));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.search));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.person));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.settings));
+        tabLayout.getTabAt(0).select();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 1:
+                        startActivity(new Intent(ScrollingActivity.this, SearchActivity.class));
+                        return;
+                    case 3:
+                        getFragmentManager().beginTransaction()
+                                .add(R.id.scrolling_activity_layout, new PreviewTestFragment())
+                                .addToBackStack(null)
+                                .commit();
+                        return;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         progressBar = findViewById(R.id.progress_bar);
 
