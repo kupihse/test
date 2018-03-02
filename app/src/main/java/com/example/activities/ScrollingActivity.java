@@ -37,13 +37,12 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     private ScrollingItemsAdapter productAdapter;
+    private RecyclerView recyclerView;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
-
     int start = 0;
     int n_pr = 10;
 
@@ -92,8 +91,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
-
-        progressBar = findViewById(R.id.progress_bar);
 
         // На потом, надо сделать обновление по свайпу вниз
         //
@@ -160,8 +157,6 @@ public class ScrollingActivity extends AppCompatActivity {
         if (showRefreshing)
             swipeRefreshLayout.setRefreshing(true);
 
-        progressBar.setVisibility(View.VISIBLE);
-
         Toast.makeText(this, "REFRESH", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
@@ -180,7 +175,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
                 productAdapter.addProducts(prs.first);
-                progressBar.setVisibility(View.INVISIBLE);
                 if (productAdapter.getItemCount() == prs.second) {
                     productAdapter.setOnUpdateListener(null);
                     return;
@@ -270,23 +264,44 @@ public class ScrollingActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
             case R.id.scrolling_menu_set_list:
+                int pos = getFirstItemPosition();
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
                 recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
                 return true;
             case R.id.scrolling_menu_set_grid:
+                pos = getFirstItemPosition();
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
                 recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+
                 return true;
             case R.id.scrolling_menu_set_grid_2:
+                pos = getFirstItemPosition();
+
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-                productAdapter.setViewType(2);
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_STAGGERED_GRID);
                 recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private int getFirstItemPosition() {
+        switch (productAdapter.viewType) {
+            case ScrollingItemsAdapter.VIEW_LIST:
+                return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            case ScrollingItemsAdapter.VIEW_GRID:
+                return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            case ScrollingItemsAdapter.VIEW_STAGGERED_GRID:
+                return ((StaggeredGridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPositions(null)[0];
+        }
+        return -1;
     }
 
     // При удачном возврате из активити добавления товара, просто ререндерим
