@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
+import com.example.adapters.FullScreenImagePagerAdapter;
 import com.example.storages.ImageStorage;
 import com.example.application.R;
 
@@ -50,7 +51,7 @@ public class FullScreenImageActivity extends Activity {
 //    }
 
 
-    private FullScreenImageAdapter adapter;
+    private FullScreenImagePagerAdapter adapter;
     private ViewPager viewPager;
     ArrayList <Bitmap> bmp = new ArrayList<>();
 
@@ -72,7 +73,7 @@ public class FullScreenImageActivity extends Activity {
         Intent i = getIntent();
         int position = i.getIntExtra("position", 0);
 
-        adapter = new FullScreenImageAdapter(FullScreenImageActivity.this, bmp);
+        adapter = new FullScreenImagePagerAdapter(FullScreenImageActivity.this, bmp);
 
         viewPager.setAdapter(adapter);
 

@@ -2,16 +2,14 @@ package com.example.layouts;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
-import com.example.activities.ScrollingItemsAdapter;
+import com.example.adapters.ScrollingItemsAdapter;
 import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
 import com.example.application.R;

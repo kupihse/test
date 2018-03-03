@@ -65,13 +65,6 @@
         </activity>
 
 
-        <activity android:name="com.example.activities.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.activities.ScrollingActivity"/>
-        </activity>
-
     </application>
 
 </manifest>

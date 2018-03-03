@@ -4,10 +4,6 @@
     tools:context="com.example.activities.ScrollingActivity">
 
     <item
-        android:id="@+id/scrolling_menu_add_product"
-        android:title="@string/add_product_setting"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/scrolling_menu_reg"
         android:title="@string/scrolling_menu_reg"
         app:showAsAction="never"/>
@@ -31,11 +27,6 @@
     android:title="Download apk"
     app:showAsAction="never"
     />
-    <item
-        android:id="@+id/scrolling_menu_search"
-        android:title="Search..."
-        android:icon="@drawable/ic_search"
-        app:showAsAction="always" />
 
     <item
         android:id="@+id/scrolling_menu_set_list"
