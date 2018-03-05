@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -88,10 +90,57 @@ public class AllProductsFragment extends Fragment {
                     Toast.makeText(getActivity(), "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();
                     return true;
                 }
+
+            case R.id.scrolling_menu_set_list:
+                int pos = getFirstItemPosition();
+                recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+                return true;
+            case R.id.scrolling_menu_set_grid:
+                pos = getFirstItemPosition();
+                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+
+                return true;
+            case R.id.scrolling_menu_set_grid_2:
+                pos = getFirstItemPosition();
+
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_STAGGERED_GRID);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+
+                return true;
+            case R.id.scrolling_menu_set_grid_3:
+                pos = getFirstItemPosition();
+
+                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_TRANSPARENT_GRID);
+                recyclerView.setAdapter(productAdapter);
+                recyclerView.scrollToPosition(pos);
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+        private int getFirstItemPosition() {
+        switch (productAdapter.viewType) {
+            case ScrollingItemsAdapter.VIEW_LIST:
+                return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            case ScrollingItemsAdapter.VIEW_GRID:
+                return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            case ScrollingItemsAdapter.VIEW_STAGGERED_GRID:
+                return ((StaggeredGridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPositions(null)[0];
+        }
+        return -1;
+    }
+
 
     private void setRecyclerViewLayout(View root) {
         productAdapter = new ScrollingItemsAdapter();
@@ -102,15 +151,16 @@ public class AllProductsFragment extends Fragment {
             }
         });
 
-//        productAdapter.setOnItemLongClickListener(new ScrollingItemsAdapter.OnItemLongClickListener() {
-//            @Override
-//            public void onItemLongClick(Product product) {
-//                getFragmentManager().beginTransaction()
-//                        .add(R.id.scrolling_activity_layout, new PreviewTestFragment())
-//                        .addToBackStack(null)
-//                        .commit();
-//            }
-//        });
+        productAdapter.setOnItemLongClickListener(new ScrollingItemsAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(Product product) {
+                ProductPreviewFragment previewFragment = ProductPreviewFragment.newInstance(product.getId());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.scrolling_activity_layout, previewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         recyclerView = root.findViewById(R.id.products);
         recyclerView.setNestedScrollingEnabled(false);

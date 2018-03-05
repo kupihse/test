@@ -153,13 +153,13 @@ public class ProductLayout extends LinearLayout {
         final String productId = p.getId();
 
         if (!CurrentUser.isSet()) {
-            favoriteView.setImageResource(R.drawable.button_star_inactive);
+            favoriteView.setVisibility(GONE);
         } else {
 
             if (CurrentUser.wishlist.contains(productId)) {
-                favoriteView.setImageResource(R.drawable.button_star_full);
+                favoriteView.setVisibility(VISIBLE);
             } else {
-                favoriteView.setImageResource(R.drawable.button_star_empty);
+                favoriteView.setVisibility(GONE);
             }
         }
         // todo убрать второе условие

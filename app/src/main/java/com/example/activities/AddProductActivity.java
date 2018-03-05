@@ -225,9 +225,9 @@ public class AddProductActivity extends AppCompatActivity {
         seller_login = CurrentUser.getLogin();
 
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
-        name = edit_name.getText().toString();
+        name = edit_name.getText().toString().trim();
         final EditText edit_desc = (EditText) findViewById(R.id.item_description);
-        description = edit_desc.getText().toString();
+        description = edit_desc.getText().toString().trim();
         final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
 

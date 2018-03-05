@@ -21,6 +21,7 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     final static public int VIEW_LIST = 0;
     final static public int VIEW_GRID = 1;
     final static public int VIEW_STAGGERED_GRID = 2;
+    final static public int VIEW_TRANSPARENT_GRID = 3;
 
     private List<Product> products;
     public int viewType = VIEW_LIST;
@@ -105,6 +106,9 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
                         R.layout.single_product_grid);
                 layout.setHideImage(true);
                 return new ViewHolder(layout);
+            case VIEW_TRANSPARENT_GRID:
+                return new ViewHolder(new ProductLayout(parent.getContext(),
+                        R.layout.single_product_transparent_grid));
         }
         return new ViewHolder(new ProductLayout(parent.getContext()));
     }

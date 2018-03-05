@@ -124,7 +124,7 @@ public class SearchFragment extends Fragment {
 //            @Override
 //            public void onItemLongClick(Product product) {
 //                getFragmentManager().beginTransaction()
-//                        .add(R.id.scrolling_activity_layout, new PreviewTestFragment())
+//                        .add(R.id.scrolling_activity_layout, new ProductPreviewFragment())
 //                        .addToBackStack(null)
 //                        .commit();
 //            }
