@@ -53,6 +53,8 @@ public class ScrollingActivity extends AppCompatActivity {
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), tabFragments));
         viewPager.setOffscreenPageLimit(tabFragments.length);
 
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         TabLayout tabLayout = findViewById(R.id.tabs);
         if (tabLayout == null) {
             Log.d("WTF", "No TABS");
