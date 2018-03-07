@@ -19,8 +19,9 @@ import com.example.adapters.MainViewPagerAdapter;
 import com.example.application.R;
 import com.example.fragments.AllProductsFragment;
 import com.example.fragments.EmptySettingsFragment;
-import com.example.fragments.EmptyUserPageFragment;
 import com.example.fragments.SearchFragment;
+import com.example.fragments.UserPageFragment;
+import com.example.fragments.UserTabFragment;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
 
@@ -29,7 +30,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private static final Fragment[] tabFragments = new Fragment[]{
         new AllProductsFragment(),
                 new SearchFragment(),
-                new EmptyUserPageFragment(),
+                new UserTabFragment(),
                 new EmptySettingsFragment()
     };
 
@@ -40,7 +41,6 @@ public class ScrollingActivity extends AppCompatActivity {
             R.drawable.settings
     };
 
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +48,6 @@ public class ScrollingActivity extends AppCompatActivity {
         Services.logger.sendLog("Started new scrolling activity").enqueue(Services.emptyCallBack);
         Log.d("START", "SCROLL");
         setContentView(R.layout.activity_scrolling);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("HSE.Outlet");
-        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
-        toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
         ViewPager viewPager = findViewById(R.id.scrolling_viewpager);
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), tabFragments));

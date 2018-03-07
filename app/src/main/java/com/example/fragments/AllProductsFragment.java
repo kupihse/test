@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,6 +59,10 @@ public class AllProductsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_products, container, false);
 
+        // Можно потом добавить меню в виде трех точек
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        toolbar.inflateMenu(R.menu.menu_all_items_fragment);
+
         // На потом, надо сделать обновление по свайпу вниз
         //
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
@@ -75,8 +82,15 @@ public class AllProductsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_all_items_fragment, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (bar != null) {
+            Toast.makeText(getContext(), "Все товары", Toast.LENGTH_SHORT).show();
+            bar.setTitle("Все товары");
+        }
+
+        inflater.inflate(R.menu.menu_all_items_fragment, menu);
     }
 
     @Override

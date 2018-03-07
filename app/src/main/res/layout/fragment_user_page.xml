@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/user_page_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/user_page_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/user_page_login"
+        app:layout_constraintLeft_toLeftOf="@id/user_page_login"/>
+
+    <TextView
+        android:id="@+id/user_page_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@+id/user_page_pass"
+        app:layout_constraintLeft_toLeftOf="@id/user_page_pass"/>
+
+    <Button
+        android:id="@+id/user_page_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="Log out"
+
+        app:layout_constraintTop_toBottomOf="@id/user_page_name"
+        app:layout_constraintLeft_toLeftOf="@id/user_page_name"/>
+
+    <Button
+        android:id="@+id/user_page_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My products"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/user_page_sendmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Mail" />
+
+
+</android.support.constraint.ConstraintLayout>

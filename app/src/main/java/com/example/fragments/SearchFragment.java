@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import com.example.adapters.SearchItemsAdapter;
 import com.example.application.R;
@@ -42,8 +42,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -51,6 +49,9 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        searchView = view.findViewById(R.id.search);
+        setSearchView();
 
         // На потом, надо сделать обновление по свайпу вниз
         //
@@ -179,6 +180,22 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.d("RERENDER FAIL", t.toString());
+            }
+        });
+    }
+
+    void setSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchText = s;
+                rerenderSearch();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
     }

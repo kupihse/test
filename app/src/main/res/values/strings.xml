@@ -44,4 +44,7 @@
     <string name="price_hint">Price</string>
 
     <string name="search_hint">Search Products</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

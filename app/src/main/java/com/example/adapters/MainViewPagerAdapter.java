@@ -4,11 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.fragments.AllProductsFragment;
-import com.example.fragments.EmptySettingsFragment;
-import com.example.fragments.EmptyUserPageFragment;
-import com.example.fragments.SearchFragment;
-
 /**
  * Created by Andreyko0 on 03/03/2018.
  */
