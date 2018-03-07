@@ -62,10 +62,12 @@ public class EntryFormFragment extends Fragment {
             public void onClick(View v) {
                 // Switching to Register screen
 
+                // Экспериментальная анимация
                 getFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+                                android.R.anim.fade_in, android.R.anim.fade_out)
                         .add(R.id.fragment_user_tab_container, new RegistrationFormFragment())
-                        .addToBackStack(null)
                         .commit();
 
             }

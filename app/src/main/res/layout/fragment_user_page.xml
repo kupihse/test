@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/user_page_login"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_height="@dimen/action_bar_height"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:visibility="visible"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:text="Стрница пользователя"/>
+    </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/user_page_pass"
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
 
-        app:layout_constraintTop_toBottomOf="@+id/user_page_login"
-        app:layout_constraintLeft_toLeftOf="@id/user_page_login"/>
+        android:layout_marginTop="@dimen/top_view_margin">
 
-    <TextView
-        android:id="@+id/user_page_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/user_page_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
 
-        app:layout_constraintTop_toBottomOf="@+id/user_page_pass"
-        app:layout_constraintLeft_toLeftOf="@id/user_page_pass"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <Button
-        android:id="@+id/user_page_log_out"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:text="Log out"
+        <TextView
+            android:id="@+id/user_page_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/user_page_name"
-        app:layout_constraintLeft_toLeftOf="@id/user_page_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/user_page_login"
+            app:layout_constraintLeft_toLeftOf="@id/user_page_login"/>
 
-    <Button
-        android:id="@+id/user_page_products"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My products"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/user_page_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <Button
-        android:id="@+id/user_page_sendmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send Mail" />
+            app:layout_constraintTop_toBottomOf="@+id/user_page_pass"
+            app:layout_constraintLeft_toLeftOf="@id/user_page_pass"/>
+
+        <Button
+            android:id="@+id/user_page_log_out"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Log out"
+
+            app:layout_constraintTop_toBottomOf="@id/user_page_name"
+            app:layout_constraintLeft_toLeftOf="@id/user_page_name"/>
+
+        <Button
+            android:id="@+id/user_page_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My products"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/user_page_sendmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Mail" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

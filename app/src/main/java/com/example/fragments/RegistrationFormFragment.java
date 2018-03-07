@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,7 +56,16 @@ public class RegistrationFormFragment extends Fragment {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_registration_form, container, false);
 
-
+        Toolbar toolbar = root.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_navigation_close_inverted);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction()
+                        .remove(RegistrationFormFragment.this)
+                        .commit();
+            }
+        });
 
         TextView loginScreen = root.findViewById(R.id.link_to_login);
 
@@ -75,7 +85,9 @@ public class RegistrationFormFragment extends Fragment {
             public void onClick(View arg0) {
                 // Closing registration screen
                 // Switching to Login Screen/closing register screen
-                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction()
+                        .remove(RegistrationFormFragment.this)
+                        .commit();
             }
 
         });
