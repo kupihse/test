@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_user_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#fff"
 
         android:layout_marginTop="@dimen/top_view_margin">
 
@@ -55,15 +57,6 @@
 
             app:layout_constraintTop_toBottomOf="@+id/user_page_pass"
             app:layout_constraintLeft_toLeftOf="@id/user_page_pass"/>
-
-        <Button
-            android:id="@+id/user_page_log_out"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:text="Log out"
-
-            app:layout_constraintTop_toBottomOf="@id/user_page_name"
-            app:layout_constraintLeft_toLeftOf="@id/user_page_name"/>
 
         <Button
             android:id="@+id/user_page_products"

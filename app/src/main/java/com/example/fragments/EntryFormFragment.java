@@ -63,11 +63,12 @@ public class EntryFormFragment extends Fragment {
                 // Switching to Register screen
 
                 // Экспериментальная анимация
-                getFragmentManager()
+                getChildFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
                                 android.R.anim.fade_in, android.R.anim.fade_out)
-                        .add(R.id.fragment_user_tab_container, new RegistrationFormFragment())
+                        .replace(R.id.fragment_entry_form_container, new RegistrationFormFragment())
+                        .addToBackStack(null)
                         .commit();
 
             }
@@ -118,9 +119,9 @@ public class EntryFormFragment extends Fragment {
                                 CurrentUser.save(user.getLogin(), token);
 
                                 Toast.makeText(getContext(), "Success "+ response.code(), Toast.LENGTH_SHORT).show();
-                                getFragmentManager()
+                                getChildFragmentManager()
                                         .beginTransaction()
-                                        .replace(R.id.fragment_user_tab_container, new UserPageFragment())
+                                        .replace(R.id.fragment_entry_form_container, new UserPageFragment())
                                         .commit();
                             }
                         }

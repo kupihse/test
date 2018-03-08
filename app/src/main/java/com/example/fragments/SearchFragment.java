@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.adapters.ScrollingItemsAdapter;
 import com.example.adapters.SearchItemsAdapter;
 import com.example.application.R;
 import com.example.models.Product;
@@ -121,15 +122,24 @@ public class SearchFragment extends Fragment {
     private void setRecyclerViewLayout(View root) {
         productAdapter = new SearchItemsAdapter();
 
-//        productAdapter.setOnItemLongClickListener(new ScrollingItemsAdapter.OnItemLongClickListener() {
-//            @Override
-//            public void onItemLongClick(Product product) {
-//                getFragmentManager().beginTransaction()
-//                        .add(R.id.scrolling_activity_layout, new ProductPreviewFragment())
-//                        .addToBackStack(null)
-//                        .commit();
-//            }
-//        });
+        productAdapter.setOnItemClickListener(new ScrollingItemsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product p) {
+                getChildFragmentManager().beginTransaction()
+                        .add(R.id.fragment_search_container, ProductFragment.newInstance(p.getId()))
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+            @Override
+            public void onItemLongClick(Product product) {
+                ProductPreviewFragment previewFragment = ProductPreviewFragment.newInstance(product.getId());
+                getFragmentManager().beginTransaction()
+                        .add(R.id.scrolling_activity_layout, previewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         recyclerView = root.findViewById(R.id.products);
         recyclerView.setNestedScrollingEnabled(false);

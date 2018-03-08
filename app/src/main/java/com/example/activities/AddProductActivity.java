@@ -260,6 +260,7 @@ public class AddProductActivity extends AppCompatActivity {
                     new UploadImagesTask(getApplicationContext()).execute(product.getImages());
 //                    CurrentUser.user().addProduct(product.getId());
                     Intent returnIntent = new Intent();
+                    returnIntent.putExtra("id", product.getId());
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();
                 }

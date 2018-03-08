@@ -3,9 +3,7 @@ package com.example.adapters;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.application.R;
 import com.example.layouts.ProductLayout;
 import com.example.models.Product;
 
@@ -19,7 +17,7 @@ import java.util.List;
 public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.ViewHolder> {
 
     private List<Product> products;
-    public ScrollingItemsAdapter.OnItemLongClickListener onLongClickListener;
+    public ScrollingItemsAdapter.OnItemClickListener onItemClickListener;
 
     public SearchItemsAdapter() {
         this(new ArrayList<Product>());
@@ -48,8 +46,8 @@ public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.
         notifyDataSetChanged();
     }
 
-    public void setOnItemLongClickListener(ScrollingItemsAdapter.OnItemLongClickListener listener) {
-        onLongClickListener = listener;
+    public void setOnItemClickListener(ScrollingItemsAdapter.OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 
 
@@ -62,12 +60,26 @@ public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.
             productLayout = layout;
         }
 
-        public void setProductData(Product p) {
+        public void setProductData(final Product p, final ScrollingItemsAdapter.OnItemClickListener listener) {
                 productLayout.setProduct(p);
-        }
+                if (listener == null) {
+                    return;
+                }
 
-        public void setOnItemLongClickListener(ScrollingItemsAdapter.OnItemLongClickListener listener, Product p) {
-            productLayout.setLongClick(listener, p);
+                productLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onItemClick(p);
+                    }
+                });
+
+                productLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        listener.onItemLongClick(p);
+                        return true;
+                    }
+                });
         }
     }
 
@@ -81,10 +93,7 @@ public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Product p = products.get(position);
-        holder.setProductData(p);
-        if (onLongClickListener != null ) {
-            holder.setOnItemLongClickListener(this.onLongClickListener, p);
-        }
+        holder.setProductData(p, onItemClickListener);
     }
 
     @Override

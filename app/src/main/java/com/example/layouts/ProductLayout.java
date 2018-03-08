@@ -71,31 +71,6 @@ public class ProductLayout extends LinearLayout {
         favoriteView = findViewById(R.id.image_favorite);
     }
 
-    public void setOnClickListeners(final Context ctx, Product p) {
-        final String productId = p.getId();
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doClick(ctx, productId);
-            }
-        });
-        favoriteView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchFavoriteView(productId);
-            }
-        });
-
-        this.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                switchFavoriteView(productId);
-                return true;
-            }
-        });
-
-    }
-
     private void switchFavoriteView(final String productId) {
         if (CurrentUser.isSet()) {
             if (CurrentUser.wishlist.contains(productId)) {
@@ -118,20 +93,16 @@ public class ProductLayout extends LinearLayout {
     }
 
 
-    public void setProduct(Product p) {
+    public void setProduct(final Product p) {
         setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, favoriteView, p, hideImage);
-        setOnClickListeners(this.context, p);
-    }
-
-    public void setLongClick(final ScrollingItemsAdapter.OnItemLongClickListener listener, final Product p) {
-        this.setOnLongClickListener(new OnLongClickListener() {
+        favoriteView.setOnClickListener(new OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                listener.onItemLongClick(p);
-                return true;
+            public void onClick(View view) {
+                switchFavoriteView(p.getId());
             }
         });
     }
+
 
 
     public static void setProductsViews(

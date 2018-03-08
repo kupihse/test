@@ -24,13 +24,17 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     final static public int VIEW_TRANSPARENT_GRID = 3;
 
     private List<Product> products;
-    public int viewType = VIEW_LIST;
+    public int viewType = VIEW_TRANSPARENT_GRID;
 
     public OnUpdateListener onUpdateListener;
-    public OnItemLongClickListener onLongClickListener;
+    public OnItemClickListener onItemClickListener;
 
     public ScrollingItemsAdapter() {
         this(new ArrayList<Product>());
+    }
+
+    public Product getItem(int i) {
+        return products.get(i);
     }
 
     public ScrollingItemsAdapter(List<Product> prs) {
@@ -44,6 +48,11 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
 
     public void addProducts(List<Product> prs) {
         products.addAll(prs);
+        notifyDataSetChanged();
+    }
+
+    public void addProduct(Product p) {
+        products.add(p);
         notifyDataSetChanged();
     }
 
@@ -63,8 +72,8 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     public void setOnUpdateListener(OnUpdateListener listener) {
         onUpdateListener = listener;
     }
-    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        onLongClickListener = listener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 
 
@@ -83,12 +92,24 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
             this.button = view.findViewById(R.id.button);
         }
 
-        public void setProductData(Product p) {
+        public void setProductData(final Product p, final OnItemClickListener listener) {
                 productLayout.setProduct(p);
-        }
-
-        public void setOnItemLongClickListener(OnItemLongClickListener listener, Product p) {
-            productLayout.setLongClick(listener, p);
+                if (listener == null) {
+                    return;
+                }
+                productLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onItemClick(p);
+                    }
+                });
+                productLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        listener.onItemLongClick(p);
+                        return true;
+                    }
+                });
         }
     }
 
@@ -117,10 +138,7 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Product p = products.get(position);
-        holder.setProductData(p);
-        if (onLongClickListener != null ) {
-            holder.setOnItemLongClickListener(this.onLongClickListener, p);
-        }
+        holder.setProductData(p, onItemClickListener);
         //         1 из вариантов подгрузки при пролистывании вниз
         if (onUpdateListener != null && position == products.size()-1) {
             onUpdateListener.onUpdate();
@@ -144,7 +162,8 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         void onUpdate();
     }
 
-    public interface OnItemLongClickListener {
+    public interface OnItemClickListener {
+        void onItemClick(Product p);
         void onItemLongClick(Product p);
     }
 }

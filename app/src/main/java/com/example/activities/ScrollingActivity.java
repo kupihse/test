@@ -1,14 +1,12 @@
 package com.example.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,19 +17,27 @@ import com.example.adapters.MainViewPagerAdapter;
 import com.example.application.R;
 import com.example.fragments.AllProductsFragment;
 import com.example.fragments.EmptySettingsFragment;
+import com.example.fragments.EntryFormFragment;
 import com.example.fragments.SearchFragment;
 import com.example.fragments.UserPageFragment;
-import com.example.fragments.UserTabFragment;
+import com.example.models.Product;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ScrollingActivity extends AppCompatActivity {
 
-    private static final Fragment[] tabFragments = new Fragment[]{
-        new AllProductsFragment(),
-                new SearchFragment(),
-                new UserTabFragment(),
-                new EmptySettingsFragment()
+    private ViewPager viewPager;
+    private AllProductsFragment allProductsFragment = new AllProductsFragment();
+
+    private final Fragment[] tabFragments = new Fragment[]{
+            allProductsFragment,
+            new SearchFragment(),
+            null,
+            new EmptySettingsFragment()
     };
 
     private static final int[] tabIcons = new int[]{
@@ -42,6 +48,24 @@ public class ScrollingActivity extends AppCompatActivity {
     };
 
 
+    // По нажатию на сенсорную кнопку назад, если есть возможность вернуть назад из текущего фрагмента,
+    // то возвращаем его, иначе дефолтное действие
+    @Override
+    public void onBackPressed() {
+        if (viewPager == null) {
+            return;
+        }
+        Fragment curr = tabFragments[viewPager.getCurrentItem()];
+        if (curr == null) {
+            return;
+        }
+        if (curr.getChildFragmentManager().getBackStackEntryCount() > 0) {
+            curr.getChildFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +73,12 @@ public class ScrollingActivity extends AppCompatActivity {
         Log.d("START", "SCROLL");
         setContentView(R.layout.activity_scrolling);
 
-        ViewPager viewPager = findViewById(R.id.scrolling_viewpager);
+        viewPager = findViewById(R.id.scrolling_viewpager);
+        if (!CurrentUser.isSet()) {
+            tabFragments[2] = new EntryFormFragment();
+        } else {
+            tabFragments[2] = new UserPageFragment();
+        }
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), tabFragments));
         viewPager.setOffscreenPageLimit(tabFragments.length);
 
@@ -100,7 +129,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-//     Нажали на кнопочку сверху справа (три точки)
+    //     Нажали на кнопочку сверху справа (три точки)
 //     Думаю тут все в целом понятно, просто switch по меню
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,18 +159,32 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-//    // При удачном возврате из активити добавления товара, просто ререндерим
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == 1) {
-//                renderMore(false);
-//            }
-//            if (requestCode == 2) {
-//                invalidateOptionsMenu();
-//                productAdapter.notifyDataSetChanged();
-//            }
-//        }
-//    }
+    // При удачном возврате из активити добавления товара, просто ререндерим
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1) {
+                // todo мб переделать эту лестницу
+                // todo и она чет не работает
+                String id = data.getStringExtra("id");
+                if (id != null) {
+                    Services.products.get(id).enqueue(new Callback<Product>() {
+                        @Override
+                        public void onResponse(Call<Product> call, Response<Product> response) {
+                            Product product = response.body();
+                            if (product != null) {
+                                allProductsFragment.productAdapter.addProduct(product);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Product> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        }
+    }
 }

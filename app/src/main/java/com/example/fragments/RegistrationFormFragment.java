@@ -57,13 +57,11 @@ public class RegistrationFormFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_registration_form, container, false);
 
         Toolbar toolbar = root.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_navigation_close_inverted);
+        toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back_inverted);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction()
-                        .remove(RegistrationFormFragment.this)
-                        .commit();
+                getFragmentManager().popBackStack();
             }
         });
 

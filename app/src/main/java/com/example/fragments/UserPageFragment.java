@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -54,6 +56,20 @@ public class UserPageFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_user_page, container, false);
 
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_user_page_fragment);
+        toolbar.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                CurrentUser.logOut();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_user_page_container, new EntryFormFragment())
+                        .commit();
+                return true;
+            }
+        });
+
         Services.users.get(CurrentUser.getLogin()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -88,17 +104,6 @@ public class UserPageFragment extends Fragment {
         if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)) {
             return;
         }
-
-        root.findViewById(R.id.user_page_log_out).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CurrentUser.logOut();
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_user_tab_container, new EntryFormFragment())
-                        .commit();
-            }
-        });
 
 
 //        Button myProducts = (Button) root.findViewById(R.id.user_page_products);
