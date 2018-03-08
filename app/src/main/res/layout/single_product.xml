@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="130dp"
     android:background="@drawable/rectangle_form"
     android:orientation="horizontal"
 
@@ -18,8 +18,8 @@
 
         <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ImageView"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
+            android:layout_width="150dp"
+            android:layout_height="122dp"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="3dp"
@@ -60,7 +60,8 @@
             android:layout_toStartOf="@id/image_favorite"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
+            android:gravity="start"
 
             android:textColor="#eaeaea"
             android:textSize="18sp" />
@@ -72,7 +73,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:textColor="#a4a4a4"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
+            android:gravity="start"
             android:textColorHighlight="#dc1974"
 
             android:layout_below="@id/product_text"
