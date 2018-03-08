@@ -2,26 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_all_items_fragment_add"
-        android:title="@string/add_product_setting"
-        android:icon="@drawable/button_add"
-        app:showAsAction="always"/>
-
-
-    <item
-        android:id="@+id/scrolling_menu_set_list"
-        android:title="Set list view"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/scrolling_menu_set_grid"
-        android:title="Set grid view"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/scrolling_menu_set_grid_2"
-        android:title="Set staggered grid view"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/scrolling_menu_set_grid_3"
-        android:title="Set staggered grid view"
+        android:id="@+id/download"
+        android:title="Download"
         app:showAsAction="never"/>
 </menu>

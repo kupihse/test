@@ -96,68 +96,6 @@ public class ScrollingActivity extends AppCompatActivity {
         }
     }
 
-    private void download() {
-        Intent browserIntent = new
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kupihse/test/raw/master/app/build/outputs/apk/debug/app-debug.apk"));
-        startActivity(browserIntent);
-    }
-
-
-    // Просто создание меню
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-
-        // если юзер сейчас есть, то кнопка входа не нужна
-        // вместо нее ставим user page
-        // если юзера нет, то наоборот
-        if (CurrentUser.isSet()) {
-            MenuItem item = menu.findItem(R.id.scrolling_menu_reg);
-            item.setVisible(false);
-            item = menu.findItem(R.id.scrolling_menu_user_page);
-            item.setVisible(true);
-        } else {
-            MenuItem item = menu.findItem(R.id.scrolling_menu_reg);
-            item.setVisible(true);
-            item = menu.findItem(R.id.scrolling_menu_user_page);
-            item.setVisible(false);
-        }
-
-
-        return true;
-    }
-
-
-    //     Нажали на кнопочку сверху справа (три точки)
-//     Думаю тут все в целом понятно, просто switch по меню
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.scrolling_menu_settings:
-                return true;
-            case R.id.scrolling_menu_reg:
-                startActivityForResult(new Intent(this, EntryFormActivity.class), 2);
-                return true;
-//            case R.id.scrolling_menu_refresh:
-//                rerender(false);
-//                return true;
-            case R.id.scrolling_menu_download:
-                download();
-                return true;
-
-            // сделал реквест код, чтоб нормально ререндерить меню обратно
-            case R.id.scrolling_menu_user_page:
-                Intent intent = new Intent(this, UserPageActivity.class);
-                intent.putExtra(UserPageActivity.USER_ID, CurrentUser.getLogin());
-                startActivityForResult(intent, 2);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     // При удачном возврате из активити добавления товара, просто ререндерим
     @Override

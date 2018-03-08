@@ -1,6 +1,7 @@
 package com.example.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,8 +62,15 @@ public class AllProductsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_products, container, false);
 
         // Можно потом добавить меню в виде трех точек
-//        Toolbar toolbar = view.findViewById(R.id.toolbar);
-//        toolbar.inflateMenu(R.menu.menu_all_items_fragment);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_all_items_fragment);
+        toolbar.getMenu().findItem(R.id.download).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                download();
+                return true;
+            }
+        });
 
         // На потом, надо сделать обновление по свайпу вниз
         //
@@ -125,68 +134,6 @@ public class AllProductsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (bar != null) {
-            Toast.makeText(getContext(), "Все товары", Toast.LENGTH_SHORT).show();
-            bar.setTitle("Все товары");
-        }
-
-        inflater.inflate(R.menu.menu_all_items_fragment, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_all_items_fragment_add:
-                if (CurrentUser.isSet()) {
-                    startActivityForResult(new Intent(getActivity(), AddProductActivity.class), 1);
-                    return true;
-                } else {
-                    Toast.makeText(getActivity(), "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-
-            case R.id.scrolling_menu_set_list:
-                int pos = getFirstItemPosition();
-                recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
-                recyclerView.setAdapter(productAdapter);
-                recyclerView.scrollToPosition(pos);
-                return true;
-            case R.id.scrolling_menu_set_grid:
-                pos = getFirstItemPosition();
-                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
-                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
-                recyclerView.setAdapter(productAdapter);
-                recyclerView.scrollToPosition(pos);
-
-                return true;
-            case R.id.scrolling_menu_set_grid_2:
-                pos = getFirstItemPosition();
-
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_STAGGERED_GRID);
-                recyclerView.setAdapter(productAdapter);
-                recyclerView.scrollToPosition(pos);
-
-                return true;
-            case R.id.scrolling_menu_set_grid_3:
-                pos = getFirstItemPosition();
-
-                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
-                productAdapter.setViewType(ScrollingItemsAdapter.VIEW_TRANSPARENT_GRID);
-                recyclerView.setAdapter(productAdapter);
-                recyclerView.scrollToPosition(pos);
-
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private int getFirstItemPosition() {
         switch (productAdapter.viewType) {
@@ -299,6 +246,19 @@ public class AllProductsFragment extends Fragment {
             }
         });
         renderMore(showRefreshing);
+    }
+
+
+
+
+
+
+
+
+    private void download() {
+        Intent browserIntent = new
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kupihse/test/raw/master/app/build/outputs/apk/debug/app-debug.apk"));
+        startActivity(browserIntent);
     }
 
 }
