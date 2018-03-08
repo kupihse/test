@@ -34,16 +34,10 @@ import retrofit2.Response;
  */
 public class EntryFormFragment extends Fragment {
 
+    EditText loginText, passwordText;
 
     public EntryFormFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -73,6 +67,8 @@ public class EntryFormFragment extends Fragment {
 
             }
         });
+        loginText = root.findViewById(R.id.emailspace);;
+        passwordText = root.findViewById(R.id.passwordspace);;
 
 /*      Прогресс бар не нужен, все происходит слишком быстро
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
@@ -86,11 +82,8 @@ public class EntryFormFragment extends Fragment {
                 //progressBar.setVisibility(ProgressBar.VISIBLE);
 
                 // Берем поля
-                EditText logint, passwordt;
-                logint = root.findViewById(R.id.emailspace);
-                String login = logint.getText().toString();
-                passwordt = root.findViewById(R.id.passwordspace);
-                String password = passwordt.getText().toString();
+                String login = loginText.getText().toString();
+                String password = passwordText.getText().toString();
 
                 //*******************************************************
                 //**************** Проверка на пустые поля **************
@@ -141,13 +134,16 @@ public class EntryFormFragment extends Fragment {
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (bar != null) {
-            bar.setTitle("Вход");
-        }
 
-        super.onCreateOptionsMenu(menu, inflater);
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (loginText != null && !isVisibleToUser) {
+            loginText.setEnabled(false);
+            passwordText.setEnabled(false);
+            loginText.setEnabled(true);
+            passwordText.setEnabled(true);
+        }
     }
+
 }

@@ -108,16 +108,6 @@ public class SearchFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public void onStop() {
-
-        if (searchView != null) {
-            searchView.clearFocus();
-        }
-
-        super.onStop();
-    }
-
 
     private void setRecyclerViewLayout(View root) {
         productAdapter = new SearchItemsAdapter();
@@ -125,6 +115,7 @@ public class SearchFragment extends Fragment {
         productAdapter.setOnItemClickListener(new ScrollingItemsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product p) {
+                searchView.clearFocus();
                 getChildFragmentManager().beginTransaction()
                         .add(R.id.fragment_search_container, ProductFragment.newInstance(p.getId()))
                         .addToBackStack(null)
@@ -143,7 +134,7 @@ public class SearchFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.products);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(productAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -209,4 +200,13 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (searchView != null && !isVisibleToUser) {
+            searchView.clearFocus();
+        }
+    }
+
 }

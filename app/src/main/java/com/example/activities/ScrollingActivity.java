@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -59,8 +60,12 @@ public class ScrollingActivity extends AppCompatActivity {
         if (curr == null) {
             return;
         }
-        if (curr.getChildFragmentManager().getBackStackEntryCount() > 0) {
-            curr.getChildFragmentManager().popBackStack();
+        FragmentManager fragmentManager = curr.getChildFragmentManager();
+        if (fragmentManager == null) {
+            return;
+        }
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
         } else {
             super.onBackPressed();
         }
