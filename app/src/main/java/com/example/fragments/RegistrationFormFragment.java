@@ -83,9 +83,7 @@ public class RegistrationFormFragment extends Fragment {
             public void onClick(View arg0) {
                 // Closing registration screen
                 // Switching to Login Screen/closing register screen
-                getFragmentManager().beginTransaction()
-                        .remove(RegistrationFormFragment.this)
-                        .commit();
+                getFragmentManager().popBackStack();
             }
 
         });

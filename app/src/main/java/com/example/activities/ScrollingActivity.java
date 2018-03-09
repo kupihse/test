@@ -56,10 +56,11 @@ public class ScrollingActivity extends AppCompatActivity {
         if (viewPager == null) {
             return;
         }
-        Fragment curr = tabFragments[viewPager.getCurrentItem()];
+        Fragment curr = getSupportFragmentManager().findFragmentByTag("android:switcher:" + viewPager.getId() + ":" + viewPager.getCurrentItem());
         if (curr == null) {
             return;
         }
+
         FragmentManager fragmentManager = curr.getChildFragmentManager();
         if (fragmentManager == null) {
             return;
