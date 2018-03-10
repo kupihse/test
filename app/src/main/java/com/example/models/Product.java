@@ -2,6 +2,9 @@ package com.example.models;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Created by Andreyko0 on 30/09/2017.
  */
@@ -13,6 +16,7 @@ public class Product {
     private String id;
     private Date currentDate;
     private int price;
+    private Set<String> tags = new TreeSet<>();
     private ArrayList<String> images = new ArrayList<>();
     private String sellerId;
 
@@ -72,5 +76,17 @@ public class Product {
     public void setSellerId (String id) { sellerId = id; }
 
     public String getSellerId () { return sellerId; }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(String s) {
+        tags.add(s);
+    }
 
 }

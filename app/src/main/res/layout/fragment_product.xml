@@ -69,6 +69,10 @@
             </HorizontalScrollView>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"/>
+            <TextView
                 android:id="@+id/product_activity_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,6 +80,25 @@
                 android:maxLines="15"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp" />
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tag_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:text="Tags:" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/product_user_login"

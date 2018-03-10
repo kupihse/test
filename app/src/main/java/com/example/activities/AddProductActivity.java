@@ -10,10 +10,12 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.view.KeyEvent;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,7 +63,25 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         // Референс на Layout фоток
-        ll = (LinearLayout) findViewById(R.id.photos_2);
+        ll = findViewById(R.id.photos_2);
+        final LinearLayout tagList = findViewById(R.id.tag_list);
+        final EditText tagInput = findViewById(R.id.tag_add);
+        tagInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    TextView newTag = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+                    String tag = v.getText().toString();
+                    newTag.setText(tag);
+                    tagList.addView(newTag);
+                    tagInput.getText().clear();
+                    product.addTag(tag);
+                    return true;
+
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -169,12 +189,12 @@ public class AddProductActivity extends AppCompatActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-              switch(menuItem.getItemId()) {
-                  case R.id.photo_picker_select:
-                      onImageGalleryClickedCopy();
-                      return true;
-              }
-              return false;
+                switch (menuItem.getItemId()) {
+                    case R.id.photo_picker_select:
+                        onImageGalleryClickedCopy();
+                        return true;
+                }
+                return false;
             }
         });
     }
@@ -264,6 +284,7 @@ public class AddProductActivity extends AppCompatActivity {
                     setResult(ScrollingActivity.RESULT_OK, returnIntent);
                     finish();
                 }
+
                 // Если все плохо и сервер вернул 5хх или 4хх
                 // Показываем тост (за здоровье сервера) и возвращаемя
                 @Override

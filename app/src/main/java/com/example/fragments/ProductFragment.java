@@ -100,9 +100,17 @@ public class ProductFragment extends Fragment {
                 title.setText(product.getName());
 
                 TextView textView = root.findViewById(R.id.product_activity_text);
+                textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
+
+                final LinearLayout tagList = root.findViewById(R.id.tag_list);
+                for (String tag : product.getTags()) {
+                    TextView newTag = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+                    newTag.setText(tag);
+                    tagList.addView(newTag);
+                }
+
                 HorizontalScrollView scroll = root.findViewById(R.id.scroll);
                 final LinearLayout ll = root.findViewById(R.id.photos_2);
-                textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
 
                 if (product.getImages() == null)
                     return;
