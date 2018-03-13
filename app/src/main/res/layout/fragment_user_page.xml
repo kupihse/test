@@ -65,12 +65,6 @@
             android:text="My products"
             android:visibility="gone" />
 
-        <Button
-            android:id="@+id/user_page_sendmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send Mail" />
-
 
     </android.support.constraint.ConstraintLayout>
 

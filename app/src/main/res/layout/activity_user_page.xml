@@ -21,7 +21,8 @@
         <TextView
             android:id="@+id/user_page_pass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/user_page_name"
@@ -32,22 +33,17 @@
             android:id="@+id/user_page_log_out"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:visibility="invisible"
-            android:text="Log out" />
+            android:text="Log out"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/user_page_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My products"
-            android:visibility="invisible" />
+            android:text="Products"
+            android:onClick="myProductsButton"
+            android:visibility="visible" />
 
-        <Button
-            android:id="@+id/user_page_sendmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="sendMail"
-            android:text="Send Mail" />
     </LinearLayout>
 
 

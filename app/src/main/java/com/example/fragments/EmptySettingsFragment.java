@@ -11,17 +11,29 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.application.R;
+
 /**
  * Created by Andreyko0 on 03/03/2018.
  */
 
 public class EmptySettingsFragment extends Fragment {
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
+
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        return rootView;
+    }
+
+
 
 }

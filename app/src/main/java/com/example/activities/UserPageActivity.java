@@ -58,6 +58,17 @@ public class UserPageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        final TextView login = (TextView) findViewById(R.id.user_page_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", String.valueOf(login.getText().subSequence(8, login.getText().length())),
+                        null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
     }
 
 
@@ -67,7 +78,7 @@ public class UserPageActivity extends AppCompatActivity {
             return;
         }
         this.user = user;
-        getSupportActionBar().setTitle(user.getLogin());
+        getSupportActionBar().setTitle(user.getName());
         final TextView login = (TextView) findViewById(R.id.user_page_login);
         login.setText("login: \n"+user.getLogin());
 
@@ -97,21 +108,8 @@ public class UserPageActivity extends AppCompatActivity {
         Button myProducts = (Button) findViewById(R.id.user_page_products);
         myProducts.setVisibility(View.VISIBLE);
 
-        Button sendMail = (Button) findViewById(R.id.user_page_sendmail);
-        sendMail.setVisibility(View.INVISIBLE);
-
     }
 
-    public void sendMail(View v) {
-        TextView login = (TextView) findViewById(R.id.user_page_login);
-        Toast.makeText(UserPageActivity.this, "pressed", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", String.valueOf(login.getText().subSequence(8,login.getText().length())),
-                null));
-        startActivity(Intent.createChooser(intent, "Choose an Email client :"));
-//        Toast.makeText(UserPageActivity.this, login.getText().subSequence(8,login.getText().length()),
-//                Toast.LENGTH_SHORT).show();
-    }
 
     public void myProductsButton(View v) {
         for (String p: user.getProducts()) {
