@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -28,6 +29,9 @@ public interface ProductService {
 
     @GET("pr/all/n/{start}/{n}")
     Call<Pair<List<Product>, Integer>> getN(@Path("start") Integer start, @Path("n") Integer n);
+
+    @DELETE("pr/delete/id/{id}")
+    Call<Void> deleteById(@Path("id") String id);
 
     class NProductsResponse {
         public List<Product> products;

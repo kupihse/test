@@ -134,7 +134,9 @@ public class ProductLayout extends LinearLayout {
             }
         }
         // todo убрать второе условие
-        if (p.getImages() == null || p.getImage(0).equals("0")) {
+        if (p.getImages() == null
+                || p.getImages().size() == 0
+                || p.getImage(0).equals("0")) {
             if (hideImage) {
                 imageView.setVisibility(GONE);
             } else {
