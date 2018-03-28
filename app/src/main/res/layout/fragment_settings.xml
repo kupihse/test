@@ -24,5 +24,11 @@
             android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 
+    <fragment android:name="com.example.fragments.SettingsFragment"
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_view_margin" />
+
 
 </FrameLayout>

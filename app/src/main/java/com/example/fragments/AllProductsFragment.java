@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +13,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +36,8 @@ import retrofit2.Response;
 
 public class AllProductsFragment extends Fragment {
 
-    public ScrollingItemsAdapter productAdapter;
-    private RecyclerView recyclerView;
+    public static ScrollingItemsAdapter productAdapter;
+    public static RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     int start = 0;
@@ -103,6 +99,8 @@ public class AllProductsFragment extends Fragment {
 
             }
         });
+
+
         final ImageButton buttonChangeView = view.findViewById(R.id.button_change_view);
         buttonChangeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +133,7 @@ public class AllProductsFragment extends Fragment {
     }
 
 
-    private int getFirstItemPosition() {
+    public int getFirstItemPosition() {
         switch (productAdapter.viewType) {
             case ScrollingItemsAdapter.VIEW_LIST:
                 return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();

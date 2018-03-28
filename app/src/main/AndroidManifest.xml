@@ -64,7 +64,6 @@
                 android:value="com.example.activities.ScrollingActivity"/>
         </activity>
 
-
     </application>
 
 </manifest>
