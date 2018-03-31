@@ -51,14 +51,14 @@
         </activity>
 
 
-        <activity android:name="com.example.activities.AddProductActivity" >
+        <activity android:name="com.example.activities.UserPageActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.activities.ScrollingActivity"/>
         </activity>
 
 
-        <activity android:name="com.example.activities.UserPageActivity" >
+        <activity android:name="com.example.activities.AddProductActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.activities.ScrollingActivity"/>

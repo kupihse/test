@@ -163,14 +163,14 @@ activity#com.example.activities.FullScreenImageActivity
 ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:48:9-51:20
 	android:name
 		ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:48:19-80
-activity#com.example.activities.AddProductActivity
+activity#com.example.activities.UserPageActivity
 ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:54:9-58:20
 	android:name
-		ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:54:19-75
-activity#com.example.activities.UserPageActivity
+		ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:54:19-73
+activity#com.example.activities.AddProductActivity
 ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:61:9-65:20
 	android:name
-		ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:61:19-73
+		ADDED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml:61:19-75
 uses-sdk
 INJECTED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\31719\Documents\GitHub\test\app\src\main\AndroidManifest.xml

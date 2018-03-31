@@ -13,10 +13,12 @@
         <item name="windowNoTitle">true</item>
         <item name="searchHintIcon">@null</item>
         <item name="android:textColor">@color/cpb_white</item>
-        <item name="android:textColorHint">@color/cpb_white</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryLight</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
