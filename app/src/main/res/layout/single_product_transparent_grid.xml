@@ -56,25 +56,31 @@
 
     <TextView
         android:id="@+id/product_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:lines="1"
+        android:maxLines="1"
         android:shadowColor="#000"
 
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="1"
-        android:textAlignment="center"
+        android:gravity="start"
+        android:textAlignment="viewStart"
         android:textColor="#fff"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/product_user_login"
-        app:layout_constraintLeft_toLeftOf="@id/product_user_login" />
+        app:layout_constraintLeft_toLeftOf="@id/product_user_login"
+        app:layout_constraintRight_toRightOf="@id/ImageView"/>
 
     <TextView
         android:id="@+id/product_user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+
+        android:visibility="gone"
+
 
         android:shadowColor="#000"
         android:shadowDx="1"
@@ -84,15 +90,15 @@
         android:textColor="#fff"
         android:textColorHighlight="#dc1974"
         app:layout_constraintBottom_toTopOf="@id/price"
-        app:layout_constraintLeft_toLeftOf="@id/product_date" />
+        app:layout_constraintLeft_toLeftOf="@id/price" />
 
     <TextView
         android:id="@+id/product_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:shadowColor="#000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -102,29 +108,29 @@
         android:textColorHighlight="#dc1974"
 
         app:layout_constraintBottom_toBottomOf="@id/price"
-        app:layout_constraintLeft_toLeftOf="@id/ImageView" />
+        app:layout_constraintRight_toRightOf="@id/ImageView" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
 
-        android:gravity="end"
+        android:gravity="start"
         android:lines="1"
         android:shadowColor="#000"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="1"
         android:text="@string/app_name"
-        android:textAlignment="viewEnd"
+        android:textAlignment="viewStart"
         android:textColor="#dc1974"
         android:textSize="22sp"
         android:textStyle="italic"
 
         app:layout_constraintBottom_toBottomOf="@id/ImageView"
-        app:layout_constraintLeft_toRightOf="@id/product_date"
-        app:layout_constraintRight_toRightOf="@id/ImageView" />
+        app:layout_constraintRight_toLeftOf="@id/product_date"
+        app:layout_constraintLeft_toLeftOf="@id/ImageView" />
 </android.support.constraint.ConstraintLayout>
