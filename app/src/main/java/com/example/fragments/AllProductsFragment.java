@@ -1,11 +1,13 @@
 package com.example.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -102,6 +104,17 @@ public class AllProductsFragment extends Fragment {
 
 
         final ImageButton buttonChangeView = view.findViewById(R.id.button_change_view);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean isInListView = prefs.getBoolean("list_view", false);
+        if (isInListView) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+            buttonChangeView.setImageResource(R.drawable.button_list);
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_TRANSPARENT_GRID);
+            buttonChangeView.setImageResource(R.drawable.button_grid);
+        }
         buttonChangeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

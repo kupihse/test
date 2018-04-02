@@ -1,10 +1,12 @@
 package com.example.fragments;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.application.R;
 
@@ -12,29 +14,20 @@ import com.example.application.R;
  * Created by Andreyko0 on 03/03/2018.
  */
 
-public class SettingsFragment extends PreferenceFragment {
-
-//    public ScrollingItemsAdapter productAdapter;
-//    private RecyclerView recyclerView;
-//    private SwipeRefreshLayout swipeRefreshLayout;
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.fragment_settings);
-//        setHasOptionsMenu(true);
-        SwitchPreference listSwitch = (SwitchPreference) findPreference("ListView");
-
-        listSwitch.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
+    public void onCreatePreferences(Bundle bundle, String rootKey) {
+        setPreferencesFromResource(R.xml.fragment_settings, rootKey);
+        findPreference("list_view").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(android.preference.Preference preference, Object newValue) {
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean isListOn = (Boolean) newValue;
                 if (isListOn) {
-                    Log.d("xzxzxzxz", "Switch is ON");
+                    Toast.makeText(getContext(), "Switch on", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
         });
-        }
-
+    }
 }
