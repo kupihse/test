@@ -12,8 +12,8 @@ public class RegularChecker {
     public static final Pattern pattern = Pattern.compile
             ("(.*@+.*@*)+");
 
-    public static boolean doMatch(String word){
-        Matcher matcher=pattern.matcher(word);
+    public static boolean doMatch(String word) {
+        Matcher matcher = pattern.matcher(word);
         return matcher.matches();
     }
 }

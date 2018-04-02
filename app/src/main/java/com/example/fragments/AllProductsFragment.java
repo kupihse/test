@@ -202,12 +202,6 @@ public class AllProductsFragment extends Fragment {
                 swipeRefreshLayout.setEnabled(newState == RecyclerView.SCROLL_STATE_IDLE);
             }
         });
-//        toolbar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                recyclerView.scrollToPosition(0);
-//            }
-//        });
     }
 
     private void renderMore(final boolean showRefreshing) {
@@ -258,12 +252,6 @@ public class AllProductsFragment extends Fragment {
         });
         renderMore(showRefreshing);
     }
-
-
-
-
-
-
 
 
     private void download() {

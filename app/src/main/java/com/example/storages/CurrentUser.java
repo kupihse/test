@@ -2,7 +2,6 @@ package com.example.storages;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +31,8 @@ public class CurrentUser {
 
     public static boolean isSaved() {
         return preferences != null
-            && preferences.contains(LOGIN_KEY)
-            && preferences.contains(TOKEN_KEY);
+                && preferences.contains(LOGIN_KEY)
+                && preferences.contains(TOKEN_KEY);
     }
 
     public static void save() {
@@ -95,7 +94,6 @@ public class CurrentUser {
         preferences = ctx.getSharedPreferences(USER_PREF_KEY, Context.MODE_PRIVATE);
         setFromDisk();
     }
-
 
 
 }

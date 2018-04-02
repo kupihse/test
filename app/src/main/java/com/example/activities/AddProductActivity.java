@@ -29,8 +29,8 @@ import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.services.UploadImagesTask;
-import com.example.storages.ImageStorage;
 import com.example.storages.CurrentUser;
+import com.example.storages.ImageStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -281,7 +281,7 @@ public class AddProductActivity extends AppCompatActivity {
 //                    CurrentUser.user().addProduct(product.getId());
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("id", product.getId());
-                    setResult(ScrollingActivity.RESULT_OK, returnIntent);
+                    setResult(MainActivity.RESULT_OK, returnIntent);
                     finish();
                 }
 

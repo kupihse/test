@@ -14,22 +14,22 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:visibility="visible"
         app:popupTheme="@style/AppTheme.PopupOverlay">
+
         <TextView
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="#fff"
             android:gravity="center_vertical"
-            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:text="Вход"/>
+            android:text="Вход"
+            android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
+        android:layout_marginTop="@dimen/top_view_margin"
 
-        android:layout_marginTop="@dimen/top_view_margin">
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="fill_parent"

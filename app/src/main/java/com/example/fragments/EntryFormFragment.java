@@ -1,16 +1,10 @@
 package com.example.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.activities.entry.EntryFormActivity;
-import com.example.activities.entry.RegistrationFormActivity;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
@@ -67,8 +59,10 @@ public class EntryFormFragment extends Fragment {
 
             }
         });
-        loginText = root.findViewById(R.id.emailspace);;
-        passwordText = root.findViewById(R.id.passwordspace);;
+        loginText = root.findViewById(R.id.emailspace);
+        ;
+        passwordText = root.findViewById(R.id.passwordspace);
+        ;
 
 /*      Прогресс бар не нужен, все происходит слишком быстро
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
@@ -88,9 +82,9 @@ public class EntryFormFragment extends Fragment {
                 //*******************************************************
                 //**************** Проверка на пустые поля **************
                 if ((!login.equals("")) && (!password.equals(""))) {
-                    final User user = new User(login,password);
+                    final User user = new User(login, password);
                     Call<String> c = Services.users.log(user);
-                    c.enqueue(new Callback<String>(){
+                    c.enqueue(new Callback<String>() {
 
                         // пришлось делать через ResponseBody (или так и надо, хз)
                         // но выгляди неидеально, мб потом переделать имеет смысл
@@ -111,7 +105,7 @@ public class EntryFormFragment extends Fragment {
                                 // если токен есть ставим текущего юзера и возвращаемя
                                 CurrentUser.save(user.getLogin(), token);
 
-                                Toast.makeText(getContext(), "Success "+ response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Success " + response.code(), Toast.LENGTH_SHORT).show();
                                 getChildFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.fragment_entry_form_container, new UserPageFragment())
@@ -132,7 +126,6 @@ public class EntryFormFragment extends Fragment {
 
         return root;
     }
-
 
 
     @Override

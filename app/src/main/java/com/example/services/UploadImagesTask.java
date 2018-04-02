@@ -1,18 +1,13 @@
 package com.example.services;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v4.graphics.BitmapCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.models.SendableImage;
 import com.example.storages.ImageStorage;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -52,7 +47,7 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
 //            } else {
 //                quality = 100;
 //            }
-            publishProgress(99,50, -1);
+            publishProgress(99, 50, -1);
 //            SendableImage img = SendableImage.encode(id, bmp, quality);
             final int x = i;
 
@@ -81,7 +76,7 @@ public class UploadImagesTask extends AsyncTask<List<String>, Integer, Void> {
     protected void onProgressUpdate(Integer... progress) {
         if (progress[0] == 99) {
             Log.d("QUALITY", ": " + progress[1]);
-            Log.d("SIZE", ": "+progress[2]);
+            Log.d("SIZE", ": " + progress[2]);
             return;
         }
         String successOrFail = progress[0] == 1 ? "Success: " : "Fail: ";

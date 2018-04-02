@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_search_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_search_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,43 +13,47 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:visibility="visible"
         app:popupTheme="@style/AppTheme.PopupOverlay">
+
         <android.support.v7.widget.SearchView
             android:id="@+id/search"
-            android:layout_gravity="center"
+            style="@style/Base.Widget.AppCompat.SearchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             app:iconifiedByDefault="false"
-            app:searchIcon="@null"
-            style="@style/Base.Widget.AppCompat.SearchView"/>
+            app:searchIcon="@null" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/user_hint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/top_view_margin"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/top_view_margin">
+        android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"/>
+            android:src="@drawable/arrow_down" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Swipe down to start searching"/>
+            android:text="Swipe down to start searching" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/arrow_down"/>
+            android:src="@drawable/arrow_down" />
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/top_view_margin">
+        android:layout_marginTop="@dimen/top_view_margin"
+        android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/products"

@@ -22,6 +22,7 @@ public class Product {
 
     public Product() {
     }
+
     public Product(String name) {
         this.name = name;
     }
@@ -29,7 +30,11 @@ public class Product {
     public String getDescription() {
         return description;
     }
-    public long getSendableDate() {return sendableDate;}
+
+    public long getSendableDate() {
+        return sendableDate;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -54,10 +59,13 @@ public class Product {
         return price;
     }
 
-    public Date getCurrentDate(){
-        return currentDate; }
+    public Date getCurrentDate() {
+        return currentDate;
+    }
 
-    public void setPrice(int price) { this.price = price; }
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public void addImage(String id) {
         images.add(id);
@@ -67,15 +75,21 @@ public class Product {
         return images.get(idx);
     }
 
-    public void setImages(ArrayList<String> images) { this.images = images; }
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
+    }
 
     public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setSellerId (String id) { sellerId = id; }
+    public void setSellerId(String id) {
+        sellerId = id;
+    }
 
-    public String getSellerId () { return sellerId; }
+    public String getSellerId() {
+        return sellerId;
+    }
 
     public Set<String> getTags() {
         return tags;

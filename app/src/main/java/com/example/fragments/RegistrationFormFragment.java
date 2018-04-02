@@ -2,7 +2,6 @@ package com.example.fragments;
 
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,8 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.activities.entry.EntryFormActivity;
-import com.example.activities.entry.RegistrationFormActivity;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.RegularChecker;
@@ -72,7 +69,7 @@ public class RegistrationFormFragment extends Fragment {
 
         // Настраиваем адаптер
         ArrayAdapter<?> adapter =
-                ArrayAdapter.createFromResource(getContext(), R.array.emailAddition,R.layout.simple_spinner_item_custom);
+                ArrayAdapter.createFromResource(getContext(), R.array.emailAddition, R.layout.simple_spinner_item_custom);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Вызываем адаптер
         spinner.setAdapter(adapter);
@@ -90,23 +87,23 @@ public class RegistrationFormFragment extends Fragment {
 
         final Button button = root.findViewById(R.id.btnRegister);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 //************ берем поля ************
 
-                EditText logint,namet,passwordt,passwordt1;
+                EditText logint, namet, passwordt, passwordt1;
                 logint = root.findViewById(R.id.reg_email);
-                String login=logint.getText().toString();
+                String login = logint.getText().toString();
                 namet = root.findViewById(R.id.reg_fullname);
                 String name = namet.getText().toString();
                 passwordt = root.findViewById(R.id.reg_password);
                 String password = passwordt.getText().toString();
                 passwordt1 = root.findViewById(R.id.reg_password1);
-                String password1= passwordt1.getText().toString();
+                String password1 = passwordt1.getText().toString();
 
                 //*******************************************************
                 //**************** Проверка на корректные поля **************
-                if(!RegularChecker.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("") ) {
+                if (!RegularChecker.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("")) {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
                     if (!password.equals(password1)) {

@@ -8,47 +8,52 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="#ffffff">>
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
         <!--  Header Starts-->
-        <RelativeLayout android:id="@+id/header"
+        <RelativeLayout
+            android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:background="#545454"
-            android:paddingTop="5dip"
             android:paddingBottom="5dip"
-            android:weightSum="1"
-            android:layout_alignParentTop="true">
+            android:paddingTop="5dip"
+            android:weightSum="1">
 
             <!-- Registration Form -->
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:padding="10dip">
                 <!--android:layout_below="@id/header">-->
                 <!-- Full Name Label -->
-                <TextView android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/UserName"/>
-                <EditText android:id="@+id/reg_fullname"
-                    android:textColor="@color/cpb_white"
+                <TextView
                     android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/UserName"
+                    android:textColor="#ffffff" />
+
+                <EditText
+                    android:id="@+id/reg_fullname"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
                     android:maxLines="1"
-                    android:layout_marginBottom="20dip"/>
+                    android:textColor="@color/cpb_white" />
                 <!--  Email Label -->
-                <TextView android:layout_width="fill_parent"
+                <TextView
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:textColor="#ffffff"
-                    android:text="@string/emailreg"/>
+                    android:text="@string/emailreg"
+                    android:textColor="#ffffff" />
                 <!-- Password Label -->
 
                 <TableLayout
@@ -57,16 +62,16 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_marginStart="10dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
-                        android:layout_height="match_parent" >
+                        android:layout_marginStart="10dp">
 
                         <EditText
                             android:id="@+id/reg_email"
-                            android:textColor="@color/cpb_white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ems="10" />
+                            android:ems="10"
+                            android:textColor="@color/cpb_white" />
 
                         <Spinner
                             android:id="@+id/emailList"
@@ -81,68 +86,73 @@
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginStart="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
                     android:text="@string/passwordreg"
                     android:textColor="#ffffff" />
 
-                <EditText android:id="@+id/reg_password"
-                    android:textColor="@color/cpb_white"
+                <EditText
+                    android:id="@+id/reg_password"
                     android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:layout_marginTop="5dip"
-                    android:layout_marginBottom="20dip"/>
-                <TextView android:layout_width="fill_parent"
+                    android:textColor="@color/cpb_white" />
+
+                <TextView
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:textColor="#ffffff"
-                    android:text="@string/registration_again"/>
+                    android:text="@string/registration_again"
+                    android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/reg_password1"
-                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textColor="@color/cpb_white" />
                 <!-- Register Button -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <Button
                         android:id="@+id/btnRegister"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:text="@string/registration_registrate"
-                        android:textColor="#ffffff"
-                        android:textSize="23sp"
-                        android:textAllCaps="false"
                         android:layout_marginTop="18dp"
-                        android:layout_width="fill_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_height="40dp"
                         android:background="@layout/button_login_and_registration"
-                        android:layout_alignParentTop="true" />
+                        android:text="@string/registration_registrate"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
+                        android:textSize="23sp" />
                 </RelativeLayout>
                 <!-- Link to Login Screen -->
-                <TextView android:id="@+id/link_to_login"
+                <TextView
+                    android:id="@+id/link_to_login"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dip"
                     android:layout_marginBottom="40dip"
-                    android:text="@string/backtoregistration"
+                    android:layout_marginTop="40dip"
                     android:gravity="center"
-                    android:textSize="15sp"
-                    android:textColor="#f3f3f3"/>
+                    android:text="@string/backtoregistration"
+                    android:textColor="#f3f3f3"
+                    android:textSize="15sp" />
                 <!-- Registration Form Ends -->
                 <!-- Login button -->
                 <!-- Link to Registration Screen -->
@@ -151,13 +161,13 @@
         </RelativeLayout>
         <!--  Header Ends -->
         <!-- Footer Start -->
-        <LinearLayout android:id="@+id/footer"
+        <LinearLayout
+            android:id="@+id/footer"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-        </LinearLayout>
+            android:layout_alignParentStart="true"></LinearLayout>
         <!-- Footer Ends -->
     </RelativeLayout>
 </ScrollView>

@@ -15,13 +15,13 @@ public class HSEOutlet extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("App: ","started");
+        Log.d("App: ", "started");
         if (!ImageStorage.init(getApplicationContext())) {
-            Toast toast = Toast.makeText(getApplicationContext(),"No cache dir", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "No cache dir", Toast.LENGTH_SHORT);
             toast.show();
             try {
                 Thread.sleep(toast.getDuration());
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
             } finally {
                 System.exit(0);
             }

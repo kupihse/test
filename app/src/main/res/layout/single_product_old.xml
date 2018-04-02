@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
         android:background="@drawable/rectangle_form"
         android:orientation="horizontal">
 
@@ -24,10 +24,10 @@
             android:layout_width="80dp"
             android:layout_height="105dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp">
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -42,7 +42,7 @@
                 app:riv_corner_radius="10dip"
                 app:riv_mutate_background="false"
                 app:riv_oval="false"
-                app:riv_tile_mode="clamp"/>
+                app:riv_tile_mode="clamp" />
 
             <TextView
                 android:id="@+id/product_date"
@@ -68,37 +68,39 @@
 
                 <TextView
                     android:id="@+id/product_text"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
                     android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
                     android:text="@string/app_name"
                     android:textColor="#eaeaea"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
                 <TextView
                     android:id="@+id/product_user_login"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="40dp"
                     android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="40dp"
                     android:textColor="#a4a4a4"
-                    android:textColorHighlight="#dc1974"
-                    android:layout_marginStart="3dp" />
+                    android:textColorHighlight="#dc1974" />
+
                 <ImageView
                     android:id="@+id/image_favorite"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/button_star_empty"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginRight="40dp"
-                    android:tag="0"/>
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/button_star_empty"
+                    android:tag="0" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -110,7 +112,6 @@
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="italic"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="63dp"
@@ -118,7 +119,8 @@
                     android:layout_marginTop="15dp"
                     android:text="@string/app_name"
                     android:textColor="#dc1974"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:textStyle="italic" />
 
             </RelativeLayout>
 

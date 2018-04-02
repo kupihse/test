@@ -137,7 +137,6 @@ public class ImageStorage {
     }
 
 
-
     public static class InjectTask extends AsyncTask<Void, Bitmap, Void> {
 
         private String imId;

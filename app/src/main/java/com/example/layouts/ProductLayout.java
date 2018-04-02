@@ -9,14 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
-import com.example.adapters.ScrollingItemsAdapter;
-import com.example.storages.CurrentUser;
-import com.example.storages.ImageStorage;
 import com.example.application.R;
 import com.example.models.Product;
+import com.example.storages.CurrentUser;
+import com.example.storages.ImageStorage;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 /**
  * Created by Andreyko0 on 26/09/2017.
  */

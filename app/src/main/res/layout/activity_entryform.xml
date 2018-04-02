@@ -8,106 +8,110 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="#ffffff">
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
         <!--  Header Starts-->
-        <RelativeLayout android:id="@+id/header"
+        <RelativeLayout
+            android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:background="#545454"
-            android:paddingTop="5dip"
             android:paddingBottom="5dip"
-            android:weightSum="1"
-            android:layout_alignParentTop="true">
+            android:paddingTop="5dip"
+            android:weightSum="1">
             <!-- Logo Start-->
-            <ImageView android:src="@drawable/logo"
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="130dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="24dp"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/imageView"
-                android:contentDescription="" />
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription=""
+                android:src="@drawable/logo" />
 
             <!-- Logo Ends -->
 
             <!-- Login Form -->
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dip"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="100dp"
+                android:orientation="vertical"
+                android:padding="10dip">
                 <!--  Email Label -->
 
-                <TextView android:layout_width="fill_parent"
+                <TextView
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="45dip"
-                    android:text="@string/email_entryform"/>
+                    android:text="@string/email_entryform"
+                    android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/emailspace"
-                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dip"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dip"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textColor="@color/cpb_white" />
 
                 <!--  Password Label -->
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_marginStart="5dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:text="@string/password_entryform"
                     android:textColor="#ffffff" />
 
                 <EditText
                     android:id="@+id/passwordspace"
-                    android:textColor="@color/cpb_white"
                     android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textColor="@color/cpb_white" />
                 <!-- Login button -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <Button
                         android:id="@+id/loginButton"
-                        android:text="@string/login_entryform"
-                        android:textColor="#ffffff"
-                        android:layout_marginTop="30dp"
-                        android:textSize="25sp"
-                        android:textAllCaps="false"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_centerInParent="true"
+                        android:layout_marginTop="30dp"
                         android:background="@layout/button_login_and_registration"
-                        android:layout_centerVertical="true" />
+                        android:text="@string/login_entryform"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp" />
                 </RelativeLayout>
-                    <TextView
-                        android:id="@+id/link_to_register"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dip"
-                        android:layout_marginTop="20dip"
-                        android:gravity="center"
-                        android:text="@string/question_entryform"
-                        android:textColor="#c2c2c2"
-                        android:textSize="20sp"
-                        />
+
+                <TextView
+                    android:id="@+id/link_to_register"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dip"
+                    android:layout_marginTop="20dip"
+                    android:gravity="center"
+                    android:text="@string/question_entryform"
+                    android:textColor="#c2c2c2"
+                    android:textSize="20sp" />
 
 
                 <!-- Login button -->
@@ -119,14 +123,14 @@
         </RelativeLayout>
         <!--  Header Ends -->
         <!-- Footer Start -->
-        <LinearLayout android:id="@+id/footer"
+        <LinearLayout
+            android:id="@+id/footer"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
         <!-- <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"

@@ -1,14 +1,10 @@
 package com.example.activities;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,8 +20,6 @@ import com.example.storages.ImageStorage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.security.AccessController.getContext;
 
 public class ProductActivity extends AppCompatActivity {
     private ImageView imgPicture;
@@ -47,15 +41,15 @@ public class ProductActivity extends AppCompatActivity {
             public void onResponse(Call<Product> call, Response<Product> response) {
 
                 // Если все плохо, показываем тост (за здоровье сервера)
-                if(!response.isSuccessful()) {
-                    Toast.makeText(ProductActivity.this,"Failed to load", Toast.LENGTH_LONG).show();
+                if (!response.isSuccessful()) {
+                    Toast.makeText(ProductActivity.this, "Failed to load", Toast.LENGTH_LONG).show();
                     return;
                 }
                 product = response.body();
                 // Если товар не найден на сервере, то ВТФ?? как так-то
                 // должен всегда возвращать, но на всякий случай
                 if (product == null) {
-                    Toast.makeText(ProductActivity.this,"No such item found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProductActivity.this, "No such item found", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -63,7 +57,7 @@ public class ProductActivity extends AppCompatActivity {
                 setTitle(product.getName());
                 TextView textView = (TextView) findViewById(R.id.product_activity_text);
                 HorizontalScrollView scroll = (HorizontalScrollView) findViewById(R.id.scroll);
-                final LinearLayout ll = (LinearLayout)findViewById(R.id.photos_2);
+                final LinearLayout ll = (LinearLayout) findViewById(R.id.photos_2);
                 textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
 
                 if (product.getImages() == null)
@@ -87,7 +81,7 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Toast.makeText(ProductActivity.this,"Failed to load", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProductActivity.this, "Failed to load", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -140,6 +134,6 @@ public class ProductActivity extends AppCompatActivity {
 //        Intent intent = new Intent(ProductActivity.this, UserPageActivity.class);
 //        intent.putExtra("id", product.getSellerId());
 
-        startActivityForResult(new Intent(this, UserPageActivity.class),2);
+        startActivityForResult(new Intent(this, UserPageActivity.class), 2);
     }
 }

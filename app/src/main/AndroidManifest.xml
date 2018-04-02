@@ -18,12 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.activities.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop"
+            android:name="com.example.activities.MainActivity"
             android:icon="@mipmap/ic_launcher"
-            android:roundIcon="@mipmap/ic_launcher_round">
+            android:label="@string/title_activity_scrolling"
+            android:launchMode="singleTop"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,13 +34,13 @@
                  и в какую активити будет напрвлен запрос с этого диалога -->
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value="com.example.activities.SearchActivity"/>
+                android:value="com.example.activities.SearchActivity" />
         </activity>
 
-        <activity android:name="com.example.activities.ProductActivity" >
+        <activity android:name="com.example.activities.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.activities.ScrollingActivity"/>
+                android:value="com.example.activities.MainActivity" />
         </activity>
 
         <activity android:name="com.example.activities.entry.EntryFormActivity" />
@@ -51,17 +51,17 @@
         </activity>
 
 
-        <activity android:name="com.example.activities.UserPageActivity" >
+        <activity android:name="com.example.activities.UserPageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.activities.ScrollingActivity"/>
+                android:value="com.example.activities.MainActivity" />
         </activity>
 
 
-        <activity android:name="com.example.activities.AddProductActivity" >
+        <activity android:name="com.example.activities.AddProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.activities.ScrollingActivity"/>
+                android:value="com.example.activities.MainActivity" />
         </activity>
 
     </application>

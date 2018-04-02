@@ -144,12 +144,6 @@ public class SearchFragment extends Fragment {
                 swipeRefreshLayout.setEnabled(newState == RecyclerView.SCROLL_STATE_IDLE);
             }
         });
-//        toolbar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                recyclerView.scrollToPosition(0);
-//            }
-//        });
     }
 
     private void rerenderSearch() {

@@ -1,6 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_all_products_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_all_products_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,13 +13,14 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:visibility="visible"
         app:popupTheme="@style/AppTheme.PopupOverlay">
+
         <TextView
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="#fff"
             android:gravity="center_vertical"
-            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:text="All Items"/>
+            android:text="All Items"
+            android:textColor="#fff" />
 
         <ImageButton
             android:id="@+id/button_change_view"
@@ -30,14 +31,15 @@
             android:layout_marginRight="20dp"
             android:background="#00000000"
             android:src="@drawable/button_grid" />
+
         <ImageButton
             android:id="@+id/button_add"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#00000000"
             android:layout_gravity="end"
-            android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#00000000"
             android:src="@drawable/button_add" />
     </android.support.v7.widget.Toolbar>
 

@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/fullscreen"
-        android:title="@string/full_screen"
-        android:onClick="buttonFullScreen"/>
+        android:onClick="buttonFullScreen"
+        android:title="@string/full_screen" />
 
     <item
         android:id="@+id/delete"
-        android:title="@string/delete_photo"
-        android:onClick="buttonDeleteImage"/>
+        android:onClick="buttonDeleteImage"
+        android:title="@string/delete_photo" />
 
 </menu>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="#545454">
+    android:background="#545454"
+    android:fitsSystemWindows="true">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/search_toolbar"
@@ -30,21 +30,20 @@
         <!---->
     </com.miguelcatalan.materialsearchview.MaterialSearchView>
 
-<!---->
+    <!---->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.activities.ScrollingActivity"
+        tools:context="com.example.activities.MainActivity"
         tools:showIn="@layout/activity_scrolling">
 
         <LinearLayout
             android:id="@+id/search_products"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

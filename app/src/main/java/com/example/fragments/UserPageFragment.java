@@ -6,24 +6,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.activities.ScrollingActivity;
-import com.example.activities.UserPageActivity;
-import com.example.adapters.MainViewPagerAdapter;
+import com.example.activities.MainActivity;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
@@ -72,8 +66,7 @@ public class UserPageFragment extends Fragment {
         });
 
 
-
-        final TextView login = (TextView) rootView.findViewById(R.id.user_page_login);
+        final TextView login = rootView.findViewById(R.id.user_page_login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +130,7 @@ public class UserPageFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        ActionBar bar = ((ScrollingActivity) getActivity()).getSupportActionBar();
+        ActionBar bar = ((MainActivity) getActivity()).getSupportActionBar();
         if (bar != null) {
             bar.setTitle("Ваша страница");
         }

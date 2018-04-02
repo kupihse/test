@@ -13,7 +13,7 @@ import com.example.application.R;
  * Created by Andreyko0 on 03/03/2018.
  */
 
-public class EmptySettingsFragment extends Fragment {
+public class SettingsContainerFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class EmptySettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         return rootView;
     }
-
 
 
 }

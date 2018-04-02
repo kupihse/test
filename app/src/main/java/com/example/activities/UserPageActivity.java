@@ -3,7 +3,6 @@ package com.example.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.application.R;
-import com.example.models.Product;
 import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,7 +76,7 @@ public class UserPageActivity extends AppCompatActivity {
         this.user = user;
         getSupportActionBar().setTitle(user.getName());
         final TextView login = (TextView) findViewById(R.id.user_page_login);
-        login.setText("login: \n"+user.getLogin());
+        login.setText("login: \n" + user.getLogin());
 
         TextView pass = (TextView) findViewById(R.id.user_page_pass);
         pass.setText("pass: \n" + user.getPassword());
@@ -88,7 +84,7 @@ public class UserPageActivity extends AppCompatActivity {
         TextView token = (TextView) findViewById(R.id.user_page_name);
         token.setText("Name: \n" + user.getName());
         String currentUserLogin = CurrentUser.getLogin();
-        if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)){
+        if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)) {
             return;
         }
 
@@ -112,7 +108,7 @@ public class UserPageActivity extends AppCompatActivity {
 
 
     public void myProductsButton(View v) {
-        for (String p: user.getProducts()) {
+        for (String p : user.getProducts()) {
             Toast.makeText(UserPageActivity.this, p, Toast.LENGTH_SHORT).show();
         }
     }

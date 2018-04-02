@@ -1,20 +1,11 @@
 package com.example.services;
 
 
-import com.example.models.Product;
-import com.example.models.User;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 
 /**
@@ -34,10 +25,10 @@ public class Services {
 
     // Создаем сервисы запросов, описаные выше
     public static ProductService products = retrofit.create(ProductService.class);
-    public static UserService    users    = retrofit.create(UserService.class);
-    public static ImageService   images   = retrofit.create(ImageService.class);
-    public static LoggerService  logger   = retrofit.create(LoggerService.class);
-    public static SearchService  search   = retrofit.create(SearchService.class);
+    public static UserService users = retrofit.create(UserService.class);
+    public static ImageService images = retrofit.create(ImageService.class);
+    public static LoggerService logger = retrofit.create(LoggerService.class);
+    public static SearchService search = retrofit.create(SearchService.class);
 
     // Пустой коллбек – затычка, если надо отправить запрос и забить на него
     // (null передавать вместо него нельзя, кидает exception)

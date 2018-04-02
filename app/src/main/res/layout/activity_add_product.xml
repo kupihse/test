@@ -10,12 +10,12 @@
         android:id="@+id/RelativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#545454"
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        android:background="#545454">
+        tools:layout_editor_absoluteY="8dp">
 
         <EditText
             android:id="@+id/item_name"
@@ -28,8 +28,8 @@
             android:hint="@string/prompt_name_product"
             android:inputType="text"
             android:maxLines="1"
-            android:textColorHint="@color/colorPrimaryLight"
-            android:textColor="@color/cpb_white"/>
+            android:textColor="@color/cpb_white"
+            android:textColorHint="@color/colorPrimaryLight" />
 
         <EditText
             android:id="@+id/item_description"
@@ -44,8 +44,8 @@
             android:inputType="textMultiLine"
             android:maxLines="6"
             android:scrollbars="vertical"
-            android:textColorHint="@color/colorPrimaryLight"
-            android:textColor="@color/cpb_white"/>
+            android:textColor="@color/cpb_white"
+            android:textColorHint="@color/colorPrimaryLight" />
 
         <LinearLayout
             android:id="@+id/tag_container"
@@ -62,15 +62,16 @@
                     android:id="@+id/tag_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
                         android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
                         android:text="Tags:"
-                        android:textColor="@color/cpb_white"/>
+                        android:textColor="@color/cpb_white" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -82,8 +83,8 @@
                 android:hint="Add tag"
                 android:imeOptions="actionDone"
                 android:singleLine="true"
-                android:textColorHint="@color/colorPrimaryLight"
-                android:textColor="@color/cpb_white"/>
+                android:textColor="@color/cpb_white"
+                android:textColorHint="@color/colorPrimaryLight" />
         </LinearLayout>
 
         <EditText
@@ -96,8 +97,8 @@
             android:layout_marginTop="12dp"
             android:hint="@string/price_hint"
             android:inputType="number"
-            android:textColorHint="@color/colorPrimaryLight"
-            android:textColor="@color/cpb_white"/>
+            android:textColor="@color/cpb_white"
+            android:textColorHint="@color/colorPrimaryLight" />
 
 
         <LinearLayout
@@ -107,9 +108,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/item_price"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
 
@@ -123,8 +124,8 @@
                     android:id="@+id/photos_2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:dividerPadding="5dp"/>
+                    android:dividerPadding="5dp"
+                    android:orientation="horizontal" />
             </HorizontalScrollView>
 
             <Button
@@ -132,9 +133,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:background="#dc1974"
                 android:onClick="showPhotoPickerMenu"
-                android:text="@string/add_photo"
-                android:background="#dc1974"/>
+                android:text="@string/add_photo" />
         </LinearLayout>
 
         <TextView
@@ -147,7 +148,7 @@
             android:text="@string/parameters_empty"
             android:textColor="#ff0000"
             android:textSize="20sp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/button"

@@ -18,56 +18,22 @@ import java.util.ArrayList;
 
 public class FullScreenImageActivity extends Activity {
 
-
-//    @SuppressLint("NewApi")
-//
-//
-//
-//    // В активити передается одна картинка в виде Bitmap
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        setContentView(R.layout.layout_full);
-//
-//        Bundle extras = getIntent().getExtras();
-//        String imId = getIntent().getStringExtra("Bitmap");
-//        Bitmap bmp = ImageStorage.get(imId);
-//
-//        ImageView imgDisplay;
-//        Button btnClose;
-//
-//
-//        imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
-//        btnClose = (Button) findViewById(R.id.btnClose);
-//
-//        imgDisplay.setImageBitmap(bmp);
-//
-//        btnClose.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                FullScreenImageActivity.this.finish();
-//            }
-//        });
-//    }
-
-
     private FullScreenImagePagerAdapter adapter;
     private ViewPager viewPager;
-    ArrayList <Bitmap> bmp = new ArrayList<>();
+    ArrayList<Bitmap> bmp = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_view);
 
-        Bundle extras = getIntent().getExtras();
         ArrayList<String> imId = getIntent().getStringArrayListExtra("Bitmap");
 
         for (int i = 0; i < imId.size(); i++) {
             bmp.add(ImageStorage.get(imId.get(i)));
         }
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         Intent i = getIntent();

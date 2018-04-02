@@ -13,9 +13,9 @@ import android.widget.Toast;
 import com.example.adapters.MainViewPagerAdapter;
 import com.example.application.R;
 import com.example.fragments.AllProductsFragment;
-import com.example.fragments.EmptySettingsFragment;
 import com.example.fragments.EntryFormFragment;
 import com.example.fragments.SearchFragment;
+import com.example.fragments.SettingsContainerFragment;
 import com.example.fragments.UserPageFragment;
 import com.example.models.Product;
 import com.example.services.Services;
@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private AllProductsFragment allProductsFragment = new AllProductsFragment();
@@ -34,7 +34,7 @@ public class ScrollingActivity extends AppCompatActivity {
             allProductsFragment,
             new SearchFragment(),
             null,
-            new EmptySettingsFragment()
+            new SettingsContainerFragment()
     };
 
     private static final int[] tabIcons = new int[]{

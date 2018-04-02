@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/popupwindows1"
-        android:layout_gravity="center"
-        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:text="@string/registration_popup_1"
+        android:textAlignment="center"
         android:textColor="#333333"
-        android:text="@string/registration_popup_1" />
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button_popup"
         android:layout_width="match_parent"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:background="#dc1974"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="#dc1974"
+        android:text="@string/popupbutton"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="25sp"
-        android:text="@string/popupbutton" />
+        android:textSize="25sp" />
 </LinearLayout>

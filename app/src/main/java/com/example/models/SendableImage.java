@@ -15,7 +15,7 @@ public class SendableImage {
     public String id, body;
 
     public static SendableImage encode(String id, Bitmap bmp) {
-        return SendableImage.encode(id,bmp,100);
+        return SendableImage.encode(id, bmp, 100);
     }
 
     public static SendableImage encode(String id, Bitmap bmp, int quality) {

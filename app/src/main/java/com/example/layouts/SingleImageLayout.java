@@ -1,7 +1,6 @@
 package com.example.layouts;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +15,7 @@ import com.example.storages.ImageStorage;
 // Тут вроде все понятно
 public class SingleImageLayout extends LinearLayout {
     private ImageView img;
+
     public SingleImageLayout(Context ctx, String id, int Tag) {
         super(ctx);
         View v = inflate(getContext(), R.layout.single_image, this);

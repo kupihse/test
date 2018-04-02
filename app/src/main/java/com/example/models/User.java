@@ -11,12 +11,13 @@ public class User {
     private boolean confirmed;
 
     public User() {
-        name="";
-        login ="";
-        password="";
+        name = "";
+        login = "";
+        password = "";
     }
-    public User(String login, String password){
-        name="unknown";
+
+    public User(String login, String password) {
+        name = "unknown";
         this.login = login;
         this.password = password;
     }
@@ -26,15 +27,19 @@ public class User {
         this.login = logname;
         this.password = password;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setLogin(String login) {
         this.login = login;
     }
+
     public String getLogin() {
         return login;
     }
@@ -55,9 +60,13 @@ public class User {
         this.confirmed = true;
     }
 
-    public void addProduct(String product) { products.add(product); }
+    public void addProduct(String product) {
+        products.add(product);
+    }
 
-    public ArrayList<String> getProducts() { return products; }
+    public ArrayList<String> getProducts() {
+        return products;
+    }
 
     @Override
     public boolean equals(Object o) {

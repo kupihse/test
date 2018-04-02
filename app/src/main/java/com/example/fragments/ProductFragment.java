@@ -4,7 +4,6 @@ package com.example.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.FullScreenImageActivity;
-import com.example.activities.ProductActivity;
 import com.example.activities.UserPageActivity;
 import com.example.application.R;
 import com.example.layouts.SingleImageLayout;
@@ -83,15 +81,15 @@ public class ProductFragment extends Fragment {
             public void onResponse(Call<Product> call, Response<Product> response) {
 
                 // Если все плохо, показываем тост (за здоровье сервера)
-                if(!response.isSuccessful()) {
-                    Toast.makeText(getContext(),"Failed to load", Toast.LENGTH_LONG).show();
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Failed to load", Toast.LENGTH_LONG).show();
                     return;
                 }
                 product = response.body();
                 // Если товар не найден на сервере, то ВТФ?? как так-то
                 // должен всегда возвращать, но на всякий случай
                 if (product == null) {
-                    Toast.makeText(getContext(),"No such item found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No such item found", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -135,7 +133,7 @@ public class ProductFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Toast.makeText(getContext(),"Failed to load", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Failed to load", Toast.LENGTH_LONG).show();
             }
         });
 
