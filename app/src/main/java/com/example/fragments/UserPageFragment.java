@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 public class UserPageFragment extends Fragment {
 
     User user;
+    private SwipeRefreshLayout swipeRefreshLay;
 
     public UserPageFragment() {
         // Required empty public constructor
@@ -77,7 +79,6 @@ public class UserPageFragment extends Fragment {
             }
         });
 
-
         Services.users.get(CurrentUser.getLogin()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -93,6 +94,7 @@ public class UserPageFragment extends Fragment {
         return rootView;
     }
 
+
     private void setUser(final User user, final View root) {
         if (user == null) {
             Toast.makeText(getContext(), "WTF 3", Toast.LENGTH_LONG).show();
@@ -101,13 +103,13 @@ public class UserPageFragment extends Fragment {
         this.user = user;
 
         final TextView login = (TextView) root.findViewById(R.id.user_page_login);
-        login.setText("login: \n" + user.getLogin());
+        login.setText(user.getLogin());
 
-        TextView pass = (TextView) root.findViewById(R.id.user_page_pass);
-        pass.setText("pass: \n" + user.getPassword());
+        TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        number_of_goods.setText(String.valueOf(user.getProducts().size()));
 
         TextView token = (TextView) root.findViewById(R.id.user_page_name);
-        token.setText("Name: \n" + user.getName());
+        token.setText(user.getName());
         String currentUserLogin = CurrentUser.getLogin();
         if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)) {
             return;

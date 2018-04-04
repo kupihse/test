@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_user_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Стрница пользователя"
+            android:text="Страница пользователя"
             android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 
@@ -29,42 +30,189 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#545454"
         android:layout_marginTop="@dimen/top_view_margin"
 
-        android:background="#fff">
+        >
+        <!-- Почему Рилатив? Дак все просто, центровка нужна? Нужна-->
+        <!-- ну вот layout_centerInParent только в Relative -->
 
-        <TextView
-            android:id="@+id/user_page_login"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_height="230dp"
+            android:background="#404040">
 
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/UserView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:scaleType="centerCrop"
+                android:src="@color/cpb_white"
+                app:riv_border_color="#dc1974"
+                app:riv_border_width="3dip"
+                app:riv_oval="true" />
 
-        <TextView
-            android:id="@+id/user_page_pass"
+            <TextView
+                android:id="@+id/user_page_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/UserView"
+                android:textColor="@color/cpb_white"
+                android:layout_marginTop="2dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/UserView" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="320dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Мои\nтовары"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/number_of_goods"
+                        android:paddingTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Num"
+                        android:textColor="#dc1974"
+                        android:textStyle="bold"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Корзина"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:paddingTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Num"
+                        android:textColor="#dc1974"
+                        android:textStyle="bold"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Вишлист"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:paddingTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Num"
+                        android:textColor="#dc1974"
+                        android:textStyle="bold"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:orientation="vertical"
+            android:background="#f1f1f1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-            app:layout_constraintLeft_toLeftOf="@id/user_page_login"
-            app:layout_constraintTop_toBottomOf="@+id/user_page_login" />
+            <!--<Button
+                android:id="@+id/user_page_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My products"
+                android:visibility="gone" /> -->
 
-        <TextView
-            android:id="@+id/user_page_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            app:layout_constraintLeft_toLeftOf="@id/user_page_pass"
-            app:layout_constraintTop_toBottomOf="@+id/user_page_pass" />
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_email_black_24dp" />
 
-        <Button
-            android:id="@+id/user_page_products"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My products"
-            android:visibility="gone" />
+                <TextView
+                    android:id="@+id/user_page_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingLeft="7dp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+            <!--<TextView
+                android:id="@+id/user_page_pass"
+                android:
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintLeft_toLeftOf="@id/user_page_login"
+                app:layout_constraintTop_toBottomOf="@+id/user_page_login" />-->
+
+        </RelativeLayout>
 
 
     </android.support.constraint.ConstraintLayout>
