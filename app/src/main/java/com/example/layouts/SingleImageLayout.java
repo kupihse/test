@@ -23,5 +23,4 @@ public class SingleImageLayout extends LinearLayout {
         img.setTag(Tag);
         ImageStorage.inject(img, id);
     }
-
 }

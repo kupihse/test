@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.adapters.FullScreenImagePagerAdapter;
 import com.example.storages.ImageStorage;
@@ -26,7 +27,6 @@ public class FullScreenImageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_view);
-
         ArrayList<String> imId = getIntent().getStringArrayListExtra("Bitmap");
 
         for (int i = 0; i < imId.size(); i++) {

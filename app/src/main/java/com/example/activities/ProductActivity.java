@@ -112,10 +112,8 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void showPopUp(View v) {
-        // #todo
-        /* Тут проблема, drawing cache всегда null, если добавить buildDrawingCache, то
-        крашится. К тому же, дополнительные фото сделаны через SingleImage, а там
-        onClick = "showPopUp", нужно подумать как лучше изменить. */
+//        String ViewId_Str = Integer.toString((Integer) v.getTag());
+//        Integer idx = Integer.parseInt(ViewId_Str);
         int n = (int) v.getTag();
 
         // Переход на FullScreenImageActivity

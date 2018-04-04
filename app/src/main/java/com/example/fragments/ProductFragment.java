@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class ProductFragment extends Fragment {
                 buttonFullScreen();
             }
         });
-
+        final LinearLayout ll = root.findViewById(R.id.photos_2);
         // Делаем запрос по id
         Services.products.get(id).enqueue(new Callback<Product>() {
             @Override
@@ -110,7 +111,7 @@ public class ProductFragment extends Fragment {
                 }
 
                 HorizontalScrollView scroll = root.findViewById(R.id.scroll);
-                final LinearLayout ll = root.findViewById(R.id.photos_2);
+
 
                 if (product.getImages() == null || product.getImages().size() == 0)
                     return;
@@ -153,6 +154,7 @@ public class ProductFragment extends Fragment {
 
     public void buttonFullScreen() {
         // Переход на FullScreenImageActivity
+        Log.d("435356", "AllOK");
         Intent intent = new Intent(getContext(), FullScreenImageActivity.class);
 
         // Передаем в FullScreenImageActivity bitmap картинки и стартуем
@@ -164,5 +166,25 @@ public class ProductFragment extends Fragment {
 
         startActivity(intent);
     }
+
+    public void showPopUp(View v) {
+//        String ViewId_Str = Integer.toString((Integer) v.getTag());
+//        Integer idx = Integer.parseInt(ViewId_Str);
+        Log.d("435356", "AllOK");
+        int n = (int) v.getTag();
+
+        // Переход на FullScreenImageActivity
+        Intent intent = new Intent(getActivity(), FullScreenImageActivity.class);
+
+        intent.putExtra("Bitmap", product.getImages());
+        intent.putExtra("position", n);
+
+        // Передаем в FullScreenImageActivity bitmap картинки и стартуем
+//        intent.putExtra("Bitmap", product.getImage(n));
+
+        startActivity(intent);
+    }
+
+
 
 }

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +74,18 @@ public class UserPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", String.valueOf(login.getText().subSequence(8, login.getText().length())),
+                        "mailto", String.valueOf(login.getText()),
+                        null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
+
+        final ImageView mailImage = rootView.findViewById(R.id.mail_image);
+        mailImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", String.valueOf(login.getText()),
                         null));
                 startActivity(Intent.createChooser(intent, "Choose an Email client :"));
             }
@@ -93,7 +105,6 @@ public class UserPageFragment extends Fragment {
 
         return rootView;
     }
-
 
     private void setUser(final User user, final View root) {
         if (user == null) {
