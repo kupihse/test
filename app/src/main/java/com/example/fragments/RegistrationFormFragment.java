@@ -3,11 +3,13 @@ package com.example.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,16 +26,24 @@ import com.example.application.R;
 import com.example.models.User;
 import com.example.services.RegularChecker;
 import com.example.services.Services;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegistrationFormFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
 
     public RegistrationFormFragment() {
         // Required empty public constructor
@@ -42,9 +52,11 @@ public class RegistrationFormFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
         setHasOptionsMenu(true);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -131,6 +143,7 @@ public class RegistrationFormFragment extends Fragment {
                         //получено готовое поле login
 
                         //Далее проводим регистрацию
+                        createFirebaseAccount(login, password);
                         Call<Void> c = Services.users.add(new User(name, login, password));
                         c.enqueue(new Callback<Void>() {
                             @Override
@@ -183,5 +196,34 @@ public class RegistrationFormFragment extends Fragment {
         }
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void createFirebaseAccount(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> singuptask) {
+                        if (singuptask.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("createUserWith", "createUserWithEmail:success");
+                            final FirebaseUser user = mAuth.getCurrentUser();
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("createUserWith", "createUserWithEmail:email sent");
+                                        Log.d("createUserWith", String.valueOf(user.isEmailVerified()));
+                                    }
+                                    else {
+                                        Log.d("createUserWith", "createUserWithEmail:email failure");
+                                    }
+                                }
+                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.d("createUserWith", "createUserWithEmail:failure", singuptask.getException());
+                        }
+                    }
+                });
     }
 }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "364474134308",
+    "firebase_url": "https://hse-outlet.firebaseio.com",
+    "project_id": "hse-outlet",
+    "storage_bucket": "hse-outlet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364474134308:android:36619d518cf18c3a",
+        "android_client_info": {
+          "package_name": "com.example.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364474134308-mqpsona7iji1kqpdovina9rq6qahbntd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.application",
+            "certificate_hash": "012fc9fc9d64671879cb83b8cbefab54430ebff1"
+          }
+        },
+        {
+          "client_id": "364474134308-e9n0mao2islc19eg37hhhlvlt195vfvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgxSlLmJdYghFmoTVG2laZpPG4bQp9emc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364474134308-e9n0mao2islc19eg37hhhlvlt195vfvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
