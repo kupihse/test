@@ -31,6 +31,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -133,6 +135,9 @@ public class RegistrationFormFragment extends Fragment {
                             }
                         });
                     }
+                    else if (password.length() < 6) {
+                        Toast.makeText(getActivity(), "Password is less then 6 symbols", Toast.LENGTH_SHORT).show();
+                    }
                     //********************** Иначе готовим и передаем юзера *********************************
                     else {
                         //берем проверенное поле логина и конкетинируем с строкой из спинера, логгер временный
@@ -143,21 +148,58 @@ public class RegistrationFormFragment extends Fragment {
                         //получено готовое поле login
 
                         //Далее проводим регистрацию
-                        createFirebaseAccount(login, password);
-                        Call<Void> c = Services.users.add(new User(name, login, password));
-                        c.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                                getFragmentManager().popBackStack();
-                            }
+                        final String loginToPass = login;
+                        final String passwordToPass = password;
+                        final String nameToPass = name;
+                        mAuth.fetchSignInMethodsForEmail(login)
+                                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                    // Если checkMail == false, то такой почты нету
+                                    boolean checkMail = !task.getResult().getSignInMethods().isEmpty();
 
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                                getFragmentManager().popBackStack();
-                            }
+                                    if (!checkMail) {
+                                        Log.d("createUserWith", "Email not found");
+                                        createFirebaseAccount(loginToPass, passwordToPass);
+
+                                        Call<Void> c = Services.users.add(new User(nameToPass, loginToPass, passwordToPass));
+                                        c.enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
+                                                getFragmentManager().popBackStack();
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+                                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                                getFragmentManager().popBackStack();
+                                            }
+
+                                        });
+                                    }
+
+                                    else {
+                                        Log.d("createUserWith", "Email found");
+                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
                         });
+
+//                        Call<Void> c = Services.users.add(new User(name, login, password));
+//                        c.enqueue(new Callback<Void>() {
+//                            @Override
+//                            public void onResponse(Call<Void> call, Response<Void> response) {
+//                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+//                                getFragmentManager().popBackStack();
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Void> call, Throwable t) {
+//                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+//                                getFragmentManager().popBackStack();
+//                            }
+//                        });
                     }
 
                 }

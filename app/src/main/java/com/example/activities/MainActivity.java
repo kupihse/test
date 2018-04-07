@@ -20,6 +20,7 @@ import com.example.fragments.UserPageFragment;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
+import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     private ViewPager viewPager;
     private AllProductsFragment allProductsFragment = new AllProductsFragment();
 
@@ -71,16 +73,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
         Services.logger.sendLog("Started new scrolling activity").enqueue(Services.emptyCallBack);
         Log.d("START", "SCROLL");
         setContentView(R.layout.activity_scrolling);
 
         viewPager = findViewById(R.id.scrolling_viewpager);
-        if (!CurrentUser.isSet()) {
+
+        if (mAuth.getCurrentUser() == null) {
             tabFragments[2] = new EntryFormFragment();
-        } else {
+        }
+        else {
             tabFragments[2] = new UserPageFragment();
         }
+
+//        if (!CurrentUser.isSet()) {
+//            tabFragments[2] = new EntryFormFragment();
+//        } else {
+//            tabFragments[2] = new UserPageFragment();
+//        }
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), tabFragments));
         viewPager.setOffscreenPageLimit(tabFragments.length);
 

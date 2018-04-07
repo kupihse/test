@@ -24,6 +24,8 @@ import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.CurrentUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +36,7 @@ import retrofit2.Response;
  */
 public class UserPageFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
     User user;
     private SwipeRefreshLayout swipeRefreshLay;
 
@@ -44,7 +47,7 @@ public class UserPageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mAuth = FirebaseAuth.getInstance();
         setHasOptionsMenu(true);
     }
 
@@ -91,10 +94,10 @@ public class UserPageFragment extends Fragment {
             }
         });
 
-        Services.users.get(CurrentUser.getLogin()).enqueue(new Callback<User>() {
+        Services.users.get(mAuth.getCurrentUser().getEmail()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                setUser(response.body(), rootView);
+                setUser(mAuth.getCurrentUser(), response.body(), rootView);
             }
 
             @Override
@@ -106,23 +109,23 @@ public class UserPageFragment extends Fragment {
         return rootView;
     }
 
-    private void setUser(final User user, final View root) {
+    private void setUser(final FirebaseUser user, final User myuser, final View root) {
         if (user == null) {
             Toast.makeText(getContext(), "WTF 3", Toast.LENGTH_LONG).show();
             return;
         }
-        this.user = user;
+        this.user = myuser;
 
         final TextView login = (TextView) root.findViewById(R.id.user_page_login);
-        login.setText(user.getLogin());
+        login.setText(user.getEmail());
 
         TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
-        number_of_goods.setText(String.valueOf(user.getProducts().size()));
+        number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
 
         TextView token = (TextView) root.findViewById(R.id.user_page_name);
-        token.setText(user.getName());
-        String currentUserLogin = CurrentUser.getLogin();
-        if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)) {
+        token.setText(myuser.getName());
+        String currentUserLogin = mAuth.getCurrentUser().getEmail();
+        if (mAuth.getCurrentUser() == null || !user.getEmail().equals(currentUserLogin)) {
             return;
         }
 
