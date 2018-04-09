@@ -19,7 +19,6 @@ import com.example.fragments.SettingsContainerFragment;
 import com.example.fragments.UserPageFragment;
 import com.example.models.Product;
 import com.example.services.Services;
-import com.example.storages.CurrentUser;
 import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Call;

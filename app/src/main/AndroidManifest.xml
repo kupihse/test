@@ -43,7 +43,7 @@
                 android:value="com.example.activities.MainActivity" />
         </activity>
 
-        <activity android:name="com.example.activities.entry.EntryFormActivity" />
+        <!--<activity android:name="com.example.activities.entry.EntryFormActivity" />-->
         <activity android:name="com.example.activities.entry.RegistrationFormActivity" />
         <activity android:name="com.example.activities.FullScreenImageActivity">
 

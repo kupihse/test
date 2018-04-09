@@ -26,8 +26,8 @@ import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
 import com.example.models.Product;
 import com.example.services.Services;
-import com.example.storages.CurrentUser;
 import com.example.util.Pair;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -38,8 +38,8 @@ import retrofit2.Response;
 
 public class AllProductsFragment extends Fragment {
 
-    public static ScrollingItemsAdapter productAdapter;
-    public static RecyclerView recyclerView;
+    public ScrollingItemsAdapter productAdapter;
+    public RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     int start = 0;
@@ -93,7 +93,7 @@ public class AllProductsFragment extends Fragment {
         view.findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CurrentUser.isSet()) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     startActivityForResult(new Intent(getContext(), AddProductActivity.class), 1);
                 } else {
                     Toast.makeText(getContext(), "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();

@@ -23,7 +23,6 @@ import com.example.activities.MainActivity;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
-import com.example.storages.CurrentUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -62,7 +61,7 @@ public class UserPageFragment extends Fragment {
         toolbar.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                CurrentUser.logOut();
+                FirebaseAuth.getInstance().signOut();
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_user_page_container, new EntryFormFragment())

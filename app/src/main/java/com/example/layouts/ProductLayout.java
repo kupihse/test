@@ -11,8 +11,9 @@ import android.widget.Toast;
 import com.example.activities.ProductActivity;
 import com.example.application.R;
 import com.example.models.Product;
-import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
+import com.example.storages.WishList;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -72,24 +73,37 @@ public class ProductLayout extends LinearLayout {
     }
 
     private void switchFavoriteView(final String productId) {
-        if (CurrentUser.isSet()) {
-            if (CurrentUser.wishlist.contains(productId)) {
 
-                CurrentUser.wishlist.remove(productId);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            if (WishList.wishList.contains(productId)) {
+                WishList.wishList.remove(productId);
                 favoriteView.setImageResource(R.drawable.button_star_empty);
-
+                favoriteView.setBackgroundResource(R.drawable.button_star_empty);
             } else {
-
-                CurrentUser.wishlist.add(productId);
+                WishList.wishList.add(productId);
                 favoriteView.setImageResource(R.drawable.button_star_full);
-
+                favoriteView.setBackgroundResource(R.drawable.button_star_empty_black);
             }
+        }
 
-            CurrentUser.save();
-        }
-        else {
-            Toast.makeText(getContext(), "Ты не вошел в аккаунт", Toast.LENGTH_SHORT).show();
-        }
+//        if (CurrentUser.isSet()) {
+//            if (CurrentUser.wishlist.contains(productId)) {
+//
+//                CurrentUser.wishlist.remove(productId);
+//                favoriteView.setImageResource(R.drawable.button_star_empty);
+//
+//            } else {
+//
+//                CurrentUser.wishlist.add(productId);
+//                favoriteView.setImageResource(R.drawable.button_star_full);
+//
+//            }
+//
+//            CurrentUser.save();
+//        }
+//        else {
+//            Toast.makeText(getContext(), "Ты не вошел в аккаунт", Toast.LENGTH_SHORT).show();
+//        }
     }
 
 
@@ -123,16 +137,17 @@ public class ProductLayout extends LinearLayout {
 
         final String productId = p.getId();
 
-        if (!CurrentUser.isSet()) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             favoriteView.setVisibility(GONE);
-        } else {
-
-            if (CurrentUser.wishlist.contains(productId)) {
-                favoriteView.setVisibility(VISIBLE);
-            } else {
-                favoriteView.setVisibility(GONE);
-            }
         }
+//        else {
+//
+//            if (WishList.wishList.contains(productId)) {
+//                favoriteView.setVisibility(VISIBLE);
+//            } else {
+//                favoriteView.setVisibility(GONE);
+//            }
+//        }
         // todo убрать второе условие
         if (p.getImages() == null
                 || p.getImages().size() == 0

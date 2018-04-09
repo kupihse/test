@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
-import com.example.storages.CurrentUser;
+import com.google.firebase.auth.FirebaseAuth;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,8 +48,8 @@ public class UserPageActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(UserPageActivity.this, "WTF 2", Toast.LENGTH_LONG).show();
-                if (id.equals(CurrentUser.getLogin())) {
-                    CurrentUser.logOut();
+                if (id.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                    FirebaseAuth.getInstance().signOut();
                 }
                 finish();
             }
@@ -83,17 +83,15 @@ public class UserPageActivity extends AppCompatActivity {
 
         TextView token = (TextView) findViewById(R.id.user_page_name);
         token.setText("Name: \n" + user.getName());
-        String currentUserLogin = CurrentUser.getLogin();
-        if (!CurrentUser.isSet() || !user.getLogin().equals(currentUserLogin)) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null || !user.getLogin().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             return;
         }
-
         Button logOut = (Button) findViewById(R.id.user_page_log_out);
         logOut.setVisibility(View.VISIBLE);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CurrentUser.logOut();
+                FirebaseAuth.getInstance().signOut();
                 Intent returnIntent = new Intent();
                 setResult(UserPageActivity.RESULT_OK, returnIntent);
                 finish();

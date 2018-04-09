@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.application.R;
-import com.example.storages.CurrentUser;
+import com.example.storages.WishList;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by Andreyko0 on 28/02/2018.
@@ -55,14 +56,14 @@ public class ProductPreviewFragment extends Fragment {
 
         final Button buttonText = view.findViewById(R.id.button);
         final ImageView buttonImage = view.findViewById(R.id.bookmark);
-        if (!CurrentUser.isSet()) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             // todo возможно поменять
             buttonText.setText("Add");
             buttonImage.setImageResource(R.drawable.bookmark_empty);
             state = 0;
         } else {
 
-            if (CurrentUser.wishlist.contains(productId)) {
+            if (WishList.wishList.contains(productId)) {
                 buttonText.setText("Remove");
                 buttonImage.setImageResource(R.drawable.bookmark);
                 state = 1;
@@ -85,13 +86,13 @@ public class ProductPreviewFragment extends Fragment {
                         buttonText.setText("Add");
                         buttonImage.setImageResource(R.drawable.bookmark_empty);
                         state = 2;
-                        CurrentUser.wishlist.remove(productId);
+                        WishList.wishList.remove(productId);
                         return;
                     case 2:
                         buttonText.setText("Remove");
                         buttonImage.setImageResource(R.drawable.bookmark);
                         state = 1;
-                        CurrentUser.wishlist.add(productId);
+                        WishList.wishList.add(productId);
                         return;
                 }
             }

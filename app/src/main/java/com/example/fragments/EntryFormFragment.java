@@ -14,18 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.application.R;
-import com.example.models.User;
-import com.example.services.Services;
-import com.example.storages.CurrentUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +38,7 @@ public class EntryFormFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
-                // Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_entry_form, container, false);
 
         TextView registerScreen = root.findViewById(R.id.link_to_register);
@@ -120,25 +113,23 @@ public class EntryFormFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         FirebaseAuth.getInstance().getCurrentUser().reload()
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                                    isVerified = user.isEmailVerified();
-                                                }
-                                            });
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                        isVerified = user.isEmailVerified();
+                                                    }
+                                                });
                                         if (isVerified) {
                                             Toast.makeText(getContext(), "Success ", Toast.LENGTH_SHORT).show();
                                             getChildFragmentManager()
                                                     .beginTransaction()
                                                     .replace(R.id.fragment_entry_form_container, new UserPageFragment())
                                                     .commit();
-                                        }
-                                        else {
+                                        } else {
                                             Toast.makeText(getActivity(), "Your account is not verified", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         String text = "Failed";
                                         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
                                         getFragmentManager().popBackStack();

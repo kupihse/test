@@ -30,8 +30,8 @@ import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.services.UploadImagesTask;
-import com.example.storages.CurrentUser;
 import com.example.storages.ImageStorage;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 import java.io.IOException;
@@ -243,7 +243,7 @@ public class AddProductActivity extends AppCompatActivity {
     // при нажатии на "Submit"
     public void buttonOnClick(View v) throws Exception {
         AppCompatButton button = (AppCompatButton) v;
-        seller_login = CurrentUser.getLogin();
+        seller_login = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         final EditText edit_name = (EditText) findViewById(R.id.item_name);
         name = edit_name.getText().toString().trim();
