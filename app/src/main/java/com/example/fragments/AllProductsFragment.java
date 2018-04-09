@@ -24,10 +24,14 @@ import android.widget.Toast;
 import com.example.activities.AddProductActivity;
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
+import com.example.events.LayoutChangeEvent;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.util.Pair;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -41,6 +45,7 @@ public class AllProductsFragment extends Fragment {
     public ScrollingItemsAdapter productAdapter;
     public RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageButton buttonChangeView;
 
     int start = 0;
     int n_pr = 20;
@@ -51,6 +56,18 @@ public class AllProductsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -103,7 +120,7 @@ public class AllProductsFragment extends Fragment {
         });
 
 
-        final ImageButton buttonChangeView = view.findViewById(R.id.button_change_view);
+        buttonChangeView = view.findViewById(R.id.button_change_view);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean isInListView = prefs.getBoolean("list_view", false);
         if (isInListView) {
@@ -258,6 +275,28 @@ public class AllProductsFragment extends Fragment {
         Intent browserIntent = new
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kupihse/test/raw/master/app/build/outputs/apk/debug/app-debug.apk"));
         startActivity(browserIntent);
+    }
+
+
+    @Subscribe
+    public void OnLayoutChangeEvent(LayoutChangeEvent event) {
+        if (event.isInListView()) {
+            int pos = getFirstItemPosition();
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+            buttonChangeView.setImageResource(R.drawable.button_list);
+            recyclerView.setAdapter(productAdapter);
+            recyclerView.scrollToPosition(pos);
+        } else {
+            int pos = getFirstItemPosition();
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_TRANSPARENT_GRID);
+            buttonChangeView.setImageResource(R.drawable.button_grid);
+            recyclerView.setAdapter(productAdapter);
+            recyclerView.scrollToPosition(pos);
+            return;
+
+        }
     }
 
 }

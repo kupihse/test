@@ -62,5 +62,8 @@ dependencies {
     // можно и без этого
     implementation 'com.android.support:preference-v14:26.+'
     testImplementation 'junit:junit:4.12'
+
+    //Event bus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -6,6 +6,9 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import com.example.application.R;
+import com.example.events.LayoutChangeEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Andreyko0 on 03/03/2018.
@@ -20,6 +23,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean isListOn = (Boolean) newValue;
+                EventBus.getDefault().post(new LayoutChangeEvent(isListOn));
                 if (isListOn) {
                     Toast.makeText(getContext(), "Switch on", Toast.LENGTH_SHORT).show();
                 }
