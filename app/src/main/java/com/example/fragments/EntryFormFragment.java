@@ -118,17 +118,18 @@ public class EntryFormFragment extends Fragment {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                         isVerified = user.isEmailVerified();
+                                                        if (isVerified) {
+                                                            Toast.makeText(getContext(), "Success ", Toast.LENGTH_SHORT).show();
+                                                            getChildFragmentManager()
+                                                                    .beginTransaction()
+                                                                    .replace(R.id.fragment_entry_form_container, new UserPageFragment())
+                                                                    .commit();
+                                                        } else {
+                                                            Toast.makeText(getActivity(), "Your account is not verified", Toast.LENGTH_SHORT).show();
+                                                        }
                                                     }
                                                 });
-                                        if (isVerified) {
-                                            Toast.makeText(getContext(), "Success ", Toast.LENGTH_SHORT).show();
-                                            getChildFragmentManager()
-                                                    .beginTransaction()
-                                                    .replace(R.id.fragment_entry_form_container, new UserPageFragment())
-                                                    .commit();
-                                        } else {
-                                            Toast.makeText(getActivity(), "Your account is not verified", Toast.LENGTH_SHORT).show();
-                                        }
+
                                     } else {
                                         String text = "Failed";
                                         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();

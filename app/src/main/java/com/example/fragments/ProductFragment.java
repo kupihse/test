@@ -126,6 +126,22 @@ public class ProductFragment extends Fragment {
                         final String id = product.getImage(i);
                         SingleImageLayout Im = new SingleImageLayout(getContext(), id, i);
                         ll.addView(Im);
+                        ll.findViewWithTag(i).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("435356", "onclick");
+                                int n = (int) v.getTag();
+
+                                // Переход на FullScreenImageActivity
+                                Intent intent = new Intent(getActivity(), FullScreenImageActivity.class);
+
+                                intent.putExtra("Bitmap", product.getImages());
+                                intent.putExtra("position", n);
+
+                                // Передаем в FullScreenImageActivity bitmap картинки и стартуем
+                                startActivity(intent);
+                            }
+                        });
                     }
                 } else {
                     scroll.setVisibility(View.GONE);
