@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.adapters.MainViewPagerAdapter;
 import com.example.application.R;
 import com.example.fragments.AllProductsFragment;
+import com.example.fragments.ChatList;
 import com.example.fragments.EntryFormFragment;
 import com.example.fragments.SearchFragment;
 import com.example.fragments.SettingsContainerFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment[] tabFragments = new Fragment[]{
             allProductsFragment,
             new SearchFragment(),
+            new ChatList(),
             null,
             new SettingsContainerFragment()
     };
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int[] tabIcons = new int[]{
             R.drawable.list,
             R.drawable.search,
+            R.drawable.chat,
             R.drawable.person,
             R.drawable.settings
     };
@@ -80,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.scrolling_viewpager);
 
         if (mAuth.getCurrentUser() == null) {
-            tabFragments[2] = new EntryFormFragment();
+            tabFragments[3] = new EntryFormFragment();
         }
         else {
-            tabFragments[2] = new UserPageFragment();
+            tabFragments[3] = new UserPageFragment();
         }
 
 //        if (!CurrentUser.isSet()) {

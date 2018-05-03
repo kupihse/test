@@ -16,6 +16,8 @@ MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\31719\.gradle\
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\571eb854058606a48a4ae389a48deb3a\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\4714078190ae92a75cd142e5cffa066b\AndroidManifest.xml:17:1-28:12
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\materialsearchview-1.4.0.aar\3c6d93d282de6b924f16ce20ed7a062a\AndroidManifest.xml:2:1-13:12
+MERGED from [com.github.stfalcon:chatkit:0.2.2] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\chatkit-0.2.2.aar\fd84d5a7572554d47bdcbde2401c4bd2\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android:flexbox:0.2.5] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\flexbox-0.2.5.aar\6862d31f31c8aee9fd69376837e4c338\AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\796693f8280b94d23e9bbb2f37bf4299\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b79f2370ce79cce945ba1907ae30c8ea\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:transition:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\6e34a4a138fc09a0fb582b56b1cd290c\AndroidManifest.xml:17:1-28:12
@@ -108,6 +110,8 @@ MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\3171
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\4714078190ae92a75cd142e5cffa066b\AndroidManifest.xml:22:5-26:19
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\materialsearchview-1.4.0.aar\3c6d93d282de6b924f16ce20ed7a062a\AndroidManifest.xml:11:5-20
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\materialsearchview-1.4.0.aar\3c6d93d282de6b924f16ce20ed7a062a\AndroidManifest.xml:11:5-20
+MERGED from [com.github.stfalcon:chatkit:0.2.2] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\chatkit-0.2.2.aar\fd84d5a7572554d47bdcbde2401c4bd2\AndroidManifest.xml:11:5-13:38
+MERGED from [com.github.stfalcon:chatkit:0.2.2] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\chatkit-0.2.2.aar\fd84d5a7572554d47bdcbde2401c4bd2\AndroidManifest.xml:11:5-13:38
 MERGED from [com.android.support:design:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\796693f8280b94d23e9bbb2f37bf4299\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\796693f8280b94d23e9bbb2f37bf4299\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b79f2370ce79cce945ba1907ae30c8ea\AndroidManifest.xml:25:5-29:19
@@ -258,6 +262,10 @@ MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\3171
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\4714078190ae92a75cd142e5cffa066b\AndroidManifest.xml:20:5-44
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\materialsearchview-1.4.0.aar\3c6d93d282de6b924f16ce20ed7a062a\AndroidManifest.xml:7:5-9:41
 MERGED from [com.miguelcatalan:materialsearchview:1.4.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\materialsearchview-1.4.0.aar\3c6d93d282de6b924f16ce20ed7a062a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.stfalcon:chatkit:0.2.2] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\chatkit-0.2.2.aar\fd84d5a7572554d47bdcbde2401c4bd2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.stfalcon:chatkit:0.2.2] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\chatkit-0.2.2.aar\fd84d5a7572554d47bdcbde2401c4bd2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android:flexbox:0.2.5] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\flexbox-0.2.5.aar\6862d31f31c8aee9fd69376837e4c338\AndroidManifest.xml:23:5-25:41
+MERGED from [com.google.android:flexbox:0.2.5] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\flexbox-0.2.5.aar\6862d31f31c8aee9fd69376837e4c338\AndroidManifest.xml:23:5-25:41
 MERGED from [com.android.support:design:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\796693f8280b94d23e9bbb2f37bf4299\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\796693f8280b94d23e9bbb2f37bf4299\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\31719\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b79f2370ce79cce945ba1907ae30c8ea\AndroidManifest.xml:21:5-23:78
