@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:visibility="visible"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Чат отсутствует"
+            android:textColor="#fff" />
+    </android.support.v7.widget.Toolbar>
 
     <TableRow
         android:id="@+id/messages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="55dp">
+        android:layout_marginBottom="55dp"
+        android:layout_marginTop="@dimen/top_view_margin">
 
         <LinearLayout
             android:layout_width="match_parent"

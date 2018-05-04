@@ -1,6 +1,7 @@
 package com.example.fragments;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -71,23 +72,6 @@ public class EntryFormFragment extends Fragment {
         Circle doubleBounce = new Circle();
         progressBar.setIndeterminateDrawable(doubleBounce); */
 
-        Button check = root.findViewById(R.id.check);
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String mail = loginText.getText().toString();
-                FirebaseAuth.getInstance().getCurrentUser().reload()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                Log.d("createUserWith", String.valueOf(user.isEmailVerified()));
-                                Log.d("createUserWith", user.getEmail());
-                            }
-                        });
-            }
-        });
-
         final Button buttonlog = root.findViewById(R.id.loginButton);
         buttonlog.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -119,20 +103,18 @@ public class EntryFormFragment extends Fragment {
                                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                         isVerified = user.isEmailVerified();
                                                         if (isVerified) {
-                                                            Toast.makeText(getContext(), "Success ", Toast.LENGTH_SHORT).show();
                                                             getChildFragmentManager()
                                                                     .beginTransaction()
                                                                     .replace(R.id.fragment_entry_form_container, new UserPageFragment())
                                                                     .commit();
                                                         } else {
-                                                            Toast.makeText(getActivity(), "Your account is not verified", Toast.LENGTH_SHORT).show();
+                                                            showAlert("Твоя почта не подтверждена");
                                                         }
                                                     }
                                                 });
 
                                     } else {
-                                        String text = "Failed";
-                                        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+                                        showAlert("Неверный логин или пароль");
                                         getFragmentManager().popBackStack();
                                     }
                                 }
@@ -202,6 +184,24 @@ public class EntryFormFragment extends Fragment {
             loginText.setEnabled(true);
             passwordText.setEnabled(true);
         }
+    }
+
+    private void showAlert(CharSequence notificationText) {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+
+        View mView = getLayoutInflater().inflate(R.layout.activity_popupwindow, null);
+        Button button_popup = mView.findViewById(R.id.button_popup);
+        TextView text = mView.findViewById(R.id.popupwindows);
+        text.setText(notificationText);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        button_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

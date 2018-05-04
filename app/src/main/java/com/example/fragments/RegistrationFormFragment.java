@@ -119,22 +119,10 @@ public class RegistrationFormFragment extends Fragment {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
                     if (!password.equals(password1)) {
-                        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-
-                        View mView = getLayoutInflater().inflate(R.layout.activity_popupwindow, null);
-                        Button button_popup = mView.findViewById(R.id.button_popup);
-                        mBuilder.setView(mView);
-                        final AlertDialog dialog = mBuilder.create();
-                        dialog.show();
-                        button_popup.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.dismiss();
-                            }
-                        });
+                        showAlert("Пароли не совпадают");
                     }
                     else if (password.length() < 6) {
-                        Toast.makeText(getActivity(), "Password is less then 6 symbols", Toast.LENGTH_SHORT).show();
+                        showAlert("Пароль слишком короткий");
                     }
                     //********************** Иначе готовим и передаем юзера *********************************
                     else {
@@ -164,7 +152,8 @@ public class RegistrationFormFragment extends Fragment {
                                         c.enqueue(new Callback<Void>() {
                                             @Override
                                             public void onResponse(Call<Void> call, Response<Void> response) {
-                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
+                                                showAlert("Подтверди свою почту");
                                                 getFragmentManager().popBackStack();
                                             }
 
@@ -179,7 +168,8 @@ public class RegistrationFormFragment extends Fragment {
 
                                     else {
                                         Log.d("createUserWith", "Email found");
-                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
+                                        showAlert("Такая почта уже зарегистрирована");
                                     }
                                 }
                         });
@@ -265,5 +255,23 @@ public class RegistrationFormFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void showAlert(CharSequence notificationText) {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+
+        View mView = getLayoutInflater().inflate(R.layout.activity_popupwindow, null);
+        Button button_popup = mView.findViewById(R.id.button_popup);
+        TextView text = mView.findViewById(R.id.popupwindows);
+        text.setText(notificationText);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        button_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 }

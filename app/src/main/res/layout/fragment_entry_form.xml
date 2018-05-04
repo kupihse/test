@@ -138,12 +138,6 @@
                         android:textColor="#c2c2c2"
                         android:textSize="20sp" />
 
-                    <Button
-                        android:id="@+id/check"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Check" />
-
 
                     <!-- Login button -->
                     <!-- Link to Registration Screen -->

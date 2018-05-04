@@ -2,8 +2,8 @@ package com.example.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,18 +30,17 @@ public class ChatList extends Fragment {
             }
         });
 
-        LinearLayout ll = (LinearLayout) root.findViewById(R.id.user1);
+        LinearLayout ll = root.findViewById(R.id.user1);
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new Chat();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_chat_list_container, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_entry_form_container, new Chat())
+                        .commit();
             }
         });
-
+        Log.d("testtest", "testtest");
         return root;
     }
 }
