@@ -19,7 +19,7 @@ public class Services {
     // Добавляем автоматический конвертер в JSON и обратно (мы ж ленивые, да и зачем руками это делать)
     // (потенциально руками будет быстрее работать, будет место для оптимизаций)
     static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://51.15.92.91")
+            .baseUrl("http://80.211.30.210:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
