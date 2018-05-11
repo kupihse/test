@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
 import com.example.application.R;
+import com.example.fragments.UserPageFragment;
 import com.example.models.Product;
 import com.example.storages.ImageStorage;
 import com.example.storages.WishList;
@@ -73,7 +74,6 @@ public class ProductLayout extends LinearLayout {
     }
 
     private void switchFavoriteView(final String productId) {
-
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             if (WishList.wishList.contains(productId)) {
                 WishList.wishList.remove(productId);
@@ -84,6 +84,7 @@ public class ProductLayout extends LinearLayout {
                 favoriteView.setImageResource(R.drawable.button_star_full);
                 favoriteView.setBackgroundResource(R.drawable.button_star_empty_black);
             }
+            UserPageFragment.refreshInfo(getRootView());
         }
 
 //        if (CurrentUser.isSet()) {

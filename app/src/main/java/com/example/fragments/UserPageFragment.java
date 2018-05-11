@@ -23,6 +23,7 @@ import com.example.activities.MainActivity;
 import com.example.application.R;
 import com.example.models.User;
 import com.example.services.Services;
+import com.example.storages.WishList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,8 +37,8 @@ import retrofit2.Response;
 public class UserPageFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    User user;
-    private SwipeRefreshLayout swipeRefreshLay;
+    static User user;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public UserPageFragment() {
         // Required empty public constructor
@@ -48,6 +49,7 @@ public class UserPageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -55,6 +57,8 @@ public class UserPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_user_page, container, false);
+
+
 
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_user_page_fragment);
@@ -115,11 +119,25 @@ public class UserPageFragment extends Fragment {
         }
         this.user = myuser;
 
-        final TextView login = (TextView) root.findViewById(R.id.user_page_login);
-        login.setText(user.getEmail());
-
-        TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        final TextView number_of_wishlist = (TextView) root.findViewById(R.id.number_of_wishlist);
+        final TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        final TextView login = root.findViewById(R.id.user_page_login);
+        login.setText(myuser.getLogin());
+        number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
         number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
+
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setDistanceToTriggerSync(250);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
+                number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
+                login.setText(myuser.getLogin());
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         TextView token = (TextView) root.findViewById(R.id.user_page_name);
         token.setText(myuser.getName());
@@ -155,5 +173,26 @@ public class UserPageFragment extends Fragment {
         }
 
         // todo set logout button
+    }
+
+    public static void refreshInfo(final View root) {
+        final TextView number_of_wishlist = (TextView) root.findViewById(R.id.number_of_wishlist);
+        final TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        final TextView login = root.findViewById(R.id.user_page_login);
+        login.setText(user.getLogin());
+        number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
+        number_of_goods.setText(String.valueOf(user.getProducts().size()));
+//        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
+//        swipeRefreshLayout.setDistanceToTriggerSync(250);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
+//                number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
+//                login.setText(myuser.getLogin());
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
     }
 }
