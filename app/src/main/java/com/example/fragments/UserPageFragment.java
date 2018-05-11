@@ -119,12 +119,12 @@ public class UserPageFragment extends Fragment {
         }
         this.user = myuser;
 
-        final TextView number_of_wishlist = (TextView) root.findViewById(R.id.number_of_wishlist);
-        final TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        final TextView wishlistElementsCount = (TextView) root.findViewById(R.id.number_of_wishlist);
+        final TextView goodsCount = (TextView) root.findViewById(R.id.number_of_goods);
         final TextView login = root.findViewById(R.id.user_page_login);
         login.setText(myuser.getLogin());
-        number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
-        number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
+        wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
+        goodsCount.setText(String.valueOf(myuser.getProducts().size()));
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setDistanceToTriggerSync(250);
@@ -132,8 +132,8 @@ public class UserPageFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
-                number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
+                wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
+                goodsCount.setText(String.valueOf(myuser.getProducts().size()));
                 login.setText(myuser.getLogin());
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -176,23 +176,11 @@ public class UserPageFragment extends Fragment {
     }
 
     public static void refreshInfo(final View root) {
-        final TextView number_of_wishlist = (TextView) root.findViewById(R.id.number_of_wishlist);
-        final TextView number_of_goods = (TextView) root.findViewById(R.id.number_of_goods);
+        final TextView wishlistElementsCount = (TextView) root.findViewById(R.id.number_of_wishlist);
+        final TextView goodsCount = (TextView) root.findViewById(R.id.number_of_goods);
         final TextView login = root.findViewById(R.id.user_page_login);
         login.setText(user.getLogin());
-        number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
-        number_of_goods.setText(String.valueOf(user.getProducts().size()));
-//        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
-//        swipeRefreshLayout.setDistanceToTriggerSync(250);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                swipeRefreshLayout.setRefreshing(true);
-//                number_of_wishlist.setText(String.valueOf(WishList.wishList.size()));
-//                number_of_goods.setText(String.valueOf(myuser.getProducts().size()));
-//                login.setText(myuser.getLogin());
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
+        wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
+        goodsCount.setText(String.valueOf(user.getProducts().size()));
     }
 }
