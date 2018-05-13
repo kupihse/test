@@ -1,15 +1,19 @@
 package com.example.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alexvasilkov.gestures.views.GestureImageView;
+import com.example.activities.FullScreenImageActivity;
 import com.example.application.R;
+import com.example.layouts.SingleImageLayout;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 
 import java.util.ArrayList;
@@ -42,27 +46,17 @@ public class FullScreenImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final GestureImageView imgDisplay;
-        Button btnClose;
+
 
         View viewLayout = _activity.getLayoutInflater().inflate(R.layout.layout_full, container,
                 false);
-
 
         SwipeBackLayout layout = viewLayout.findViewById(R.id.swipe_back);
         layout.setDragEdge(SwipeBackLayout.DragEdge.BOTTOM);
 
         imgDisplay = viewLayout.findViewById(R.id.imgDisplay);
-        btnClose = viewLayout.findViewById(R.id.btnClose);
         Bitmap bitmap = _images.get(position);
         imgDisplay.setImageBitmap(bitmap);
-
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _activity.finish();
-            }
-        });
 
         container.addView(viewLayout);
 
@@ -74,4 +68,5 @@ public class FullScreenImagePagerAdapter extends PagerAdapter {
         container.removeView((RelativeLayout) object);
 
     }
+
 }

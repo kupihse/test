@@ -102,7 +102,7 @@
 
 
         <LinearLayout
-            android:id="@+id/layout"
+            android:id="@+id/all_photos"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
@@ -165,7 +165,7 @@
             android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout"
+            android:layout_below="@+id/all_photos"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="19dp"
             android:text="TextView" />
