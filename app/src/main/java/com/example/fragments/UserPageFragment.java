@@ -37,7 +37,7 @@ import retrofit2.Response;
 public class UserPageFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    static User user;
+    static User mUser;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     public UserPageFragment() {
@@ -74,29 +74,6 @@ public class UserPageFragment extends Fragment {
             }
         });
 
-
-        final TextView login = rootView.findViewById(R.id.user_page_login);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", String.valueOf(login.getText()),
-                        null));
-                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
-            }
-        });
-
-        final ImageView mailImage = rootView.findViewById(R.id.mail_image);
-        mailImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", String.valueOf(login.getText()),
-                        null));
-                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
-            }
-        });
-
         Services.users.get(mAuth.getCurrentUser().getEmail()).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -112,39 +89,67 @@ public class UserPageFragment extends Fragment {
         return rootView;
     }
 
-    private void setUser(final FirebaseUser user, final User myuser, final View root) {
-        if (user == null) {
-            Toast.makeText(getContext(), "WTF 3", Toast.LENGTH_LONG).show();
+    private void setUser(final FirebaseUser firebaseUser, final User myuser, final View rootView) {
+        if (firebaseUser == null) {
+            Toast.makeText(getContext(), "WTF 3, not in firebase", Toast.LENGTH_LONG).show();
             return;
         }
-        this.user = myuser;
+        if (myuser == null) {
+            Toast.makeText(getContext(), "WTF 3, not in database", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        final TextView wishlistElementsCount = (TextView) root.findViewById(R.id.number_of_wishlist);
-        final TextView goodsCount = (TextView) root.findViewById(R.id.number_of_goods);
-        final TextView login = root.findViewById(R.id.user_page_login);
-        login.setText(myuser.getLogin());
-        wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
-        goodsCount.setText(String.valueOf(myuser.getProducts().size()));
+        mUser = myuser;
 
-        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh);
+        final TextView wishlistElementsCountView = rootView.findViewById(R.id.number_of_wishlist);
+        final TextView goodsCountView = rootView.findViewById(R.id.number_of_goods);
+        final TextView loginView = rootView.findViewById(R.id.user_page_login);
+        loginView.setText(myuser.getLogin());
+        wishlistElementsCountView.setText(String.valueOf(WishList.wishList.size()));
+        goodsCountView.setText(String.valueOf(myuser.getProducts().size()));
+
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setDistanceToTriggerSync(250);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
-                goodsCount.setText(String.valueOf(myuser.getProducts().size()));
-                login.setText(myuser.getLogin());
+                wishlistElementsCountView.setText(String.valueOf(WishList.wishList.size()));
+                goodsCountView.setText(String.valueOf(myuser.getProducts().size()));
+                loginView.setText(myuser.getLogin());
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        TextView token = (TextView) root.findViewById(R.id.user_page_name);
-        token.setText(myuser.getName());
+        TextView userNameView = rootView.findViewById(R.id.user_page_name);
+        userNameView.setText(myuser.getName());
+
+        // todo wtf? не совсем понятно, что проверяется
         String currentUserLogin = mAuth.getCurrentUser().getEmail();
-        if (mAuth.getCurrentUser() == null || !user.getEmail().equals(currentUserLogin)) {
+        if (mAuth.getCurrentUser() == null || !firebaseUser.getEmail().equals(currentUserLogin)) {
             return;
         }
+
+        loginView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", myuser.getLogin(),
+                        null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
+
+        final ImageView mailImageView = rootView.findViewById(R.id.mail_image);
+        mailImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", myuser.getLogin(),
+                        null));
+                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+            }
+        });
 
 
 //        Button myProducts = (Button) root.findViewById(R.id.user_page_products);
@@ -154,7 +159,7 @@ public class UserPageFragment extends Fragment {
 
 
     public void myProductsButton(View v) {
-        for (String p : user.getProducts()) {
+        for (String p : mUser.getProducts()) {
             Toast.makeText(getContext(), p, Toast.LENGTH_SHORT).show();
         }
     }
@@ -175,12 +180,14 @@ public class UserPageFragment extends Fragment {
         // todo set logout button
     }
 
+    // todo мб поменять чтобы реально обновляло? а не выставляло те же по сути значения
+
     public static void refreshInfo(final View root) {
         final TextView wishlistElementsCount = (TextView) root.findViewById(R.id.number_of_wishlist);
         final TextView goodsCount = (TextView) root.findViewById(R.id.number_of_goods);
         final TextView login = root.findViewById(R.id.user_page_login);
-        login.setText(user.getLogin());
+        login.setText(mUser.getLogin());
         wishlistElementsCount.setText(String.valueOf(WishList.wishList.size()));
-        goodsCount.setText(String.valueOf(user.getProducts().size()));
+        goodsCount.setText(String.valueOf(mUser.getProducts().size()));
     }
 }

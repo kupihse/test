@@ -18,3 +18,4 @@
 /app/build/reports/
 /app/build/outputs/logs/
 /app/build/outputs/apk/debug/
+app/build/outputs/logs/manifest-merger-debug-report.txt
