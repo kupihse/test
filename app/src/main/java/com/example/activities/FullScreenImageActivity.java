@@ -78,13 +78,15 @@ public class FullScreenImageActivity extends Activity {
 
             @Override
             public void onPageSelected(int position) {
-                for (int idx = 0; idx < imId.size(); idx++) {
-                    if (idx != position) {
-                        allPhotos.findViewWithTag(idx + 555)
-                                .setPadding(0,0,0,0);
+                if (imId.size() > 1) {
+                    for (int idx = 0; idx < imId.size(); idx++) {
+                        if (idx != position) {
+                            allPhotos.findViewWithTag(idx + 555)
+                                    .setPadding(0,0,0,0);
+                        }
                     }
+                    allPhotos.findViewWithTag(position + 555).setPadding(5,0,5,20);
                 }
-                allPhotos.findViewWithTag(position + 555).setPadding(5,0,5,20);
             }
 
             @Override
@@ -95,7 +97,9 @@ public class FullScreenImageActivity extends Activity {
 
         Intent i = getIntent();
         int position = i.getIntExtra("position", 0);
-        allPhotos.findViewWithTag(position + 555).setPadding(5,0,5,20);
+        if (imId.size() > 1) {
+            allPhotos.findViewWithTag(position + 555).setPadding(5,0,5,20);
+        }
 
         adapter = new FullScreenImagePagerAdapter(FullScreenImageActivity.this, bmp);
 
