@@ -1,13 +1,18 @@
 package com.example.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adapters.MainViewPagerAdapter;
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        final TabLayout tabLayout = findViewById(R.id.tabs);
         if (tabLayout == null) {
             Log.d("WTF", "No TABS");
             Toast.makeText(this, "WTF NO TABS", Toast.LENGTH_SHORT).show();
@@ -110,6 +115,37 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tabIcons.length; ++i) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 2) {
+                    if (mAuth.getCurrentUser() == null) {
+                        new Handler().postDelayed(
+                                new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        tabLayout.getTabAt(3).select();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Вы не вошли в аккаунт",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }, 100);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
     }
 
 
@@ -141,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

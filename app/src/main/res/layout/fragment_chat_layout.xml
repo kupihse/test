@@ -30,7 +30,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/chat"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
@@ -49,14 +48,17 @@
             android:tint="@android:color/white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             app:fabSize="mini"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_toStartOf="@+id/fab"
+            android:layout_toLeftOf="@+id/fab"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
             
             <EditText
                 android:layout_width="match_parent"
@@ -73,10 +75,12 @@
             android:layout_above="@+id/fab"
             android:layout_marginTop="40dp"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_alignTop="@id/chatTitle"
             android:divider="@android:color/transparent"
-            android:dividerHeight="16dp"></ListView>
+            android:dividerHeight="16dp">
+
+        </ListView>
 
     </RelativeLayout>
 </FrameLayout>
