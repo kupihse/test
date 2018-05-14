@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.adapters.MainViewPagerAdapter;
 import com.example.application.R;
 import com.example.fragments.AllProductsFragment;
+import com.example.fragments.Chat;
 import com.example.fragments.ChatList;
 import com.example.fragments.EntryFormFragment;
 import com.example.fragments.SearchFragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment[] tabFragments = new Fragment[]{
             allProductsFragment,
             new SearchFragment(),
-            new ChatList(),
+            new Chat(),
             null,
             new SettingsContainerFragment()
     };
