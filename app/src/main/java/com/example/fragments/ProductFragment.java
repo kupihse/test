@@ -129,7 +129,6 @@ public class ProductFragment extends Fragment {
                         ll.findViewWithTag(i).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Log.d("435356", "onclick");
                                 int n = (int) v.getTag();
 
                                 // Переход на FullScreenImageActivity
@@ -170,7 +169,6 @@ public class ProductFragment extends Fragment {
 
     public void buttonFullScreen() {
         // Переход на FullScreenImageActivity
-        Log.d("435356", "AllOK");
         Intent intent = new Intent(getContext(), FullScreenImageActivity.class);
 
         // Передаем в FullScreenImageActivity bitmap картинки и стартуем
@@ -186,7 +184,6 @@ public class ProductFragment extends Fragment {
     public void showPopUp(View v) {
 //        String ViewId_Str = Integer.toString((Integer) v.getTag());
 //        Integer idx = Integer.parseInt(ViewId_Str);
-        Log.d("435356", "AllOK");
         int n = (int) v.getTag();
 
         // Переход на FullScreenImageActivity
