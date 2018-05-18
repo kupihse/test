@@ -120,7 +120,7 @@ public class AllProductsFragment2 extends Fragment {
         });
 
 
-        buttonChangeView = view.findViewById(R.id.button_change_view);
+//        buttonChangeView = view.findViewById(R.id.button_change_view);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean isInListView = prefs.getBoolean("list_view", false);
         if (isInListView) {
@@ -167,12 +167,12 @@ public class AllProductsFragment2 extends Fragment {
         switch (productAdapter.viewType) {
             case ScrollingItemsAdapter.VIEW_LIST:
                 return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-            case ScrollingItemsAdapter.VIEW_GRID:
+//            case ScrollingItemsAdapter.VIEW_GRID:
             case ScrollingItemsAdapter.VIEW_GRID:
                 return ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
 
-            case ScrollingItemsAdapter.VIEW_STAGGERED_GRID:
-                return ((StaggeredGridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPositions(null)[0];
+//            case ScrollingItemsAdapter.VIEW_STAGGERED_GRID:
+//                return ((StaggeredGridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPositions(null)[0];
         }
         return -1;
     }

@@ -20,17 +20,22 @@ public class ProductListView {
     ScrollingItemsAdapter productAdapter;
     RecyclerView recyclerView;
     Context context;
+    View rootView;
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    Listeners listeners;
 
     public ProductListView(Context context, Listeners listeners, ScrollingItemsAdapter.OnItemClickListener itemClickListener) {
-        View rootView = LayoutInflater.from(context).inflate(R.layout.product_list_view, null);
+        rootView = LayoutInflater.from(context).inflate(R.layout.product_list_view, null);
 
-        SwipeRefreshLayout swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.products);
 
         this.recyclerView = recyclerView;
         this.context = context;
-
+        this.listeners = listeners;
         setSwipeRefreshLayout(swipeRefreshLayout, listeners);
         setRecyclerViewLayout(context, recyclerView, swipeRefreshLayout, listeners, itemClickListener);
     }
@@ -40,7 +45,8 @@ public class ProductListView {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listeners.refresh();
+                productAdapter.clear();
+                listeners.refresh(mCallback);
             }
         });
     }
@@ -51,7 +57,7 @@ public class ProductListView {
         productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
             @Override
             public void onUpdate() {
-                listeners.update();
+                listeners.update(mCallback);
             }
         });
 
@@ -73,14 +79,14 @@ public class ProductListView {
     }
 
 
-    public RecyclerView getView() {
-        return recyclerView;
+    public View getView() {
+        return rootView;
     }
 
     public interface Listeners {
-        void update();
+        void update(ProductsCallback callback);
 
-        void refresh();
+        void refresh(ProductsCallback callback);
     }
 
     public void scrollToPosition(int pos) {
@@ -124,6 +130,23 @@ public class ProductListView {
     }
 
     public interface ProductsCallback {
+        void onProducts(List<Product> products, int maxProducts);
+    }
 
+    private ProductsCallback mCallback = new ProductsCallback() {
+        @Override
+        public void onProducts(List<Product> products, int maxProducts) {
+                            productAdapter.addProducts(products);
+                if (productAdapter.getItemCount() == maxProducts) {
+                    productAdapter.setOnUpdateListener(null);
+                }
+                if (swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+        }
+    };
+
+    public void start() {
+        listeners.update(mCallback);
     }
 }

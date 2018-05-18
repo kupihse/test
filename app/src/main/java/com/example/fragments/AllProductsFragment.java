@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -40,10 +41,6 @@ import retrofit2.Response;
 
 
 public class AllProductsFragment extends Fragment {
-
-    public ScrollingItemsAdapter productAdapter;
-    public RecyclerView recyclerView;
-
     ProductListView productListView;
 
     int start = 0;
@@ -91,13 +88,16 @@ public class AllProductsFragment extends Fragment {
 
         productListView = new ProductListView(getContext(), new ProductListView.Listeners() {
             @Override
-            public void update() {
-
+            public void update(ProductListView.ProductsCallback callback) {
+                renderMore(callback);
             }
 
             @Override
-            public void refresh() {
+            public void refresh(ProductListView.ProductsCallback callback) {
+                start = 0;
+                renderMore(callback);
 
+//                rerender(true);
             }
         }, new ScrollingItemsAdapter.OnItemClickListener() {
 
@@ -119,7 +119,9 @@ public class AllProductsFragment extends Fragment {
             }
         });
 
-        setRecyclerViewLayout(view);
+        FrameLayout layout = view.findViewById(R.id.products_view_content);
+        layout.addView(productListView.getView());
+//        setRecyclerViewLayout(view);
 
         view.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,59 +146,13 @@ public class AllProductsFragment extends Fragment {
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 //        boolean isInListView = prefs.getBoolean("list_view", false);
 
-
-        rerender(false);
-
+//        renderMore(false);
+//        rerender(false);
+        productListView.start();
         return view;
     }
 
-    private void setRecyclerViewLayout(View root) {
-        productAdapter = new ScrollingItemsAdapter();
-        productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
-            @Override
-            public void onUpdate() {
-                renderMore(false);
-            }
-        });
-
-        productAdapter.setOnItemClickListener(new ScrollingItemsAdapter.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(Product p) {
-                getChildFragmentManager().beginTransaction()
-                        .add(R.id.fragment_all_products_container, ProductFragment.newInstance(p.getId()))
-                        .addToBackStack(null)
-                        .commit();
-            }
-
-            @Override
-            public void onItemLongClick(Product product) {
-                ProductPreviewFragment previewFragment = ProductPreviewFragment.newInstance(product.getId());
-                getFragmentManager().beginTransaction()
-                        .add(R.id.scrolling_activity_layout, previewFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-        recyclerView = root.findViewById(R.id.products);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(productAdapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                // Обновляем только при отсутствии скролла (долистали до самого верха и листаем еще – тогда норм)
-                swipeRefreshLayout.setEnabled(newState == RecyclerView.SCROLL_STATE_IDLE);
-            }
-        });
-    }
-
-    private void renderMore(final boolean showRefreshing) {
-        if (showRefreshing)
-            swipeRefreshLayout.setRefreshing(true);
-
+    private void renderMore(final ProductListView.ProductsCallback callback) {
         Toast.makeText(getActivity(), "REFRESH fr", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
@@ -209,16 +165,14 @@ public class AllProductsFragment extends Fragment {
                 if (prs == null) {
                     return;
                 }
-                if (showRefreshing)
-                    swipeRefreshLayout.setRefreshing(false);
-
                 // Если что-то есть закидываем это в массив
 //                productAdapter.addAll(prs);
-                productAdapter.addProducts(prs.first);
-                if (productAdapter.getItemCount() == prs.second) {
-                    productAdapter.setOnUpdateListener(null);
-                    return;
-                }
+                callback.onProducts(prs.first, prs.second);
+//                productAdapter.addProducts(prs.first);
+//                if (productAdapter.getItemCount() == prs.second) {
+//                    productAdapter.setOnUpdateListener(null);
+//                    return;
+//                }
                 start += n_pr;
             }
 
@@ -229,19 +183,6 @@ public class AllProductsFragment extends Fragment {
             }
         });
     }
-
-    private void rerender(final boolean showRefreshing) {
-        start = 0;
-        productAdapter.clear();
-        productAdapter.setOnUpdateListener(new ScrollingItemsAdapter.OnUpdateListener() {
-            @Override
-            public void onUpdate() {
-                renderMore(false);
-            }
-        });
-        renderMore(showRefreshing);
-    }
-
 
     private void download() {
         Intent browserIntent = new

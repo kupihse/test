@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(Call<Product> call, Response<Product> response) {
                             Product product = response.body();
                             if (product != null) {
-                                allProductsFragment.productAdapter.addProduct(product);
+//                                allProductsFragment.productAdapter.addProduct(product);
                             }
                         }
 

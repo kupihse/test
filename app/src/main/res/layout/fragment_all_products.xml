@@ -33,16 +33,21 @@
             android:src="@drawable/button_add" />
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipe_refresh"
+    <FrameLayout
+        android:id="@+id/products_view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/top_view_margin">
+        android:layout_marginTop="@dimen/top_view_margin"/>
+    <!--<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/swipe_refresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="@dimen/top_view_margin">-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/products"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/products"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 </FrameLayout>
