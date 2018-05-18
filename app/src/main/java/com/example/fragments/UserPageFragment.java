@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -150,6 +151,17 @@ public class UserPageFragment extends Fragment {
                 startActivity(Intent.createChooser(intent, "Choose an Email client :"));
             }
         });
+
+
+        final View myProductsView = rootView.findViewById(R.id.my_products);
+        myProductsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                getChildFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_user_page_container, )
+            }
+        });
+
 
 
 //        Button myProducts = (Button) root.findViewById(R.id.user_page_products);

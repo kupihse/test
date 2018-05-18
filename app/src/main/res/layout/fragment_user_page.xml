@@ -91,6 +91,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:id="@+id/my_products"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -100,7 +101,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Мои\nтовары"
+                            android:text="Мои товары"
+                            android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />
                         <TextView
@@ -126,6 +128,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Купленное"
+                            android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />
                         <TextView
@@ -149,6 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Вишлист"
+                            android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />
 

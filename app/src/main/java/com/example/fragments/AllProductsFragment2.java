@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +25,6 @@ import com.example.activities.AddProductActivity;
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
 import com.example.events.LayoutChangeEvent;
-import com.example.layouts.ProductListView;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.util.Pair;
@@ -39,12 +40,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class AllProductsFragment extends Fragment {
+public class AllProductsFragment2 extends Fragment {
 
     public ScrollingItemsAdapter productAdapter;
     public RecyclerView recyclerView;
-
-    ProductListView productListView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageButton buttonChangeView;
 
     int start = 0;
     int n_pr = 20;
@@ -88,34 +89,12 @@ public class AllProductsFragment extends Fragment {
 
         // На потом, надо сделать обновление по свайпу вниз
         //
-
-        productListView = new ProductListView(getContext(), new ProductListView.Listeners() {
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setDistanceToTriggerSync(250);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void update() {
-
-            }
-
-            @Override
-            public void refresh() {
-
-            }
-        }, new ScrollingItemsAdapter.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(Product p) {
-                getChildFragmentManager().beginTransaction()
-                        .add(R.id.fragment_all_products_container, ProductFragment.newInstance(p.getId()))
-                        .addToBackStack(null)
-                        .commit();
-            }
-
-            @Override
-            public void onItemLongClick(Product product) {
-                ProductPreviewFragment previewFragment = ProductPreviewFragment.newInstance(product.getId());
-                getFragmentManager().beginTransaction()
-                        .add(R.id.scrolling_activity_layout, previewFragment)
-                        .addToBackStack(null)
-                        .commit();
+            public void onRefresh() {
+                rerender(true);
             }
         });
 
@@ -124,7 +103,7 @@ public class AllProductsFragment extends Fragment {
         view.findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productListView.scrollToPosition(0);
+                recyclerView.scrollToPosition(0);
             }
         });
 
@@ -141,14 +120,63 @@ public class AllProductsFragment extends Fragment {
         });
 
 
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        boolean isInListView = prefs.getBoolean("list_view", false);
+        buttonChangeView = view.findViewById(R.id.button_change_view);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean isInListView = prefs.getBoolean("list_view", false);
+        if (isInListView) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+            buttonChangeView.setImageResource(R.drawable.button_list);
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
+            buttonChangeView.setImageResource(R.drawable.button_grid);
+        }
+        buttonChangeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (productAdapter.viewType) {
+                    case ScrollingItemsAdapter.VIEW_GRID:
+                        int pos = getFirstItemPosition();
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+                        buttonChangeView.setImageResource(R.drawable.button_list);
+                        recyclerView.setAdapter(productAdapter);
+                        recyclerView.scrollToPosition(pos);
+                        return;
+                    case ScrollingItemsAdapter.VIEW_LIST:
+                        pos = getFirstItemPosition();
+                        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                        productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
+                        buttonChangeView.setImageResource(R.drawable.button_grid);
+                        recyclerView.setAdapter(productAdapter);
+                        recyclerView.scrollToPosition(pos);
+                        return;
 
+                }
+            }
+        });
 
         rerender(false);
 
         return view;
     }
+
+
+    public int getFirstItemPosition() {
+        switch (productAdapter.viewType) {
+            case ScrollingItemsAdapter.VIEW_LIST:
+                return ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            case ScrollingItemsAdapter.VIEW_GRID:
+            case ScrollingItemsAdapter.VIEW_GRID:
+                return ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+            case ScrollingItemsAdapter.VIEW_STAGGERED_GRID:
+                return ((StaggeredGridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPositions(null)[0];
+        }
+        return -1;
+    }
+
 
     private void setRecyclerViewLayout(View root) {
         productAdapter = new ScrollingItemsAdapter();
@@ -253,9 +281,21 @@ public class AllProductsFragment extends Fragment {
     @Subscribe
     public void OnLayoutChangeEvent(LayoutChangeEvent event) {
         if (event.isInListView()) {
-            productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_LIST);
+            int pos = getFirstItemPosition();
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_LIST);
+            buttonChangeView.setImageResource(R.drawable.button_list);
+            recyclerView.setAdapter(productAdapter);
+            recyclerView.scrollToPosition(pos);
         } else {
-            productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
+            int pos = getFirstItemPosition();
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            productAdapter.setViewType(ScrollingItemsAdapter.VIEW_GRID);
+            buttonChangeView.setImageResource(R.drawable.button_grid);
+            recyclerView.setAdapter(productAdapter);
+            recyclerView.scrollToPosition(pos);
+            return;
+
         }
     }
 
