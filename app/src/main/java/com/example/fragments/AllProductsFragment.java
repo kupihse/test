@@ -195,8 +195,10 @@ public class AllProductsFragment extends Fragment {
     public void OnLayoutChangeEvent(LayoutChangeEvent event) {
         if (event.isInListView()) {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_LIST);
+            Log.d("tsdtsd", "tsdtsd_logged");
         } else {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
+            Log.d("tsdtsd", "tsdtsd_quit");
         }
     }
 

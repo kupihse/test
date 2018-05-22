@@ -83,4 +83,14 @@
         </ListView>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/not_loggedin_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Вы не вошли в аккаунт"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="invisible" />
 </FrameLayout>

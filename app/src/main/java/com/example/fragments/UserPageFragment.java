@@ -22,11 +22,14 @@ import android.widget.Toast;
 
 import com.example.activities.MainActivity;
 import com.example.application.R;
+import com.example.events.LogInEvent;
 import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.WishList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,6 +69,7 @@ public class UserPageFragment extends Fragment {
         toolbar.getMenu().findItem(R.id.log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                EventBus.getDefault().post(new LogInEvent(false));
                 FirebaseAuth.getInstance().signOut();
                 getFragmentManager()
                         .beginTransaction()

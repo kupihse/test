@@ -118,20 +118,20 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 2) {
-                    if (mAuth.getCurrentUser() == null) {
-                        new Handler().postDelayed(
-                                new Runnable(){
-                                    @Override
-                                    public void run() {
-                                        tabLayout.getTabAt(3).select();
-                                        Toast.makeText(getApplicationContext(),
-                                                "Вы не вошли в аккаунт",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }, 100);
-                    }
-                }
+//                if (tab.getPosition() == 2) {
+//                    if (mAuth.getCurrentUser() == null) {
+//                        new Handler().postDelayed(
+//                                new Runnable(){
+//                                    @Override
+//                                    public void run() {
+//                                        tabLayout.getTabAt(3).select();
+//                                        Toast.makeText(getApplicationContext(),
+//                                                "Вы не вошли в аккаунт",
+//                                                Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }, 100);
+//                    }
+//                }
             }
 
             @Override

@@ -11,23 +11,31 @@ import android.view.View;
 import android.widget.EditText;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.text.format.DateFormat;
 
 import com.example.activities.ChatMessage;
+import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
+import com.example.events.LayoutChangeEvent;
+import com.example.events.LogInEvent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.Query;
 import com.firebase.ui.database.FirebaseListOptions;
+
+import org.greenrobot.eventbus.Subscribe;
+
 public class Chat extends Fragment {
 
     private static int SIGN_IN_REQUEST_CODE = 1;
     private FirebaseListAdapter<ChatMessage> adapter;
     FloatingActionButton fab;
-
+    RelativeLayout chat;
+    TextView infoText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +44,8 @@ public class Chat extends Fragment {
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
 
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-
+        chat = (RelativeLayout) rootView.findViewById(R.id.chat);
+        infoText = (TextView) rootView.findViewById(R.id.not_loggedin_text) ;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +125,20 @@ public class Chat extends Fragment {
 
 //        LinearLayout sendMessage = rootView.findViewById(R.id.send);
         return rootView;
+    }
+
+    @Subscribe
+    public void OnLogInEvent(LogInEvent event) {
+        if (event.isUserLoggedIn()) {
+            chat.setVisibility(View.VISIBLE);
+            infoText.setVisibility(View.INVISIBLE);
+            Log.d("tsdtsd", "tsdtsd_logged");
+        }
+        else {
+            chat.setVisibility(View.INVISIBLE);
+            infoText.setVisibility(View.VISIBLE);
+            Log.d("tsdtsd", "tsdtsd_quit");
+        }
     }
 
 }
