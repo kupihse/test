@@ -31,7 +31,6 @@
     <string name="prompt_name_product">Product Name</string>
     <string name="prompt_description_product">Description</string>
     <string name="action_admit_parameters">ADD</string>
-    <!--<string name="parameters_empty">Все поля обязательны для заполнения</string>-->
     <string name="parameters_empty">Название товара и цена обязательны</string>
     <string name="registrationpopup">Пароли не совпадают</string>
     <string name="popupbutton">Окей</string>
@@ -44,6 +43,8 @@
     <string name="price_hint">Price</string>
 
     <string name="search_hint">Search Products</string>
+    <string name="all_items">All Items</string>
+    <string name="submit_button">Submit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

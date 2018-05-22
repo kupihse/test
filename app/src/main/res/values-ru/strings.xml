@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">HSE.Outlet</string>
+    <string name="title_activity_scrolling">HSE Outlet</string>
+    <string name="action_settings">Настройки</string>
+    <string name="add_product_setting">Добавить товар</string>
+    <string name="scrolling_menu_reg">Вход/Регистрация</string>
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="product_name_format">Товар #%d</string>
+    <!-- Все что связано с работой юзеров -->
+    <string name="password_entryform">Пароль</string>
+    <string name="login_entryform">Войти</string>
+    <string name="email_entryform">Email</string>
+    <string name="question_entryform">Зарегистрироваться</string>
+    <string name="login">Login</string>
+    <string name="UserName">Имя</string>
+    <string name="passwordreg">Пароль</string>
+    <string name="emailreg">Email</string>
+    <string name="backtoregistration">Уже есть аккаунт?</string>
+    <string name="registration_again">Повторите пароль</string>
+    <string name="registration_registrate">Регистрация</string>
+    <string-array name="emailAddition">
+        <item>\u0040edu.hse.ru</item>
+        <item>\u0040hse.ru</item>
+    </string-array>
+    <!-- Все что связано с работой юзеров -->
+
+    <string name="title_activity_add_item_parameters">Параметры</string>
+
+    <!-- Strings related to adding item -->
+    <string name="prompt_name_product">Название товара</string>
+    <string name="prompt_description_product">Описание</string>
+    <string name="action_admit_parameters">ДОБАВИТЬ</string>
+    <!--<string name="parameters_empty">Все поля обязательны для заполнения</string>-->
+    <string name="parameters_empty">Название товара и цена обязательны</string>
+    <string name="registrationpopup">Пароли не совпадают</string>
+    <string name="popupbutton">Окей</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="delete_photo">Удалить</string>
+    <string name="full_screen">Полный экран</string>
+    <string name="photo_picker_select_image">Выбрать фото из галереи</string>
+    <string name="close">Закрыть</string>
+    <string name="registration_popup_1">Некорректный ввод</string>
+    <string name="price_hint">Цена</string>
+
+    <string name="search_hint">Найти товары</string>
+    <string name="all_items">Все товары</string>
+    <string name="submit_button">Подтвердить</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

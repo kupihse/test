@@ -1,7 +1,11 @@
 package com.example.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,16 +15,20 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.activities.AddProductActivity;
+import com.example.activities.LocaleHelper;
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
 import com.example.events.LayoutChangeEvent;
@@ -34,6 +42,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +59,7 @@ public class AllProductsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        LocaleHelper.setLocale(getActivity(), "ru");
         setHasOptionsMenu(true);
     }
 
@@ -136,7 +145,7 @@ public class AllProductsFragment extends Fragment {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     startActivityForResult(new Intent(getContext(), AddProductActivity.class), 1);
                 } else {
-                    Toast.makeText(getContext(), "Ты не вошел в аккаунт, лох", Toast.LENGTH_SHORT).show();
+                    showAlert("Вы не вошли в аккаунт");
                 }
 
             }
@@ -198,6 +207,24 @@ public class AllProductsFragment extends Fragment {
         } else {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
         }
+    }
+
+    private void showAlert(CharSequence notificationText) {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+
+        View mView = getLayoutInflater().inflate(R.layout.activity_popupwindow, null);
+        Button button_popup = mView.findViewById(R.id.button_popup);
+        TextView text = mView.findViewById(R.id.popupwindows);
+        text.setText(notificationText);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        button_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

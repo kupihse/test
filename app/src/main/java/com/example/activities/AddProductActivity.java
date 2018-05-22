@@ -1,5 +1,6 @@
 package com.example.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,6 +63,15 @@ public class AddProductActivity extends AppCompatActivity {
         if (bar != null) {
             bar.setHomeButtonEnabled(true);
         }
+        Button test = (Button) findViewById(R.id.button2);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocaleHelper.setLocale(AddProductActivity.this, "ru");
+                Toast.makeText(AddProductActivity.this, "все ок", Toast.LENGTH_SHORT).show();
+                recreate();
+            }
+        });
 
         // Референс на Layout фоток
         ll = findViewById(R.id.photos_2);
@@ -105,7 +115,6 @@ public class AddProductActivity extends AppCompatActivity {
     // Тут в целом на инглише описано (че не миэм, прочитать не сможешь?)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        TextView test = (TextView) findViewById(R.id.test);
         if (resultCode == RESULT_OK) {
             // if we are here, everything processed successfully.
             if (requestCode == IMAGE_GALLERY_REQUEST) {
@@ -165,7 +174,6 @@ public class AddProductActivity extends AppCompatActivity {
     public void showPopUp(View v) {
         // Получаем id картинки, на которую нажали и её image view
         ImageView Image = (ImageView) findViewById(v.getId());
-        TextView test = (TextView) findViewById(R.id.test); // это для теста
 
         // Это условие лишнее, так как мы изменили метод добавления картинок
         if (Image.getDrawable() != null) {
@@ -177,9 +185,6 @@ public class AddProductActivity extends AppCompatActivity {
             // Получаем id (а точнее tag, смысл тот же) image view, на которое нажали
             ViewId_Str = Integer.toString((Integer) v.getTag());
         }
-
-        // Для теста вывод тэга
-        test.setText(String.format("%s", v.getTag()));
     }
 
     public void showPhotoPickerMenu(View v) {
@@ -262,9 +267,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         if (name.equals("") || edit_price.getText().toString().equals("")) {
             // Если есть пустые поля, показываем надпись и кнопку в состояние "Failed"
-            params_empty.setVisibility(View.VISIBLE);
-            button.setText("Failed");
-            button.setBackgroundColor(Color.parseColor("#FF2B2B"));
+            showAlert("Название товара и цена обязательны");
         } else {
             price = Integer.parseInt(edit_price.getText().toString());
             product.setName(name);
@@ -295,5 +298,23 @@ public class AddProductActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    private void showAlert(CharSequence notificationText) {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(AddProductActivity.this);
+
+        View mView = getLayoutInflater().inflate(R.layout.activity_popupwindow, null);
+        Button button_popup = mView.findViewById(R.id.button_popup);
+        TextView text = mView.findViewById(R.id.popupwindows);
+        text.setText(notificationText);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        button_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 }

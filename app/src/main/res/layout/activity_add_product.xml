@@ -159,16 +159,17 @@
             android:background="@layout/button_login_and_registration"
             android:gravity="center_horizontal|center_vertical"
             android:onClick="buttonOnClick"
-            android:text="Submit" />
+            android:text="@string/submit_button" />
 
-        <TextView
-            android:id="@+id/test"
+        <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/all_photos"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="19dp"
-            android:text="TextView" />
+            android:layout_marginBottom="162dp"
+            android:text="Button" />
+
 
     </RelativeLayout>
 </ScrollView>
