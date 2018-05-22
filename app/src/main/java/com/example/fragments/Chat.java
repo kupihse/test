@@ -27,6 +27,7 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.Query;
 import com.firebase.ui.database.FirebaseListOptions;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class Chat extends Fragment {
@@ -38,6 +39,18 @@ public class Chat extends Fragment {
     TextView infoText;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_chat_layout, container, false);
@@ -46,6 +59,15 @@ public class Chat extends Fragment {
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         chat = (RelativeLayout) rootView.findViewById(R.id.chat);
         infoText = (TextView) rootView.findViewById(R.id.not_loggedin_text) ;
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            chat.setVisibility(View.VISIBLE);
+            infoText.setVisibility(View.INVISIBLE);
+        }
+        else {
+            chat.setVisibility(View.INVISIBLE);
+            infoText.setVisibility(View.VISIBLE);
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +154,10 @@ public class Chat extends Fragment {
         if (event.isUserLoggedIn()) {
             chat.setVisibility(View.VISIBLE);
             infoText.setVisibility(View.INVISIBLE);
-            Log.d("tsdtsd", "tsdtsd_logged");
         }
         else {
             chat.setVisibility(View.INVISIBLE);
             infoText.setVisibility(View.VISIBLE);
-            Log.d("tsdtsd", "tsdtsd_quit");
         }
     }
 
