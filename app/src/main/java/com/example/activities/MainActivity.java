@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tabIcons.length; ++i) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

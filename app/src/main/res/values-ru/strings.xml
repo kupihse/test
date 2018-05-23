@@ -41,11 +41,38 @@
     <string name="photo_picker_select_image">Выбрать фото из галереи</string>
     <string name="close">Закрыть</string>
     <string name="registration_popup_1">Некорректный ввод</string>
-    <string name="price_hint">Цена</string>
-
-    <string name="search_hint">Найти товары</string>
-    <string name="all_items">Все товары</string>
     <string name="submit_button">Подтвердить</string>
+
+    <!-- Strings related to user page -->
+    <string name="price_hint">Цена</string>
+    <string name="my_products">Мои товары</string>
+    <string name="bought_products">Купленное</string>
+    <string name="wishlist">Желаемое</string>
+    <string name="userpage_title">Страница пользователя</string>
+
+    <!-- Strings related to chat -->
+    <string name="not_logged_text">Вы не вошли в аккаунт</string>
+    <string name="message_hint">Сообщение...</string>
+    <string name="chat_title">Чат</string>
+
+    <!-- Strings related to search -->
+    <string name="swipe_to_search">Листните вниз чтобы начать поиск</string>
+    <string name="search_hint">Найти товары</string>
+
+    <!-- Strings related to preferences -->
+    <string name="change_view_title">Товары списком</string>
+    <string name="change_view_summary">отображать товары в виде списка</string>
+    <string name="change_lang_title">Включить русский язык</string>
+    <string name="change_lang_summary">включает русский язык</string>
+    <string name="settings_title">Настройки</string>
+
+    <!-- Strings related to registration -->
+    <string name="registration">Регистрация</string>
+
+    <string name="all_items">Все товары</string>
+    <string name="product_description">Описание:</string>
+    <string name="product_tags">Тэги:</string>
+    <string name="enter_account">Вход</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

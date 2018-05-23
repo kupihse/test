@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Swipe down to start searching" />
+            android:text="@string/swipe_to_search" />
 
         <ImageView
             android:layout_width="wrap_content"

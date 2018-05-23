@@ -2,6 +2,7 @@ package com.example.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +58,15 @@ public class AddProductActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
+
+//        String languageToLoad  = "ru";
+//        Locale locale = new Locale(languageToLoad);
+//        Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//        getBaseContext().getResources().updateConfiguration(config,
+//                getBaseContext().getResources().getDisplayMetrics());
+
         // Ставим соотв. Layout
         setContentView(R.layout.activity_add_product);
 
@@ -63,11 +74,19 @@ public class AddProductActivity extends AppCompatActivity {
         if (bar != null) {
             bar.setHomeButtonEnabled(true);
         }
+
         Button test = (Button) findViewById(R.id.button2);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocaleHelper.setLocale(AddProductActivity.this, "ru");
+//                LocaleHelper.setLocale(AddProductActivity.this, "ru");
+                String languageToLoad  = "ru";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
                 Toast.makeText(AddProductActivity.this, "все ок", Toast.LENGTH_SHORT).show();
                 recreate();
             }

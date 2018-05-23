@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Страница пользователя"
+            android:text="@string/userpage_title"
             android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 
@@ -101,7 +101,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Мои товары"
+                            android:text="@string/my_products"
                             android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />
@@ -127,7 +127,7 @@
                             android:id="@+id/number_of_bought"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Купленное"
+                            android:text="@string/bought_products"
                             android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />
@@ -151,7 +151,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Вишлист"
+                            android:text="@string/wishlist"
                             android:lines="2"
                             android:textAlignment="center"
                             android:textSize="18sp" />

@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Регистрация"
+            android:text="@string/registration"
             android:textColor="#fff" />
     </android.support.v7.widget.Toolbar>
 
@@ -57,6 +57,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:text="@string/UserName"
                         android:textColor="#ffffff" />
 
@@ -75,6 +76,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:text="@string/emailreg"
                         android:textColor="#ffffff" />
                     <!-- Password Label -->
@@ -112,6 +114,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="3dp"
                         android:text="@string/passwordreg"
                         android:textColor="#ffffff" />
@@ -132,6 +135,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:text="@string/registration_again"
                         android:textColor="#ffffff" />
 
@@ -190,7 +194,9 @@
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"></LinearLayout>
+                android:layout_alignParentStart="true">
+
+            </LinearLayout>
             <!-- Footer Ends -->
         </RelativeLayout>
     </ScrollView>

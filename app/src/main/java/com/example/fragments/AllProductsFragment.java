@@ -31,6 +31,7 @@ import com.example.activities.AddProductActivity;
 import com.example.activities.LocaleHelper;
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
+import com.example.events.LanguageChangeEvent;
 import com.example.events.LayoutChangeEvent;
 import com.example.layouts.ProductListView;
 import com.example.models.Product;
@@ -55,11 +56,9 @@ public class AllProductsFragment extends Fragment {
     int start = 0;
     int n_pr = 20;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocaleHelper.setLocale(getActivity(), "ru");
         setHasOptionsMenu(true);
     }
 
@@ -207,6 +206,23 @@ public class AllProductsFragment extends Fragment {
         } else {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
         }
+    }
+
+    @Subscribe
+    public void OnLanguageChangeEvent(LanguageChangeEvent event) {
+        Locale locale;
+        if (event.isLanguageRussian()) {
+            locale = new Locale("ru");
+        } else {
+            locale = new Locale("en");
+        }
+
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,
+                getResources().getDisplayMetrics());
+        getActivity().recreate();
     }
 
     private void showAlert(CharSequence notificationText) {
