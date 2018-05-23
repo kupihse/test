@@ -49,7 +49,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class AllProductsFragment extends Fragment {
     ProductListView productListView;
 
@@ -203,8 +202,10 @@ public class AllProductsFragment extends Fragment {
     public void OnLayoutChangeEvent(LayoutChangeEvent event) {
         if (event.isInListView()) {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_LIST);
+            Log.d("switchtest", "view ON");
         } else {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
+            Log.d("switchtest", "view OFF");
         }
     }
 
@@ -213,8 +214,10 @@ public class AllProductsFragment extends Fragment {
         Locale locale;
         if (event.isLanguageRussian()) {
             locale = new Locale("ru");
+            Log.d("switchtest", "language ON");
         } else {
             locale = new Locale("en");
+            Log.d("switchtest", "language OFF");
         }
 
         Locale.setDefault(locale);

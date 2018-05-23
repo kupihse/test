@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.application.R;
@@ -23,6 +25,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey);
+        final PreferenceManager preferenceManager = getPreferenceManager();
+
+        boolean checkLangSwitch = preferenceManager.getSharedPreferences().getBoolean("lang_rus", false);
+        boolean checkViewSwitch = preferenceManager.getSharedPreferences().getBoolean("list_view", false);
+        EventBus.getDefault().post(new LanguageChangeEvent(checkLangSwitch));
+        EventBus.getDefault().post(new LayoutChangeEvent(checkViewSwitch));
+
         findPreference("list_view").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -38,7 +47,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        findPreference("lang_eng").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        findPreference("lang_rus").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean isRuOn = (Boolean) newValue;
@@ -53,4 +62,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
     }
+
 }
