@@ -1,5 +1,7 @@
 package com.example.events;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class LanguageChangeEvent {
 
     private final boolean isLanguageRussian;

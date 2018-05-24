@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -29,6 +32,7 @@ import android.widget.Toast;
 
 import com.example.activities.AddProductActivity;
 import com.example.activities.LocaleHelper;
+import com.example.activities.MainActivity;
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
 import com.example.events.LanguageChangeEvent;
@@ -54,10 +58,12 @@ public class AllProductsFragment extends Fragment {
 
     int start = 0;
     int n_pr = 20;
+    View mainView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        EventBus.getDefault().post(new LayoutChangeEvent(checkViewSwitch));
         setHasOptionsMenu(true);
     }
 
@@ -78,6 +84,7 @@ public class AllProductsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_products, container, false);
+        mainView = getActivity().findViewById(R.id.scrolling_activity_layout);
 
         // Можно потом добавить меню в виде трех точек
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -220,12 +227,44 @@ public class AllProductsFragment extends Fragment {
             Log.d("switchtest", "language OFF");
         }
 
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getResources().updateConfiguration(config,
-                getResources().getDisplayMetrics());
-        getActivity().recreate();
+        String lang;
+        String currLang = Locale.getDefault().getLanguage();
+        if (event.isLanguageRussian()) {
+            lang = "ru";
+        } else {
+            lang = "en";
+        }
+        if (!currLang.equals(lang)) {
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getResources().updateConfiguration(config,
+                    getResources().getDisplayMetrics());
+            Log.d("lang_test", Locale.getDefault().getLanguage());
+
+//            Intent intent = getActivity().getIntent();
+//            getActivity().overridePendingTransition(0, 0);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            getActivity().finish();
+//            getActivity().overridePendingTransition(0, 0);
+//            startActivity(intent);
+
+            getActivity().finish();
+            getActivity().overridePendingTransition( 0, 0);
+            getActivity().startActivity(getActivity().getIntent());
+
+        }
+
+//        Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//        getResources().updateConfiguration(config,
+//                getResources().getDisplayMetrics());
+//        Log.d("lang_test", Locale.getDefault().getDisplayLanguage());
+//        getActivity().finish();
+//        getActivity().overridePendingTransition( 0, 0);
+//        getActivity().startActivity(getActivity().getIntent());
+//        getActivity().overridePendingTransition( 0, 0);
     }
 
     private void showAlert(CharSequence notificationText) {
@@ -245,5 +284,6 @@ public class AllProductsFragment extends Fragment {
             }
         });
     }
+
 
 }

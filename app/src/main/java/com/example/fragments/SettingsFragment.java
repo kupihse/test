@@ -29,8 +29,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         boolean checkLangSwitch = preferenceManager.getSharedPreferences().getBoolean("lang_rus", false);
         boolean checkViewSwitch = preferenceManager.getSharedPreferences().getBoolean("list_view", false);
-        EventBus.getDefault().post(new LanguageChangeEvent(checkLangSwitch));
         EventBus.getDefault().post(new LayoutChangeEvent(checkViewSwitch));
+        EventBus.getDefault().post(new LanguageChangeEvent(checkLangSwitch));
+
+        String lang;
+        String currLang = Locale.getDefault().getLanguage();
+        if (checkLangSwitch) {
+            lang = "ru";
+        } else {
+            lang = "en";
+        }
+
+//        if (!currLang.equals(lang)) {
+////            EventBus.getDefault().post(new LanguageChangeEvent(preferenceManager.getSharedPreferences().getBoolean("list_view", false)));
+//            Log.d("lang_test", Locale.getDefault().getLanguage());
+//        }
+
 
         findPreference("list_view").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
