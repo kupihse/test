@@ -123,10 +123,10 @@ public class RegistrationFormFragment extends Fragment {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
                     if (!password.equals(password1)) {
-                        showAlert("Пароли не совпадают");
+                        showAlert(getResources().getText(R.string.firebase_passwords_match));
                     }
                     else if (password.length() < 6) {
-                        showAlert("Пароль слишком короткий");
+                        showAlert(getResources().getText(R.string.firebase_password_short));
                     }
                     //********************** Иначе готовим и передаем юзера *********************************
                     else {
@@ -158,7 +158,7 @@ public class RegistrationFormFragment extends Fragment {
                                                 @Override
                                                 public void onResponse(Call<Void> call, Response<Void> response) {
     //                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
-                                                    showAlert("Подтверди свою почту");
+                                                    showAlert(getResources().getText(R.string.firebase_email_confirm));
                                                     getFragmentManager().popBackStack();
                                                 }
 
@@ -174,7 +174,7 @@ public class RegistrationFormFragment extends Fragment {
                                         else {
                                             Log.d("createUserWith", "Email found");
     //                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
-                                            showAlert("Такая почта уже зарегистрирована");
+                                            showAlert(getResources().getText(R.string.firebase_email_taken));
                                         }
                                     }
                         }).addOnFailureListener(new OnFailureListener() {

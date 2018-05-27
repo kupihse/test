@@ -68,6 +68,12 @@
     <!-- Strings related to registration -->
     <string name="registration">Registration</string>
     <string name="firebase_failure">Failure. Maybe no internet connection?</string>
+    <string name="firebase_not_confirmed">Your email is not confirmed</string>
+    <string name="firebase_wrong_password">Wrong login or password</string>
+    <string name="firebase_passwords_match">Passwords do not match</string>
+    <string name="firebase_password_short">Password is too short</string>
+    <string name="firebase_email_confirm">Please confirm your email</string>
+    <string name="firebase_email_taken">That email is already used</string>
 
 
     <string name="all_items">All Items</string>

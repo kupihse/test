@@ -2,6 +2,9 @@ package com.example.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -111,13 +114,21 @@ public class EntryFormFragment extends Fragment {
                                                                     .replace(R.id.fragment_entry_form_container, new UserPageFragment())
                                                                     .commit();
                                                         } else {
-                                                            showAlert("Твоя почта не подтверждена");
+                                                            showAlert(getResources().getText(R.string.firebase_not_confirmed));
                                                         }
                                                     }
                                                 });
 
                                     } else {
-                                        showAlert("Неверный логин или пароль");
+                                        ConnectivityManager ConnectionManager = (ConnectivityManager)getActivity()
+                                                .getSystemService(Context.CONNECTIVITY_SERVICE);
+                                        NetworkInfo networkInfo=ConnectionManager.getActiveNetworkInfo();
+                                        if(networkInfo != null && networkInfo.isConnected() ) {
+                                            showAlert(getResources().getText(R.string.firebase_wrong_password));
+                                        } else {
+                                            showAlert(getResources().getText(R.string.firebase_failure));
+                                        }
+
                                         getFragmentManager().popBackStack();
                                     }
                                 }
