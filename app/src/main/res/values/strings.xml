@@ -67,6 +67,8 @@
 
     <!-- Strings related to registration -->
     <string name="registration">Registration</string>
+    <string name="firebase_failure">Failure. Maybe no internet connection?</string>
+
 
     <string name="all_items">All Items</string>
     <string name="product_description">Description:</string>

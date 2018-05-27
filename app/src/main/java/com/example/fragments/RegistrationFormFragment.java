@@ -2,6 +2,7 @@ package com.example.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ import com.example.models.User;
 import com.example.services.RegularChecker;
 import com.example.services.Services;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -115,6 +118,7 @@ public class RegistrationFormFragment extends Fragment {
 
                 //*******************************************************
                 //**************** Проверка на корректные поля **************
+
                 if (!RegularChecker.doMatch(login) && !login.equals("") && !name.equals("") && !password.equals("")) {
 
                     //************* сравнивает пароли,если не совпадают, то нотификейшн ***********
@@ -137,41 +141,47 @@ public class RegistrationFormFragment extends Fragment {
                         final String loginToPass = login;
                         final String passwordToPass = password;
                         final String nameToPass = name;
+
                         mAuth.fetchSignInMethodsForEmail(login)
-                                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                .addOnSuccessListener(new OnSuccessListener<SignInMethodQueryResult>() {
                                 @Override
-                                public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                                    // Если checkMail == false, то такой почты нету
-                                    boolean checkMail = !task.getResult().getSignInMethods().isEmpty();
+                                public void onSuccess(SignInMethodQueryResult signInMethodQueryResult) {
+                                        // Если checkMail == false, то такой почты нету
+                                        boolean checkMail = !signInMethodQueryResult.getSignInMethods().isEmpty();
 
-                                    if (!checkMail) {
-                                        Log.d("createUserWith", "Email not found");
-                                        createFirebaseAccount(loginToPass, passwordToPass);
+                                        if (!checkMail) {
+                                            Log.d("createUserWith", "Email not found");
+                                            createFirebaseAccount(loginToPass, passwordToPass);
 
-                                        Call<Void> c = Services.users.add(new User(nameToPass, loginToPass, passwordToPass));
-                                        c.enqueue(new Callback<Void>() {
-                                            @Override
-                                            public void onResponse(Call<Void> call, Response<Void> response) {
-//                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
-                                                showAlert("Подтверди свою почту");
-                                                getFragmentManager().popBackStack();
-                                            }
+                                            Call<Void> c = Services.users.add(new User(nameToPass, loginToPass, passwordToPass));
+                                            c.enqueue(new Callback<Void>() {
+                                                @Override
+                                                public void onResponse(Call<Void> call, Response<Void> response) {
+    //                                                Toast.makeText(getContext(), "Please, verify your email", Toast.LENGTH_SHORT).show();
+                                                    showAlert("Подтверди свою почту");
+                                                    getFragmentManager().popBackStack();
+                                                }
 
-                                            @Override
-                                            public void onFailure(Call<Void> call, Throwable t) {
-                                                Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                                                getFragmentManager().popBackStack();
-                                            }
+                                                @Override
+                                                public void onFailure(Call<Void> call, Throwable t) {
+                                                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                                    getFragmentManager().popBackStack();
+                                                }
 
-                                        });
+                                            });
+                                        }
+
+                                        else {
+                                            Log.d("createUserWith", "Email found");
+    //                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
+                                            showAlert("Такая почта уже зарегистрирована");
+                                        }
                                     }
-
-                                    else {
-                                        Log.d("createUserWith", "Email found");
-//                                        Toast.makeText(getActivity(), "That email already exists", Toast.LENGTH_SHORT).show();
-                                        showAlert("Такая почта уже зарегистрирована");
-                                    }
-                                }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                showAlert(getResources().getText(R.string.firebase_failure));
+                            }
                         });
 
 //                        Call<Void> c = Services.users.add(new User(name, login, password));

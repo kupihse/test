@@ -68,6 +68,7 @@
 
     <!-- Strings related to registration -->
     <string name="registration">Регистрация</string>
+    <string name="firebase_failure">Ошибка. Отсутствует интернет соединение?</string>
 
     <string name="all_items">Все товары</string>
     <string name="product_description">Описание:</string>
