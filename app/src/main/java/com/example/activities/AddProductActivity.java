@@ -73,24 +73,9 @@ public class AddProductActivity extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
             bar.setHomeButtonEnabled(true);
+            bar.setTitle(R.string.add_product);
         }
 
-        Button test = (Button) findViewById(R.id.button2);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                LocaleHelper.setLocale(AddProductActivity.this, "ru");
-                String languageToLoad  = "ru";
-                Locale locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                Toast.makeText(AddProductActivity.this, "все ок", Toast.LENGTH_SHORT).show();
-                recreate();
-            }
-        });
 
         // Референс на Layout фоток
         ll = findViewById(R.id.photos_2);
@@ -174,6 +159,23 @@ public class AddProductActivity extends AppCompatActivity {
         for (String imgId : product.getImages()) {
             SingleImageLayout Im = new SingleImageLayout(this, imgId, i);
             ll.addView(Im);
+            ll.findViewWithTag(i).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    showPopUp(v);
+                    return true;
+                }
+            });
+            ll.findViewWithTag(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int idx = (Integer) v.getTag();
+                    Intent intent = new Intent(AddProductActivity.this, FullScreenImageActivity.class);
+                    intent.putExtra("Bitmap", product.getImages());
+                    intent.putExtra("position", idx);
+                    startActivity(intent);
+                }
+            });
             i++;
         }
     }
@@ -273,7 +275,6 @@ public class AddProductActivity extends AppCompatActivity {
         name = edit_name.getText().toString().trim();
         final EditText edit_desc = (EditText) findViewById(R.id.item_description);
         description = edit_desc.getText().toString().trim();
-        final TextView params_empty = (TextView) findViewById(R.id.empty_parameters);
         final EditText edit_price = (EditText) findViewById(R.id.item_price);
 
         if (product.getImages().size() == 0) {

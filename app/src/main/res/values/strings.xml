@@ -42,12 +42,15 @@
     <string name="registration_popup_1">Invalid input</string>
     <string name="price_hint">Price</string>
     <string name="submit_button">Submit</string>
+    <string name="tags">Tags</string>
+    <string name="add_tag">Add tag</string>
 
     <!-- Strings related to user page -->
     <string name="my_products">My products</string>
     <string name="bought_products">Bought</string>
     <string name="wishlist">Wishlist</string>
     <string name="userpage_title">User Page</string>
+    <string name="log_out">Log out</string>
 
     <!-- Strings related to chat -->
     <string name="not_logged_text">You are not signed in</string>
@@ -80,6 +83,7 @@
     <string name="product_description">Description:</string>
     <string name="product_tags">Tags:</string>
     <string name="enter_account">Sign in</string>
+    <string name="add_product">Add product</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

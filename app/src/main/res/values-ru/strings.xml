@@ -42,6 +42,9 @@
     <string name="close">Закрыть</string>
     <string name="registration_popup_1">Некорректный ввод</string>
     <string name="submit_button">Подтвердить</string>
+    <string name="tags">Тэги</string>
+    <string name="add_tag">Добавить тэг</string>
+    <string name="log_out">Выйти</string>
 
     <!-- Strings related to user page -->
     <string name="price_hint">Цена</string>
@@ -81,6 +84,7 @@
     <string name="product_description">Описание:</string>
     <string name="product_tags">Тэги:</string>
     <string name="enter_account">Вход</string>
+    <string name="add_product">Добавить товар</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
