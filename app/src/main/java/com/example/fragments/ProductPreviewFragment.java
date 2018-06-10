@@ -63,7 +63,7 @@ public class ProductPreviewFragment extends Fragment {
             state = 0;
         } else {
 
-            if (WishList.wishList.contains(productId)) {
+            if (WishList.getInstance().contains(productId)) {
                 buttonText.setText("Remove");
                 buttonImage.setImageResource(R.drawable.bookmark);
                 state = 1;
@@ -86,13 +86,13 @@ public class ProductPreviewFragment extends Fragment {
                         buttonText.setText("Add");
                         buttonImage.setImageResource(R.drawable.bookmark_empty);
                         state = 2;
-                        WishList.wishList.remove(productId);
+                        WishList.getInstance().remove(productId);
                         return;
                     case 2:
                         buttonText.setText("Remove");
                         buttonImage.setImageResource(R.drawable.bookmark);
                         state = 1;
-                        WishList.wishList.add(productId);
+                        WishList.getInstance().add(productId);
                         return;
                 }
             }

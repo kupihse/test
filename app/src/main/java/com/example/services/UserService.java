@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -25,4 +26,9 @@ public interface UserService {
     @GET("/user/get/")
     Call<User> get(@Query("id") String id);
 
+    @POST("/user/wishlist/add/{id}/")
+    Call<Void> addToWishlist(@Body User user, @Path("id") String pId);
+
+    @POST("/user/wishlist/remove/{id}/")
+    Call<Void> removeFromWishlist(@Body User user, @Path("id") String pId);
 }

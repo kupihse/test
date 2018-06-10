@@ -1,5 +1,6 @@
 package com.example.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import com.example.application.R;
 import com.example.layouts.ProductLayout;
 import com.example.models.Product;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +128,12 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
     }
 
     @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        EventBus.getDefault().unregister(holder.productLayout);
+        super.onViewRecycled(holder);
+    }
+
+    @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Product p = products.get(position);
@@ -133,6 +142,7 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         if (onUpdateListener != null && position == products.size()-1) {
             onUpdateListener.onUpdate();
         }
+        EventBus.getDefault().register(holder.productLayout);
     }
 
 //    @Override

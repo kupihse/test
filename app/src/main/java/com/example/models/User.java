@@ -1,6 +1,7 @@
 package com.example.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Единичный юзер
 public class User {
@@ -8,6 +9,8 @@ public class User {
     private String login;
     private String password;
     private ArrayList<String> products = new ArrayList<>();
+    private List<String> wishlist = new ArrayList<>();
+
     private boolean confirmed;
 
     public User() {
@@ -67,6 +70,8 @@ public class User {
     public ArrayList<String> getProducts() {
         return products;
     }
+
+    public List<String> getWishlist(){ return wishlist; }
 
     @Override
     public boolean equals(Object o) {

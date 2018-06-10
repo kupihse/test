@@ -80,6 +80,7 @@
 
 
     <string name="all_items">All Items</string>
+    <string name="items_list">Products</string>
     <string name="product_description">Description:</string>
     <string name="product_tags">Tags:</string>
     <string name="enter_account">Sign in</string>

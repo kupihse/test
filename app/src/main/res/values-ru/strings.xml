@@ -81,6 +81,7 @@
 
 
     <string name="all_items">Все товары</string>
+    <string name="items_list">Товары</string>
     <string name="product_description">Описание:</string>
     <string name="product_tags">Тэги:</string>
     <string name="enter_account">Вход</string>

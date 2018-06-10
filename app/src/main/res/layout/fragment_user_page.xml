@@ -142,6 +142,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/number_of_wishlist_view"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

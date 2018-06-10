@@ -5,9 +5,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
@@ -136,13 +136,14 @@ public class ProductListView {
     private ProductsCallback mCallback = new ProductsCallback() {
         @Override
         public void onProducts(List<Product> products, int maxProducts) {
-                            productAdapter.addProducts(products);
-                if (productAdapter.getItemCount() == maxProducts) {
-                    productAdapter.setOnUpdateListener(null);
-                }
-                if (swipeRefreshLayout.isRefreshing()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+            productAdapter.addProducts(products);
+            Toast.makeText(context, "C: "+productAdapter.getItemCount()+" max: "+maxProducts, Toast.LENGTH_SHORT).show();
+            if (productAdapter.getItemCount() >= maxProducts) {
+                productAdapter.setOnUpdateListener(null);
+            }
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
     };
 

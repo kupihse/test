@@ -10,11 +10,17 @@ import android.widget.Toast;
 
 import com.example.activities.ProductActivity;
 import com.example.application.R;
+import com.example.events.FavoriteEvent;
+import com.example.events.UserChangedEvent;
 import com.example.fragments.UserPageFragment;
 import com.example.models.Product;
+import com.example.services.Services;
 import com.example.storages.ImageStorage;
 import com.example.storages.WishList;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,6 +36,8 @@ public class ProductLayout extends LinearLayout {
     ImageView imgPicture, favoriteView;
 
     Context context;
+
+    Product product;
 
     boolean hideImage = false;
 
@@ -74,41 +82,40 @@ public class ProductLayout extends LinearLayout {
     }
 
     private void switchFavoriteView(final String productId) {
+        boolean toFavorite = !WishList.getInstance().contains(productId);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            if (WishList.wishList.contains(productId)) {
-                WishList.wishList.remove(productId);
-                favoriteView.setImageResource(R.drawable.button_star_empty);
-                favoriteView.setBackgroundResource(R.drawable.button_star_empty);
-            } else {
-                WishList.wishList.add(productId);
-                favoriteView.setImageResource(R.drawable.button_star_full);
-                favoriteView.setBackgroundResource(R.drawable.button_star_empty_black);
-            }
-            UserPageFragment.refreshInfo(getRootView());
+            EventBus.getDefault().post(new FavoriteEvent(productId, toFavorite));
         }
+    }
 
-//        if (CurrentUser.isSet()) {
-//            if (CurrentUser.wishlist.contains(productId)) {
-//
-//                CurrentUser.wishlist.remove(productId);
-//                favoriteView.setImageResource(R.drawable.button_star_empty);
-//
-//            } else {
-//
-//                CurrentUser.wishlist.add(productId);
-//                favoriteView.setImageResource(R.drawable.button_star_full);
-//
-//            }
-//
-//            CurrentUser.save();
-//        }
-//        else {
-//            Toast.makeText(getContext(), "Ты не вошел в аккаунт", Toast.LENGTH_SHORT).show();
-//        }
+    @Subscribe
+    public void onFavoriteEvent(FavoriteEvent event){
+        if (event.getId().equals(product.getId())) {
+            setFavoriteView(event.toFavorite());
+        }
+    }
+
+    public void setFavoriteView(boolean isFav) {
+        if (isFav) {
+            favoriteView.setImageResource(R.drawable.button_star_full);
+            favoriteView.setBackgroundResource(R.drawable.button_star_empty_black);
+        } else {
+            favoriteView.setImageResource(R.drawable.button_star_empty);
+            favoriteView.setBackgroundResource(R.drawable.button_star_empty);
+        }
+    }
+
+    @Subscribe
+    public void onUserChangedEvent(UserChangedEvent event) {
+        if (event.getUser() != null) {
+            boolean isFav = event.getUser().getWishlist().indexOf(product.getId()) != -1;
+            setFavoriteView(isFav);
+        }
     }
 
 
     public void setProduct(final Product p) {
+        product = p;
         setProductsViews(nameView, sellerName, priceView, dateView,imgPicture, favoriteView, p, hideImage);
         favoriteView.setOnClickListener(new OnClickListener() {
             @Override
@@ -140,15 +147,19 @@ public class ProductLayout extends LinearLayout {
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             favoriteView.setVisibility(GONE);
+        } else {
+            boolean isFavourite = WishList.getInstance().contains(productId);
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                if (isFavourite) {
+                    favoriteView.setImageResource(R.drawable.button_star_full);
+                    favoriteView.setBackgroundResource(R.drawable.button_star_empty_black);
+                } else {
+                    favoriteView.setImageResource(R.drawable.button_star_empty);
+                    favoriteView.setBackgroundResource(R.drawable.button_star_empty);
+
+                }
+            }
         }
-//        else {
-//
-//            if (WishList.wishList.contains(productId)) {
-//                favoriteView.setVisibility(VISIBLE);
-//            } else {
-//                favoriteView.setVisibility(GONE);
-//            }
-//        }
         // todo убрать второе условие
         if (p.getImages() == null
                 || p.getImages().size() == 0

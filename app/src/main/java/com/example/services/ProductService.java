@@ -30,6 +30,12 @@ public interface ProductService {
     @GET("pr/all/n/{start}/{n}")
     Call<Pair<List<Product>, Integer>> getN(@Path("start") Integer start, @Path("n") Integer n);
 
+    @GET("{base_url}/n/{start}/{n}")
+    Call<Pair<List<Product>, Integer>> getProducts(@Path(value = "base_url", encoded = true) String baseUrl, @Path("start") Integer start, @Path("n") Integer n);
+
+    @GET("pr/sellerId/{sellerId}/added")
+    Call<Integer> getAddedBySellerId(@Path("sellerId") String sellerId);
+
     @DELETE("pr/delete/id/{id}")
     Call<Void> deleteById(@Path("id") String id);
 
