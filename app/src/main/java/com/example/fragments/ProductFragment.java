@@ -186,7 +186,7 @@ public class ProductFragment extends Fragment {
                             bought.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Services.products.deleteById(product.getId());
+                                    Services.products.deleteById(product.getId()).enqueue(Services.emptyCallBack);
                                 }
                             });
                         } else {
