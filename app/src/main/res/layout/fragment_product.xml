@@ -112,6 +112,16 @@
                 android:text="Seller Contacts"
                 android:textSize="28sp" />
 
+            <TextView
+                android:id="@+id/product_bought"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Product bought"
+                android:textSize="28sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </FrameLayout>
