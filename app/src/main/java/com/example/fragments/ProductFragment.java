@@ -24,6 +24,7 @@ import com.example.application.R;
 import com.example.events.ProductDeletedEvent;
 import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
+import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.ImageStorage;
 import com.example.util.Pair;
@@ -104,6 +105,30 @@ public class ProductFragment extends Fragment {
                     return;
                 }
 
+                Services.users.get(product.getSellerId()).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.body() == null) {
+                            return;
+                        }
+
+                        final TextView sellerName = root.findViewById(R.id.product_user_login);
+                        sellerName.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), UserPageActivity.class);
+                                intent.putExtra(UserPageActivity.USER_ID, product.getSellerId());
+                                startActivity(intent);
+                            }
+                        });
+                        sellerName.setText(response.body().getName());
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                    }
+                });
+
                 // Тут все очевидно на мой взгляд, и я устал уже писать все это говно
                 TextView title = root.findViewById(R.id.title);
                 title.setText(product.getName());
@@ -164,27 +189,18 @@ public class ProductFragment extends Fragment {
         });
 
 //        String seller_id = product.getSellerId();
-        TextView sellerName = (TextView) root.findViewById(R.id.product_user_login);
-        sellerName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), UserPageActivity.class);
-                intent.putExtra(UserPageActivity.USER_ID, product.getSellerId());
-                startActivity(intent);
-            }
-        });
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             root.findViewById(R.id.product_bought).setVisibility(View.GONE);
             return root;
         }
 
-        Services.products.getProducts("pr/sellerId/"+FirebaseAuth.getInstance().getCurrentUser().getEmail(), 0,10)
+        Services.products.getProducts("pr/sellerId/" + FirebaseAuth.getInstance().getCurrentUser().getEmail(), 0, 10)
                 .enqueue(new Callback<Pair<List<Product>, Integer>>() {
                     @Override
                     public void onResponse(Call<Pair<List<Product>, Integer>> call, Response<Pair<List<Product>, Integer>> response) {
                         boolean found = false;
-                        for (Product p: response.body().first) {
+                        for (Product p : response.body().first) {
                             if (p.getId().equals(product.getId())) {
                                 found = true;
                                 break;
