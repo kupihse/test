@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment[] tabFragments = new Fragment[]{
             allProductsFragment,
             new SearchFragment(),
-            new Chat(),
+            new ChatList(),
             null,
             new SettingsContainerFragment()
     };

@@ -180,6 +180,17 @@ public class ProductFragment extends Fragment {
                 } else {
                     scroll.setVisibility(View.GONE);
                 }
+
+                Button writeToUser = root.findViewById(R.id.write_to_user);
+                writeToUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getFragmentManager().beginTransaction()
+                                .add(R.id.fragment_product_container, Chat.newInstance(product.getSellerId()))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             }
 
             @Override

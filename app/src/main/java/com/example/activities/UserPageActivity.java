@@ -99,6 +99,8 @@ public class UserPageActivity extends AppCompatActivity {
         });
 
 
+
+
         Button myProducts = (Button) findViewById(R.id.user_page_products);
         myProducts.setVisibility(View.VISIBLE);
 

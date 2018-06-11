@@ -89,6 +89,7 @@
     <string name="added_products">Added products</string>
     <string name="your_wishlist">Your Wishlist</string>
     <string name="deleted_products">Deleted product</string>
+    <string name="chats_title">Chats</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
