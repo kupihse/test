@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import com.example.activities.ChatMessage;
 import com.example.adapters.ScrollingItemsAdapter;
@@ -22,6 +23,9 @@ import com.example.application.R;
 import com.example.events.LayoutChangeEvent;
 import com.example.events.LogInEvent;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.Query;
@@ -133,8 +137,37 @@ public class Chat extends Fragment {
             }
         };
 
-        listOfMessage.setAdapter(adapter);
+        adapter.startListening();
 
+        listOfMessage.setAdapter(adapter);
+//
+//        FirebaseDatabase.getInstance().getReference().addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                ChatMessage message = dataSnapshot.getValue(ChatMessage.class);
+//                Toast.makeText(getContext(), message.getMessageText(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
         /*toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back_inverted);
