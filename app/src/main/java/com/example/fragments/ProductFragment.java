@@ -22,6 +22,10 @@ import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.storages.ImageStorage;
+import com.example.util.Pair;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -163,6 +167,38 @@ public class ProductFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Services.products.getProducts("pr/sellerId/"+FirebaseAuth.getInstance().getCurrentUser().getEmail(), 0,10)
+                .enqueue(new Callback<Pair<List<Product>, Integer>>() {
+                    @Override
+                    public void onResponse(Call<Pair<List<Product>, Integer>> call, Response<Pair<List<Product>, Integer>> response) {
+                        boolean found = false;
+                        for (Product p: response.body().first) {
+                            if (p.getId().equals(product.getId())) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        View bought = root.findViewById(R.id.product_bought);
+                        if (found) {
+                            bought.setVisibility(View.VISIBLE);
+                            bought.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Services.products.deleteById(product.getId()).enqueue(Services.emptyCallBack);
+                                }
+                            });
+                        } else {
+                            bought.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Pair<List<Product>, Integer>> call, Throwable t) {
+
+                    }
+                });
 
         return root;
     }
