@@ -153,7 +153,6 @@ public class AllProductsFragment extends Fragment {
     }
 
     private void renderMore(final ProductListView.ProductsCallback callback) {
-        Toast.makeText(getActivity(), "REFRESH fr", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
         Services.products.getN(start, n_pr).enqueue(new Callback<Pair<List<Product>, Integer>>() {

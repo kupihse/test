@@ -102,7 +102,6 @@ public class ProductListFragment extends Fragment {
 
         FrameLayout layout = rootView.findViewById(R.id.products_view_content);
         layout.addView(productListView.getView());
-        Toast.makeText(getContext(), "Created product list", Toast.LENGTH_LONG).show();
 
         productListView.start();
         return rootView;
@@ -110,23 +109,19 @@ public class ProductListFragment extends Fragment {
 
 
     private void renderMore(final ProductListView.ProductsCallback callback) {
-        Toast.makeText(getActivity(), "REFRESH fr", Toast.LENGTH_SHORT).show();
 
         // делаем запрос на все товары
         Services.products.getProducts(getArguments().getString("url"), start, n_pr).enqueue(new Callback<Pair<List<Product>, Integer>>() {
             @Override
             public void onResponse(Call<Pair<List<Product>, Integer>> call, Response<Pair<List<Product>, Integer>> response) {
-                Toast.makeText(getContext(), "sent to "+call.request().url().toString(), Toast.LENGTH_SHORT).show();
                 Log.d("URL//", call.request().url().toString());
                 Pair<List<Product>, Integer> prs = response.body();
 
                 // Если ничего не пришло, то ничего не делаем
                 if (prs == null) {
-                    Toast.makeText(getContext(), "Got nothing", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(getContext(), "Got n "+prs.first.size(), Toast.LENGTH_SHORT).show();
                 // Если что-то есть закидываем это в массив
                 callback.onProducts(prs.first, prs.second);
 

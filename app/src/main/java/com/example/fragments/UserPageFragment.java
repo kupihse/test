@@ -198,7 +198,7 @@ public class UserPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getChildFragmentManager().beginTransaction()
-                        .add(R.id.fragment_user_page_container, ProductListFragment.newInstance("pr/sellerId/"+mUser.getLogin(), "Added Products"))
+                        .add(R.id.fragment_user_page_container, ProductListFragment.newInstance("pr/sellerId/"+mUser.getLogin(), getResources().getString(R.string.added_products)))
                         .addToBackStack(null)
                         .commit();
             }
@@ -208,7 +208,7 @@ public class UserPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getChildFragmentManager().beginTransaction()
-                        .add(R.id.fragment_user_page_container, ProductListFragment.newInstance("pr/sellerId/"+mUser.getLogin()+"/wishlist", "Your Wishlist"))
+                        .add(R.id.fragment_user_page_container, ProductListFragment.newInstance("pr/sellerId/"+mUser.getLogin()+"/wishlist", getResources().getString(R.string.your_wishlist)))
                         .addToBackStack(null)
                         .commit();
             }
