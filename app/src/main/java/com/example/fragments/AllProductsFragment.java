@@ -23,6 +23,7 @@ import com.example.adapters.ScrollingItemsAdapter;
 import com.example.application.R;
 import com.example.events.LanguageChangeEvent;
 import com.example.events.LayoutChangeEvent;
+import com.example.events.ProductDeletedEvent;
 import com.example.layouts.ProductListView;
 import com.example.models.Product;
 import com.example.services.Services;
@@ -199,6 +200,11 @@ public class AllProductsFragment extends Fragment {
             productListView.setLayoutViewType(ScrollingItemsAdapter.VIEW_GRID);
             Log.d("switchtest", "view OFF");
         }
+    }
+
+    @Subscribe
+    public void OnProductDeletedEvent(ProductDeletedEvent event) {
+        productListView.removeProducts(event.productId);
     }
 
     @Subscribe

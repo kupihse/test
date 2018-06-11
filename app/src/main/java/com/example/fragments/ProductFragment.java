@@ -1,6 +1,7 @@
 package com.example.fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,21 +10,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.HSEOutlet;
 import com.example.activities.FullScreenImageActivity;
 import com.example.activities.UserPageActivity;
 import com.example.application.R;
+import com.example.events.ProductDeletedEvent;
 import com.example.layouts.SingleImageLayout;
 import com.example.models.Product;
 import com.example.services.Services;
 import com.example.storages.ImageStorage;
 import com.example.util.Pair;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -168,6 +174,11 @@ public class ProductFragment extends Fragment {
             }
         });
 
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            root.findViewById(R.id.product_bought).setVisibility(View.GONE);
+            return root;
+        }
+
         Services.products.getProducts("pr/sellerId/"+FirebaseAuth.getInstance().getCurrentUser().getEmail(), 0,10)
                 .enqueue(new Callback<Pair<List<Product>, Integer>>() {
                     @Override
@@ -187,6 +198,9 @@ public class ProductFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     Services.products.deleteById(product.getId()).enqueue(Services.emptyCallBack);
+                                    showAlert(getResources().getString(R.string.deleted_products));
+                                    EventBus.getDefault().post(new ProductDeletedEvent(product.getId()));
+                                    getFragmentManager().popBackStack();
                                 }
                             });
                         } else {
@@ -235,5 +249,21 @@ public class ProductFragment extends Fragment {
     }
 
 
+    public void showAlert(CharSequence notificationText) {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+        View mView = LayoutInflater.from(getContext()).inflate(R.layout.activity_popupwindow, null);
+        Button button_popup = mView.findViewById(R.id.button_popup);
+        TextView text = mView.findViewById(R.id.popupwindows);
+        text.setText(notificationText);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        button_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
 
 }

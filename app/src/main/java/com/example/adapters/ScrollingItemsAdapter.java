@@ -57,6 +57,16 @@ public class ScrollingItemsAdapter extends RecyclerView.Adapter<ScrollingItemsAd
         notifyDataSetChanged();
     }
 
+    public void removeProduct(String id) {
+        for(int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId().equals(id)) {
+                products.remove(i);
+                break;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void clear() {
         products.clear();
     }

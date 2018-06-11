@@ -1,10 +1,16 @@
 package com.example;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.application.R;
 import com.example.storages.ImageStorage;
 import com.example.storages.WishList;
 

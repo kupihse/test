@@ -129,6 +129,10 @@ public class ProductListView {
         }
     }
 
+    public void removeProducts(String pId) {
+        productAdapter.removeProduct(pId);
+    }
+
     public interface ProductsCallback {
         void onProducts(List<Product> products, int maxProducts);
     }
