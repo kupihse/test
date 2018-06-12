@@ -91,6 +91,9 @@
     <string name="your_wishlist">Список желаемого</string>
     <string name="deleted_products">Товар удален</string>
     <string name="chats_title">Чаты</string>
+    <string name="rub"> руб.</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -32,6 +32,7 @@ import java.util.Date;
 public class ProductLayout extends LinearLayout {
 
     TextView nameView,sellerName,priceView,dateView;
+    static String rub, todayStr, yesterdayStr;
 
     ImageView imgPicture, favoriteView;
 
@@ -47,6 +48,9 @@ public class ProductLayout extends LinearLayout {
 
     public ProductLayout(Context context, final int layout) {
         super(context);
+        rub = context.getResources().getString(R.string.rub);
+        todayStr = context.getResources().getString(R.string.today);
+        yesterdayStr = context.getResources().getString(R.string.yesterday);
         this.context = context;
         setLayout(layout);
     }
@@ -139,7 +143,7 @@ public class ProductLayout extends LinearLayout {
 
 
         final Integer price = p.getPrice();
-        priceView.setText(Integer.toString(price) + " руб.");
+        priceView.setText(Integer.toString(price) + ' ' + rub);
 
         dateView.setText(getDateText(p));
 
@@ -185,7 +189,12 @@ public class ProductLayout extends LinearLayout {
         Date todayDate = new Date();
         String today = formatForDateNow.format(todayDate);
         Date productDate = new Date(p.getSendableDate());
-        String dateFromServer = productDate != null ? formatForDateNow.format(productDate) : "";
+        Calendar test = Calendar.getInstance();
+        test.setTime(productDate);
+        test.add(Calendar.DATE, 1);
+        Date prDate = test.getTime();
+
+        String dateFromServer = productDate != null ? formatForDateNow.format(prDate) : "";
         String result;
         // проверка даты, мб костыльно
         // получение вчерашней даты
@@ -194,10 +203,10 @@ public class ProductLayout extends LinearLayout {
         Date todate1 = cal.getTime();
         String yesterday = formatForDateNow.format(todate1);
         if (dateFromServer.equals(today)){
-            result = "Сегодня";
+            result = todayStr;
         }
         else if (dateFromServer.equals(yesterday)){
-            result = "Вчера";
+            result = yesterdayStr;
         }
         else {
             result = dateFromServer;

@@ -90,6 +90,11 @@
     <string name="your_wishlist">Your Wishlist</string>
     <string name="deleted_products">Deleted product</string>
     <string name="chats_title">Chats</string>
+    <string name="rub"> RUR</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
