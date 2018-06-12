@@ -123,7 +123,7 @@ public class Chat extends Fragment {
                         .child("users")
                         .child(otherEmail)
                         .child(chatId)
-                        .setValue(new LastChatMessage(myEmail, msg, chatId));
+                        .setValue(new LastChatMessage(otherEmail, msg, chatId));
 
                 databaseReference
                         .child("chats")

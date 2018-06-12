@@ -2,6 +2,7 @@ package com.example.fragments;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -51,7 +53,6 @@ public class ProductFragment extends Fragment {
 
     private ImageView imgPicture;
     private Product product;
-
 
     public ProductFragment() {
         // Required empty public constructor
@@ -130,7 +131,7 @@ public class ProductFragment extends Fragment {
                         sellerName.setText(response.body().getName());
 
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if (user == null) {
+                        if (user == null || response.body().getLogin().equals(user.getEmail())) {
                             return;
                         }
 
@@ -140,7 +141,6 @@ public class ProductFragment extends Fragment {
                         String login = user.getEmail();
                         final String email = login.substring(0, login.indexOf('@'));
 
-
                         FirebaseDatabase.getInstance().getReference()
                                 .child("users").child(email)
                                 .addValueEventListener(new ValueEventListener() {
@@ -149,7 +149,6 @@ public class ProductFragment extends Fragment {
                                         String chatId = null;
                                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                             final LastChatMessage message = snapshot.getValue(LastChatMessage.class);
-                                            Toast.makeText(getContext(), "Email: "+message.otherEmail, Toast.LENGTH_SHORT).show();
                                             if (message.otherEmail.equals(otherEmail)) {
                                                 chatId = message.chatId;
                                                 break;
@@ -159,9 +158,6 @@ public class ProductFragment extends Fragment {
                                         Button writeToUser = root.findViewById(R.id.write_to_user);
                                         writeToUser.setVisibility(View.VISIBLE);
                                         final String chat = chatId;
-                                        if (chat == null) {
-                                            Toast.makeText(getContext(), "New chat", Toast.LENGTH_SHORT).show();
-                                        }
                                         writeToUser.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {

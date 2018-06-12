@@ -117,7 +117,6 @@ public class ChatList extends Fragment {
         };
 
         adapter.startListening();
-
         userChats.setAdapter(adapter);
     }
 
