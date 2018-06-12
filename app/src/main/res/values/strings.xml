@@ -93,6 +93,13 @@
     <string name="rub"> RUR</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+    <string name="price">Price:</string>
+    <string name="fail">Fail. Try again.</string>
+    <string name="contacts">Seller contacts</string>
+    <string name="product_bought">Product is sold</string>
+    <string name="no_images">No Images</string>
+    <string name="write_to_user">Write to user</string>
+    <string name="empty_description">Description is empty</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

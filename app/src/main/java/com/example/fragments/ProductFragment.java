@@ -133,8 +133,23 @@ public class ProductFragment extends Fragment {
                 TextView title = root.findViewById(R.id.title);
                 title.setText(product.getName());
 
-                TextView textView = root.findViewById(R.id.product_activity_text);
-                textView.setText(product.getDescription() + "\n\n" + "Price: " + Integer.toString(product.getPrice()));
+                TextView textView = root.findViewById(R.id.description_text);
+                if (!product.getDescription().equals("")) {
+                    textView.setText(product.getDescription());
+                }
+                else {
+                    textView.setText(getResources().getString(R.string.empty_description));
+                }
+
+
+                String priceNum = Integer.toString(product.getPrice()) + " " + getResources().getString(R.string.rub);
+                TextView price = root.findViewById(R.id.price_text);
+                try {
+                    price.setText(priceNum);
+                } catch (NullPointerException e) {
+                    Toast.makeText(getContext(),"NULL", Toast.LENGTH_SHORT).show();
+                }
+
 
                 final LinearLayout tagList = root.findViewById(R.id.tag_list);
                 if (product.getTags() != null) {
@@ -211,16 +226,22 @@ public class ProductFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Pair<List<Product>, Integer>> call, Response<Pair<List<Product>, Integer>> response) {
                         boolean found = false;
-                        for (Product p : response.body().first) {
-                            if (p.getId().equals(product.getId())) {
-                                found = true;
-                                break;
+                        try {
+                            for (Product p : response.body().first) {
+                                if (p.getId().equals(product.getId())) {
+                                    found = true;
+                                    break;
+                                }
                             }
+                        } catch (NullPointerException e) {
                         }
+
+
 
                         View bought = root.findViewById(R.id.product_bought);
                         if (found) {
                             bought.setVisibility(View.VISIBLE);
+                            root.findViewById(R.id.write_to_user).setVisibility(View.GONE);
                             bought.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {

@@ -34,16 +34,17 @@
 
         android:background="#fff">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="50dp">
+            android:paddingBottom="50dp"
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:clickable="true"
                 android:drawingCacheQuality="auto"
                 android:focusable="true"
@@ -54,13 +55,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="No Images"
-                android:textSize="28sp" />
+                android:text="@string/no_images"
+                android:textSize="28sp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"/>
 
             <HorizontalScrollView
                 android:id="@+id/scroll"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="80dp"
+                android:layout_below="@id/image"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:id="@+id/photos_2"
@@ -70,22 +76,62 @@
             </HorizontalScrollView>
 
             <TextView
+                android:id="@+id/description_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/product_description" />
+                android:text="@string/product_description"
+                android:textSize="20sp"
+                android:layout_below="@id/scroll"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"/>
 
             <TextView
-                android:id="@+id/product_activity_text"
+                android:id="@+id/description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:maxLines="15"
                 tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp" />
+                tools:layout_editor_absoluteY="8dp"
+                android:textSize="16sp"
+                android:layout_below="@id/description_title"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textSize="20sp"
+                android:layout_below="@id/description_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:id="@+id/price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/price_title"
+                android:layout_toRightOf="@+id/price_title"
+                android:layout_toEndOf="@+id/price_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/description_text"
+                android:textSize="20sp" />
 
             <HorizontalScrollView
+                android:id="@+id/tags"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/price_text"
+                android:layout_marginTop="15dp">
 
                 <LinearLayout
                     android:id="@+id/tag_list"
@@ -99,7 +145,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:text="@string/product_tags" />
+                        android:text="@string/product_tags"
+                        android:textSize="20sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -110,25 +160,42 @@
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Seller Contacts"
-                android:textSize="28sp" />
+                android:text="@string/contacts"
+                android:textSize="28sp"
+                android:layout_below="@id/tags"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/product_bought"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Product bought"
-                android:textSize="28sp" />
 
-            <Button
-                android:id="@+id/write_to_user"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="write to user"/>
-        </LinearLayout>
+                android:layout_below="@id/product_user_login"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0">
+                <Button
+                    android:id="@+id/write_to_user"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/write_to_user"
+                    android:textSize="15sp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/black"
+                    android:layout_weight="0.8"/>
+
+                <Button
+                    android:id="@+id/product_bought"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="@string/product_bought"
+                    android:textSize="15sp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/black"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </FrameLayout>
