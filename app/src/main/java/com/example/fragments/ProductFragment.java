@@ -23,12 +23,18 @@ import com.example.activities.UserPageActivity;
 import com.example.application.R;
 import com.example.events.ProductDeletedEvent;
 import com.example.layouts.SingleImageLayout;
+import com.example.models.LastChatMessage;
 import com.example.models.Product;
 import com.example.models.User;
 import com.example.services.Services;
 import com.example.storages.ImageStorage;
 import com.example.util.Pair;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -122,6 +128,57 @@ public class ProductFragment extends Fragment {
                             }
                         });
                         sellerName.setText(response.body().getName());
+
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user == null) {
+                            return;
+                        }
+
+                        String otherLogin = response.body().getLogin();
+                        final String otherEmail = otherLogin.substring(0, otherLogin.indexOf('@'));
+
+                        String login = user.getEmail();
+                        final String email = login.substring(0, login.indexOf('@'));
+
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("users").child(email)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String chatId = null;
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            final LastChatMessage message = snapshot.getValue(LastChatMessage.class);
+                                            Toast.makeText(getContext(), "Email: "+message.otherEmail, Toast.LENGTH_SHORT).show();
+                                            if (message.otherEmail.equals(otherEmail)) {
+                                                chatId = message.chatId;
+                                                break;
+                                            }
+                                        }
+
+                                        Button writeToUser = root.findViewById(R.id.write_to_user);
+                                        writeToUser.setVisibility(View.VISIBLE);
+                                        final String chat = chatId;
+                                        if (chat == null) {
+                                            Toast.makeText(getContext(), "New chat", Toast.LENGTH_SHORT).show();
+                                        }
+                                        writeToUser.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                getFragmentManager().beginTransaction()
+                                                        .add(R.id.fragment_product_container, Chat.newInstance(product.getSellerId(), chat))
+                                                        .addToBackStack(null)
+                                                        .commit();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
                     }
 
                     @Override
@@ -136,8 +193,7 @@ public class ProductFragment extends Fragment {
                 TextView textView = root.findViewById(R.id.description_text);
                 if (!product.getDescription().equals("")) {
                     textView.setText(product.getDescription());
-                }
-                else {
+                } else {
                     textView.setText(getResources().getString(R.string.empty_description));
                 }
 
@@ -147,7 +203,7 @@ public class ProductFragment extends Fragment {
                 try {
                     price.setText(priceNum);
                 } catch (NullPointerException e) {
-                    Toast.makeText(getContext(),"NULL", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "NULL", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -195,17 +251,6 @@ public class ProductFragment extends Fragment {
                 } else {
                     scroll.setVisibility(View.GONE);
                 }
-
-                Button writeToUser = root.findViewById(R.id.write_to_user);
-                writeToUser.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        getFragmentManager().beginTransaction()
-                                .add(R.id.fragment_product_container, Chat.newInstance(product.getSellerId()))
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                });
             }
 
             @Override
@@ -235,7 +280,6 @@ public class ProductFragment extends Fragment {
                             }
                         } catch (NullPointerException e) {
                         }
-
 
 
                         View bought = root.findViewById(R.id.product_bought);

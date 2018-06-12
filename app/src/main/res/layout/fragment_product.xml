@@ -182,7 +182,8 @@
                     android:textSize="15sp"
                     android:background="@color/colorAccent"
                     android:textColor="@color/black"
-                    android:layout_weight="0.8"/>
+                    android:layout_weight="0.8"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/product_bought"

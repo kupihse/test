@@ -10,28 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.text.format.DateFormat;
-import android.widget.Toast;
 
-import com.example.activities.ChatMessage;
-import com.example.adapters.ScrollingItemsAdapter;
+import com.example.models.ChatMessage;
 import com.example.application.R;
-import com.example.events.LayoutChangeEvent;
 import com.example.events.LogInEvent;
+import com.example.models.LastChatMessage;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.Query;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.database.Query;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,6 +38,7 @@ public class Chat extends Fragment {
     RelativeLayout chat;
     TextView infoText;
     DatabaseReference databaseReference;
+    String chatId;
 
     @Override
     public void onStart() {
@@ -57,10 +52,11 @@ public class Chat extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public static Chat newInstance(String otherUserId) {
+    public static Chat newInstance(String otherUserId, String chatId) {
 
         Bundle args = new Bundle();
-        args.putString("otherUserId",otherUserId);
+        args.putString("otherUserId", otherUserId);
+        args.putString("chatId", chatId);
 
         Chat fragment = new Chat();
         fragment.setArguments(args);
@@ -70,36 +66,44 @@ public class Chat extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        chatId = getArguments().getString("chatId");
         final View rootView = inflater.inflate(R.layout.fragment_chat_layout, container, false);
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
 
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         chat = (RelativeLayout) rootView.findViewById(R.id.chat);
-        infoText = (TextView) rootView.findViewById(R.id.not_loggedin_text) ;
+        infoText = (TextView) rootView.findViewById(R.id.not_loggedin_text);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             chat.setVisibility(View.VISIBLE);
             infoText.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             chat.setVisibility(View.INVISIBLE);
             infoText.setVisibility(View.VISIBLE);
         }
 
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         int idx = email.indexOf('@');
-        email = email.substring(0, idx+1);
+        email = email.substring(0, idx);
 
-        String otherEmail = getArguments().getString("otherUserId");
-        int otheridx = email.indexOf('@');
-        otherEmail = otherEmail.substring(0, otheridx+1);
+        String email2 = getArguments().getString("otherUserId");
+        int otheridx = email2.indexOf('@');
+        email2 = email2.substring(0, otheridx);
         databaseReference = FirebaseDatabase
                 .getInstance()
-                .getReference()
-                .child(email)
-                .child(otherEmail);
+                .getReference();
 
-        final String otherMailFinal = otherEmail;
+        final String myEmail = email;
+        final String otherEmail = email2;
+
+        if (chatId == null) {
+            chatId = databaseReference
+                    .child("users")
+                    .child(myEmail)
+                    .push()
+                    .getKey();
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,20 +115,22 @@ public class Chat extends Fragment {
                                 .getCurrentUser()
                                 .getEmail());
                 databaseReference
+                        .child("users")
+                        .child(myEmail)
+                        .child(chatId)
+                        .setValue(new LastChatMessage(otherEmail, msg, chatId));
+                databaseReference
+                        .child("users")
+                        .child(otherEmail)
+                        .child(chatId)
+                        .setValue(new LastChatMessage(myEmail, msg, chatId));
+
+                databaseReference
+                        .child("chats")
+                        .child(chatId)
+                        .child("messages")
                         .push()
                         .setValue(msg);
-//                databaseReference
-//                        .getParent()
-//                        .child("chats")
-//                        .
-                databaseReference
-                        .getParent()
-                        .child("chats")
-                        .child(otherMailFinal)
-                        .setValue(new ChatMessage(msg.getMessageText(),
-                                getArguments().getString("otherUserId")
-                                )
-                        );
                 input.setText("");
             }
         });
@@ -147,13 +153,19 @@ public class Chat extends Fragment {
         //Load content
         ListView listOfMessage = (ListView) rootView.findViewById(R.id.list_of_message);
 
+        Query query = databaseReference
+                .child("chats")
+                .child(chatId)
+                .child("messages");
+
+
         FirebaseListOptions<ChatMessage> options = new FirebaseListOptions.Builder<ChatMessage>()
-                .setQuery(databaseReference, ChatMessage.class)
+                .setQuery(query, ChatMessage.class)
                 .setLayout(R.layout.fragmet_chat_message)
                 .build();
 
         adapter = new FirebaseListAdapter<ChatMessage>(options)
-        //adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class, R.layout.fragment_chat_list, FirebaseDatabase.getInstance().getReference()) {
+                //adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class, R.layout.fragment_chat_list, FirebaseDatabase.getInstance().getReference()) {
         {
 
             @Override
@@ -221,8 +233,7 @@ public class Chat extends Fragment {
         if (event.isUserLoggedIn()) {
             chat.setVisibility(View.VISIBLE);
             infoText.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             chat.setVisibility(View.INVISIBLE);
             infoText.setVisibility(View.VISIBLE);
         }
