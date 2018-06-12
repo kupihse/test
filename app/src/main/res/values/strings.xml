@@ -55,7 +55,7 @@
     <!-- Strings related to chat -->
     <string name="not_logged_text">You are not signed in</string>
     <string name="message_hint">Message...</string>
-    <string name="chat_title">Chat</string>
+    <string name="chat_title">Chat with</string>
 
     <!-- Strings related to search -->
     <string name="swipe_to_search">Swipe down to start searching</string>
@@ -100,7 +100,6 @@
     <string name="no_images">No Images</string>
     <string name="write_to_user">Write to user</string>
     <string name="empty_description">Description is empty</string>
-
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

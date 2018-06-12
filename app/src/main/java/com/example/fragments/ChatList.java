@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,9 @@ public class ChatList extends Fragment {
         ListView userChats = rootView.findViewById(R.id.user_chats);
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         int idx = email.indexOf('@');
-        email = email.substring(0, idx);
+        if (idx != -1) {
+            email = email.substring(0, idx);
+        }
         //Load content
         Query query = FirebaseDatabase
                 .getInstance()
@@ -100,7 +103,6 @@ public class ChatList extends Fragment {
                 message = v.findViewById(R.id.message);
                 messageUser = v.findViewById(R.id.messageUser);
                 messageTime = v.findViewById(R.id.messageTime);
-
                 message.setText(model.message.getMessageUser()+": "+model.message.getMessageText());
                 messageUser.setText(model.otherEmail);
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.message.getMessageTime()));
@@ -108,7 +110,7 @@ public class ChatList extends Fragment {
                     @Override
                     public void onClick(View view) {
                         getFragmentManager().beginTransaction()
-                                .add(R.id.fragment_chat_list_container, Chat.newInstance(model.message.getMessageUser(), model.chatId))
+                                .add(R.id.fragment_chat_list_container, Chat.newInstance(model.otherEmail, model.chatId))
                                 .addToBackStack(null)
                                 .commit();
                     }

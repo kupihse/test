@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import com.example.models.ChatMessage;
 import com.example.application.R;
@@ -67,8 +68,28 @@ public class Chat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         chatId = getArguments().getString("chatId");
+
+
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        int idx = email.indexOf('@');
+        if (idx != -1) {
+            email = email.substring(0, idx);
+        }
+
+        String email2 = getArguments().getString("otherUserId");
+        idx = email2.indexOf('@');
+        if (idx != -1) {
+            email2 = email2.substring(0, idx);
+        }
+
+
+        final String myEmail = email;
+        final String otherEmail = email2;
+
+
         final View rootView = inflater.inflate(R.layout.fragment_chat_layout, container, false);
-        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        TextView chatTitle = rootView.findViewById(R.id.chatTitle);
+        chatTitle.setText(chatTitle.getText()+ " "+otherEmail);
 
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         chat = (RelativeLayout) rootView.findViewById(R.id.chat);
@@ -81,20 +102,9 @@ public class Chat extends Fragment {
             chat.setVisibility(View.INVISIBLE);
             infoText.setVisibility(View.VISIBLE);
         }
-
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        int idx = email.indexOf('@');
-        email = email.substring(0, idx);
-
-        String email2 = getArguments().getString("otherUserId");
-        int otheridx = email2.indexOf('@');
-        email2 = email2.substring(0, otheridx);
         databaseReference = FirebaseDatabase
                 .getInstance()
                 .getReference();
-
-        final String myEmail = email;
-        final String otherEmail = email2;
 
         if (chatId == null) {
             chatId = databaseReference
@@ -109,11 +119,7 @@ public class Chat extends Fragment {
             public void onClick(View view) {
 
                 EditText input = (EditText) rootView.findViewById(R.id.inputs);
-                ChatMessage msg = new ChatMessage(input.getText().toString(),
-                        FirebaseAuth
-                                .getInstance()
-                                .getCurrentUser()
-                                .getEmail());
+                ChatMessage msg = new ChatMessage(input.getText().toString(),myEmail);
                 databaseReference
                         .child("users")
                         .child(myEmail)
@@ -123,7 +129,7 @@ public class Chat extends Fragment {
                         .child("users")
                         .child(otherEmail)
                         .child(chatId)
-                        .setValue(new LastChatMessage(otherEmail, msg, chatId));
+                        .setValue(new LastChatMessage(myEmail, msg, chatId));
 
                 databaseReference
                         .child("chats")
@@ -151,8 +157,9 @@ public class Chat extends Fragment {
         }*/
 
         //Load content
-        ListView listOfMessage = (ListView) rootView.findViewById(R.id.list_of_message);
-
+        final ListView listOfMessage = rootView.findViewById(R.id.list_of_message);
+        listOfMessage.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        listOfMessage.setStackFromBottom(true);
         Query query = databaseReference
                 .child("chats")
                 .child(chatId)
@@ -175,7 +182,6 @@ public class Chat extends Fragment {
                 message = v.findViewById(R.id.message);
                 messageUser = v.findViewById(R.id.messageUser);
                 messageTime = v.findViewById(R.id.messageTime);
-
 
                 message.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());

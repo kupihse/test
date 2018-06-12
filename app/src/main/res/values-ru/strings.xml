@@ -56,7 +56,7 @@
     <!-- Strings related to chat -->
     <string name="not_logged_text">Вы не вошли в аккаунт</string>
     <string name="message_hint">Сообщение...</string>
-    <string name="chat_title">Чат</string>
+    <string name="chat_title">Чат с</string>
 
     <!-- Strings related to search -->
     <string name="swipe_to_search">Листните вниз чтобы начать поиск</string>
