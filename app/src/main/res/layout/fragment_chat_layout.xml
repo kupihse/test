@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/message_hint"
-                android:id="@+id/inputs"/>
+                android:id="@+id/inputs"
+                android:theme="@style/EditTextHint"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -78,7 +79,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="20dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="16dp">
+            android:dividerHeight="16dp"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll">
 
         </ListView>
 
