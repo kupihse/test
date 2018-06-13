@@ -101,6 +101,7 @@
     <string name="no_images">Картинки отсутствуют</string>
     <string name="write_to_user">Написать продавцу</string>
     <string name="empty_description">Описание отсутствует</string>
+    <string name="products">Товары</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
