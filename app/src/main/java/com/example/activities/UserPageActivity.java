@@ -3,6 +3,7 @@ package com.example.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.application.R;
+import com.example.events.UserChangedEvent;
+import com.example.fragments.ProductListFragment;
 import com.example.models.User;
 import com.example.services.Services;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,10 +44,28 @@ public class UserPageActivity extends AppCompatActivity {
             Toast.makeText(this, "WTF", Toast.LENGTH_LONG).show();
             finish();
         }
+        final TextView goodsCountView = findViewById(R.id.number_of_goods);
+        final TextView loginView = findViewById(R.id.user_page_login);
+
         Services.users.get(id).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 setUser(response.body());
+                loginView.setText(user.getLogin());
+                Services.products.getAddedBySellerId(user.getLogin()).enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        goodsCountView.setText(String.valueOf(response.body()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                    }
+                });
+
+                TextView userNameView = findViewById(R.id.user_page_name);
+                userNameView.setText(user.getName());
             }
 
             @Override
@@ -55,12 +78,13 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
-        final TextView login = (TextView) findViewById(R.id.user_page_login);
-        login.setOnClickListener(new View.OnClickListener() {
+
+
+        loginView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", String.valueOf(login.getText().subSequence(8, login.getText().length())),
+                        "mailto", String.valueOf(loginView.getText()),
                         null));
                 startActivity(Intent.createChooser(intent, "Choose an Email client :"));
             }
@@ -75,42 +99,10 @@ public class UserPageActivity extends AppCompatActivity {
         }
         this.user = user;
         getSupportActionBar().setTitle(user.getName());
-        final TextView login = (TextView) findViewById(R.id.user_page_login);
-        login.setText("login: \n" + user.getLogin());
-
-        TextView pass = (TextView) findViewById(R.id.user_page_pass);
-        pass.setText("pass: \n" + user.getPassword());
-
-        TextView token = (TextView) findViewById(R.id.user_page_name);
-        token.setText("Name: \n" + user.getName());
         if (FirebaseAuth.getInstance().getCurrentUser() == null || !user.getLogin().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             return;
         }
-        Button logOut = (Button) findViewById(R.id.user_page_log_out);
-        logOut.setVisibility(View.VISIBLE);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent returnIntent = new Intent();
-                setResult(UserPageActivity.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
 
-
-
-
-        Button myProducts = (Button) findViewById(R.id.user_page_products);
-        myProducts.setVisibility(View.VISIBLE);
-
-    }
-
-
-    public void myProductsButton(View v) {
-        for (String p : user.getProducts()) {
-            Toast.makeText(UserPageActivity.this, p, Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

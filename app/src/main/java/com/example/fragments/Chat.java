@@ -102,6 +102,18 @@ public class Chat extends Fragment {
             chat.setVisibility(View.INVISIBLE);
             infoText.setVisibility(View.VISIBLE);
         }
+<<<<<<< HEAD
+=======
+
+
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        int idx = email.indexOf('@');
+        email = email.substring(0, idx);
+
+        String email2 = getArguments().getString("otherUserId");
+        int otheridx = email2.indexOf('@');
+        email2 = email2.substring(0, otheridx);
+>>>>>>> ba7b64c613d1e24e8a57ea168e22a681226c57c6
         databaseReference = FirebaseDatabase
                 .getInstance()
                 .getReference();
@@ -230,7 +242,6 @@ public class Chat extends Fragment {
             }
         });*/
 
-//        LinearLayout sendMessage = rootView.findViewById(R.id.send);
         return rootView;
     }
 
