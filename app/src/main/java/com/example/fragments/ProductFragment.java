@@ -281,7 +281,7 @@ public class ProductFragment extends Fragment {
                         View bought = root.findViewById(R.id.product_bought);
                         if (found) {
                             bought.setVisibility(View.VISIBLE);
-                            root.findViewById(R.id.write_to_user).setVisibility(View.GONE);
+                            //root.findViewById(R.id.write_to_user).setVisibility(View.GONE);
                             bought.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
